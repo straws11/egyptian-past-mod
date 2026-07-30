@@ -17,10 +17,11 @@ public class ModModelProvider extends ModelProvider {
     @Override
     protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         // Items
-        itemModels.generateFlatItem(ModItemRegistration.EXAMPLE_ITEM.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItemRegistration.POMEGRANATE.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItemRegistration.PAPYRUS_SHEET.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModBlockRegistration.PAPYRUS_REED.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItemRegistration.MUMMY_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItemRegistration.ANKH_OF_LIFE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
         // add more models here
 
         // Blocks

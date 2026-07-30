@@ -22,12 +22,13 @@ public class ModCreativeTabRegistration {
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.egyptianpast")) //The language key for the title of your CreativeModeTab
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
+            .icon(() -> PAPYRUS_REED.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(EXAMPLE_ITEM.get());// Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(POMEGRANATE.get());// Add the example item to the tab. For your own tabs, this method is preferred over the event
                 output.accept(PAPYRUS_REED_BLOCK.get());
                 output.accept(PAPYRUS_SHEET.get());
                 output.accept(LIMESTONE.get());
+                output.accept(ANKH_OF_LIFE.get());
             }).build());
 
     public static void register(IEventBus eventBus) {

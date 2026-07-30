@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "egyptianpast:item/example_item"
+    "model": "egyptianpast:item/ankh_of_life"
   }
 }

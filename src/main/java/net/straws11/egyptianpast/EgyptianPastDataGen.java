@@ -11,6 +11,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.straws11.egyptianpast.datagen.ModBlockLootTableProvider;
 import net.straws11.egyptianpast.datagen.ModBlockTagsProvider;
 import net.straws11.egyptianpast.datagen.ModModelProvider;
+import net.straws11.egyptianpast.datagen.ModRecipeProvider;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,5 +33,6 @@ public class EgyptianPastDataGen {
                     ),
                 lookupProvider));
         generator.addProvider(true, new ModBlockTagsProvider(packOutput, lookupProvider));
+        generator.addProvider(true, new ModRecipeProvider.Runner(packOutput, lookupProvider));
     }
 }
