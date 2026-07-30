@@ -8,9 +8,9 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import static net.straws11.egyptianpast.EgyptianPast.MOD_ID;
-import static net.straws11.egyptianpast.entity.EgyptianPastEntityRegistration.MUMMY_ENTITY;
+import static net.straws11.egyptianpast.entity.ModEntityRegistration.MUMMY_ENTITY;
 
-public class EgyptianPastItemRegistration {
+public class ModItemRegistration {
     // Create a Deferred Register to hold Items which will all be registered under the "egyptianpast" namespace
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MOD_ID);
 
@@ -18,9 +18,6 @@ public class EgyptianPastItemRegistration {
     public static final DeferredItem<Item> EXAMPLE_ITEM =
             ITEMS.registerSimpleItem("example_item", p -> p.food(new FoodProperties.Builder()
                     .alwaysEdible().nutrition(1).saturationModifier(2f).build()));
-
-    public static final DeferredItem<Item> PAPYRUS_REED =
-            ITEMS.registerSimpleItem("papyrus_reed");
 
     public static final DeferredItem<Item> PAPYRUS_SHEET =
             ITEMS.registerSimpleItem("papyrus_sheet");

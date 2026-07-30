@@ -1,9 +1,8 @@
 {
   "itemGroup.egyptianpast": "Egyptian Past",
-  "block.egyptianpast.example_block": "Example Block",
   "item.egyptianpast.example_item": "Example Item",
   "item.egyptianpast.papyrus_sheet": "Papyrus Sheet",
-  "item.egyptianpast.papyrus_reed": "Papyrus Reed",
+  "block.egyptianpast.papyrus_reed": "Papyrus Reed",
   "block.egyptianpast.limestone": "Limestone",
 
   "egyptianpast.configuration.title": "Egyptian Past Configs",

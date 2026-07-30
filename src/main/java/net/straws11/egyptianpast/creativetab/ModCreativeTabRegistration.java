@@ -9,10 +9,10 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import static net.straws11.egyptianpast.EgyptianPast.MOD_ID;
-import static net.straws11.egyptianpast.block.EgyptianPastBlockRegistration.LIMESTONE;
-import static net.straws11.egyptianpast.item.EgyptianPastItemRegistration.*;
+import static net.straws11.egyptianpast.block.ModBlockRegistration.*;
+import static net.straws11.egyptianpast.item.ModItemRegistration.*;
 
-public class EgyptianPastCreativeTabRegistration {
+public class ModCreativeTabRegistration {
 
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "egyptianpast" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
@@ -25,7 +25,7 @@ public class EgyptianPastCreativeTabRegistration {
             .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(EXAMPLE_ITEM.get());// Add the example item to the tab. For your own tabs, this method is preferred over the event
-                output.accept(PAPYRUS_REED.get());
+                output.accept(PAPYRUS_REED_BLOCK.get());
                 output.accept(PAPYRUS_SHEET.get());
                 output.accept(LIMESTONE.get());
             }).build());

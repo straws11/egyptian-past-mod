@@ -1,9 +1,9 @@
 package net.straws11.egyptianpast;
 
-import net.straws11.egyptianpast.block.EgyptianPastBlockRegistration;
-import net.straws11.egyptianpast.creativetab.EgyptianPastCreativeTabRegistration;
-import net.straws11.egyptianpast.entity.EgyptianPastEntityRegistration;
-import net.straws11.egyptianpast.item.EgyptianPastItemRegistration;
+import net.straws11.egyptianpast.block.ModBlockRegistration;
+import net.straws11.egyptianpast.creativetab.ModCreativeTabRegistration;
+import net.straws11.egyptianpast.entity.ModEntityRegistration;
+import net.straws11.egyptianpast.item.ModItemRegistration;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -21,8 +21,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
-import static net.straws11.egyptianpast.block.EgyptianPastBlockRegistration.EXAMPLE_BLOCK_ITEM;
-import static net.straws11.egyptianpast.item.EgyptianPastItemRegistration.MUMMY_SPAWN_EGG;
+import static net.straws11.egyptianpast.item.ModItemRegistration.MUMMY_SPAWN_EGG;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(EgyptianPast.MOD_ID)
@@ -38,13 +37,13 @@ public class EgyptianPast {
         modEventBus.addListener(this::commonSetup);
 
         // Register the Deferred Register to the mod event bus so blocks get registered
-        EgyptianPastBlockRegistration.register(modEventBus);
+        ModBlockRegistration.register(modEventBus);
         // Register the Deferred Register to the mod event bus so items get registered
-        EgyptianPastItemRegistration.register(modEventBus);
+        ModItemRegistration.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
-        EgyptianPastCreativeTabRegistration.register(modEventBus);
+        ModCreativeTabRegistration.register(modEventBus);
 
-        EgyptianPastEntityRegistration.register(modEventBus);
+        ModEntityRegistration.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (EgyptianPast) to respond directly to events.
@@ -60,9 +59,6 @@ public class EgyptianPast {
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(EXAMPLE_BLOCK_ITEM);
-        }
         if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
             event.accept(MUMMY_SPAWN_EGG);
         }
