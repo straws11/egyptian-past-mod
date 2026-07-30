@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "egyptianpast:item/example_item"
+  }
+}

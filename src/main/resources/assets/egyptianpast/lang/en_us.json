@@ -1,0 +1,16 @@
+{
+  "itemGroup.egyptianpast": "Egyptian Past",
+  "block.egyptianpast.example_block": "Example Block",
+  "item.egyptianpast.example_item": "Example Item",
+  "item.egyptianpast.papyrus_sheet": "Papyrus Sheet",
+  "item.egyptianpast.papyrus_reed": "Papyrus Reed",
+  "block.egyptianpast.limestone": "Limestone",
+
+  "egyptianpast.configuration.title": "Egyptian Past Configs",
+  "egyptianpast.configuration.section.egyptianpast.common.toml": "Egyptian Past Configs",
+  "egyptianpast.configuration.section.egyptianpast.common.toml.title": "Egyptian Past Configs",
+  "egyptianpast.configuration.items": "Item List",
+  "egyptianpast.configuration.logDirtBlock": "Log Dirt Block",
+  "egyptianpast.configuration.magicNumberIntroduction": "Magic Number Text",
+  "egyptianpast.configuration.magicNumber": "Magic Number"
+}
