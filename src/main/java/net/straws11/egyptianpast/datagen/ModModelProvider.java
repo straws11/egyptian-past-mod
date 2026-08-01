@@ -22,11 +22,13 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModBlockRegistration.PAPYRUS_REED.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItemRegistration.MUMMY_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItemRegistration.ANKH_OF_LIFE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(ModItemRegistration.MUMMY_WRAP.get(), ModelTemplates.FLAT_ITEM);
         // add more models here
 
         // Blocks
         blockModels.createTrivialCube(ModBlockRegistration.LIMESTONE.get());
         blockModels.createTrivialCube(ModBlockRegistration.PAPYRUS_REED_BLOCK.get());
         // add more models here
+
     }
 }

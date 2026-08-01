@@ -28,9 +28,13 @@ public class ModEntityRegistration {
                     ))
             );*/
 
-    public static final Supplier<EntityType<MummyEntity>> MUMMY_ENTITY = ENTITY_TYPES.registerEntityType(
-                "mummy_entity", MummyEntity::new, MobCategory.MONSTER,
-                builder -> builder.sized(2.0f, 1.0f)
+    public static final Supplier<EntityType<Mummy>> MUMMY_ENTITY =
+            ENTITY_TYPES.registerEntityType(
+                "mummy", Mummy::new, MobCategory.MONSTER,
+                builder -> builder.sized(0.6F, 1.95F)
+                        .eyeHeight(1.74F)
+                        .notInPeaceful()
+                        .noLootTable()
         );
 
 

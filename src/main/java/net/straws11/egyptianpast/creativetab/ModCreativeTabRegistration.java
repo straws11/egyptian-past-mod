@@ -29,6 +29,7 @@ public class ModCreativeTabRegistration {
                 output.accept(PAPYRUS_SHEET.get());
                 output.accept(LIMESTONE.get());
                 output.accept(ANKH_OF_LIFE.get());
+                output.accept(MUMMY_WRAP.get());
             }).build());
 
     public static void register(IEventBus eventBus) {

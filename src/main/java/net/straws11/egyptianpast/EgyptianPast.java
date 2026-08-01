@@ -1,8 +1,10 @@
 package net.straws11.egyptianpast;
 
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.straws11.egyptianpast.block.ModBlockRegistration;
 import net.straws11.egyptianpast.creativetab.ModCreativeTabRegistration;
 import net.straws11.egyptianpast.entity.ModEntityRegistration;
+import net.straws11.egyptianpast.entity.Mummy;
 import net.straws11.egyptianpast.item.ModItemRegistration;
 import org.slf4j.Logger;
 
@@ -21,6 +23,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
+import static net.straws11.egyptianpast.entity.ModEntityRegistration.MUMMY_ENTITY;
 import static net.straws11.egyptianpast.item.ModItemRegistration.MUMMY_SPAWN_EGG;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
@@ -52,9 +55,17 @@ public class EgyptianPast {
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
+        modEventBus.addListener(this::createDefaultAttributes);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+    }
+
+    public void createDefaultAttributes(EntityAttributeCreationEvent event) {
+        event.put(
+                MUMMY_ENTITY.get(),
+                Mummy.createAttributes().build()
+        );
     }
 
     // Add the example block item to the building blocks tab
