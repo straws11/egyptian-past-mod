@@ -3,18 +3,15 @@ package net.straws11.egyptianpast;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import net.straws11.egyptianpast.datagen.ModBlockLootTableProvider;
-import net.straws11.egyptianpast.datagen.ModBlockTagsProvider;
-import net.straws11.egyptianpast.datagen.ModModelProvider;
-import net.straws11.egyptianpast.datagen.ModRecipeProvider;
+import net.straws11.egyptianpast.datagen.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @EventBusSubscriber(modid = EgyptianPast.MOD_ID)
 public class EgyptianPastDataGen {
@@ -29,9 +26,11 @@ public class EgyptianPastDataGen {
         generator.addProvider(true,
                 new LootTableProvider(packOutput, Collections.emptySet(),
                     List.of(
-                            new LootTableProvider.SubProviderEntry(ModBlockLootTableProvider::new, LootContextParamSets.BLOCK)
+                            new LootTableProvider.SubProviderEntry(ModBlockLootTableProvider::new, LootContextParamSets.BLOCK),
+                            new LootTableProvider.SubProviderEntry( ModEntityLootTableProvider::new, LootContextParamSets.ENTITY)
                     ),
                 lookupProvider));
+
         generator.addProvider(true, new ModBlockTagsProvider(packOutput, lookupProvider));
         generator.addProvider(true, new ModRecipeProvider.Runner(packOutput, lookupProvider));
     }

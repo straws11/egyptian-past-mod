@@ -34,7 +34,6 @@ public class ModEntityRegistration {
                 builder -> builder.sized(0.6F, 1.95F)
                         .eyeHeight(1.74F)
                         .notInPeaceful()
-                        .noLootTable()
         );
 
 

@@ -32,10 +32,14 @@ public class ModItemRegistration {
                     p -> new AnkhOfLifeItem(p.useCooldown(30f).stacksTo(1).rarity(Rarity.RARE))
             );
 
-    public static final DeferredItem<MummyWrapItem> MUMMY_WRAP
-            = ITEMS.registerItem("mummy_wrap",
+    public static final DeferredItem<MummyWrapItem> MUMMY_WRAP =
+            ITEMS.registerItem("mummy_wrap",
             p -> new MummyWrapItem(p)
     );
+
+    public static final DeferredItem<CryptKey> CRYPT_KEY =
+            ITEMS.registerItem("crypt_key", p -> new CryptKey(p.rarity(Rarity.EPIC).stacksTo(1)));
+
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

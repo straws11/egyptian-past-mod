@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "conditions": [
+        {
+          "block": "egyptianpast:sarcophagus",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "part": "head"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "egyptianpast:sarcophagus"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "egyptianpast:blocks/sarcophagus"
+}

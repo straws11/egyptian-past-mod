@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:entity",
+  "functions": [
+    {
+      "count": 3.0,
+      "function": "minecraft:set_count"
+    }
+  ],
+  "pools": [
+    {
+      "bonus_rolls": {
+        "type": "minecraft:uniform",
+        "max": 2.0,
+        "min": 1.0
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "egyptianpast:mummy_wrap"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 3.0,
+        "min": 0.0
+      }
+    }
+  ],
+  "random_sequence": "egyptianpast:entities/mummy"
+}

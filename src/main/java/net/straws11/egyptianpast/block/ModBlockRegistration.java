@@ -40,6 +40,14 @@ public class ModBlockRegistration {
     public static final DeferredItem<BlockItem> PAPYRUS_REED =
             ITEMS.registerSimpleBlockItem("papyrus_reed", PAPYRUS_REED_BLOCK);
 
+    public static final DeferredBlock<Sarcophagus> SARCOPHAGUS =
+            BLOCKS.registerBlock("sarcophagus", p -> new Sarcophagus(
+                    p.strength(1.5F, 6.0F)
+            ));
+
+    public static final DeferredItem<BlockItem> SARCOPHAGUS_ITEM =
+            ITEMS.registerSimpleBlockItem("sarcophagus", SARCOPHAGUS);
+
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);
     }

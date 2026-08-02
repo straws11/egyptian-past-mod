@@ -30,6 +30,8 @@ public class ModCreativeTabRegistration {
                 output.accept(LIMESTONE.get());
                 output.accept(ANKH_OF_LIFE.get());
                 output.accept(MUMMY_WRAP.get());
+                output.accept(CRYPT_KEY.get());
+                output.accept(SARCOPHAGUS.get());
             }).build());
 
     public static void register(IEventBus eventBus) {

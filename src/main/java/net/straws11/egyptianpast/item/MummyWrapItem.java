@@ -21,13 +21,12 @@ public class MummyWrapItem extends Item {
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack itemStack, Player player, LivingEntity target, InteractionHand type) {
-        player.sendSystemMessage(Component.literal("Hello"));
         if (target instanceof Zombie entity && !entity.isBaby()) {
             entity.convertTo(ModEntityRegistration.MUMMY_ENTITY.get(),
                     ConversionParams.single(
                             (Mob) entity,
-                            false,
-                            false),
+                            true,
+                            true),
                     mob -> {}
             );        }
         return InteractionResult.SUCCESS;

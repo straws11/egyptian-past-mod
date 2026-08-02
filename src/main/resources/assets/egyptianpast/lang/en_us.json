@@ -3,8 +3,12 @@
   "item.egyptianpast.pomegranate": "Pomegranate",
   "item.egyptianpast.papyrus_sheet": "Papyrus Sheet",
   "item.egyptianpast.ankh_of_life": "Ankh Of Life",
+  "item.egyptianpast.mummy_wrap": "Mummy Wrap",
+  "item.egyptianpast.crypt_key": "Crypt Key",
   "block.egyptianpast.papyrus_reed": "Papyrus Reed",
   "block.egyptianpast.limestone": "Limestone",
+  "block.egyptianpast.sarcophagus": "Sarcophagus",
+  "entity.egyptianpast.mummy": "Mummy",
 
   "egyptianpast.configuration.title": "Egyptian Past Configs",
   "egyptianpast.configuration.section.egyptianpast.common.toml": "Egyptian Past Configs",
