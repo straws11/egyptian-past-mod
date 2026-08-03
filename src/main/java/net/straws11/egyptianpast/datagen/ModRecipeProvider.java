@@ -42,5 +42,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 .group("papyrus")
                 .save(output);
 
+        shaped(RecipeCategory.MISC, ModItemRegistration.CRYPT_KEY.get(), 1)
+                .pattern("AAA")
+                .pattern("A A")
+                .pattern(" A ")
+                .define('A', ModItemRegistration.KEY_FRAGMENT.get())
+                .unlockedBy(getHasName(ModItemRegistration.KEY_FRAGMENT.get()), has(ModItemRegistration.KEY_FRAGMENT.get()))
+                .group("crypt_key")
+                .save(output);
+
     }
 }

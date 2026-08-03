@@ -1,5 +1,7 @@
 {
   "values": [
-    "egyptianpast:limestone"
+    "egyptianpast:limestone",
+    "egyptianpast:egyptian_stone",
+    "egyptianpast:egyptian_cobblestone"
   ]
 }

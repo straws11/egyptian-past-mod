@@ -45,6 +45,26 @@ public class ModBlockRegistration {
                     p.strength(1.5F, 6.0F)
             ));
 
+    public static final DeferredBlock<Block> EGYPTIAN_STONE =
+            BLOCKS.registerSimpleBlock("egyptian_stone",p ->
+                    p.strength(0.8f, 0.5f)
+                            .requiresCorrectToolForDrops()
+                            .sound(SoundType.STONE)
+            );
+
+    public static final DeferredItem<BlockItem> EGYPTIAN_STONE_ITEM =
+            ITEMS.registerSimpleBlockItem("egyptian_stone", EGYPTIAN_STONE);
+
+    public static final DeferredBlock<Block> EGYPTIAN_COBBLESTONE =
+            BLOCKS.registerSimpleBlock("egyptian_cobblestone",p ->
+                    p.strength(0.8f, 0.5f)
+                            .requiresCorrectToolForDrops()
+                            .sound(SoundType.STONE)
+            );
+
+    public static final DeferredItem<BlockItem> EGYPTIAN_COBBLESTONE_ITEM =
+            ITEMS.registerSimpleBlockItem("egyptian_cobblestone", EGYPTIAN_COBBLESTONE);
+
     public static final DeferredItem<BlockItem> SARCOPHAGUS_ITEM =
             ITEMS.registerSimpleBlockItem("sarcophagus", SARCOPHAGUS);
 

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "crypt_key",
+  "key": {
+    "A": "egyptianpast:key_fragment"
+  },
+  "pattern": [
+    "AAA",
+    "A A",
+    " A "
+  ],
+  "result": {
+    "id": "egyptianpast:crypt_key"
+  }
+}

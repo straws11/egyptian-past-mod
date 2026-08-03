@@ -5,6 +5,7 @@ import net.straws11.egyptianpast.block.ModBlockRegistration;
 import net.straws11.egyptianpast.creativetab.ModCreativeTabRegistration;
 import net.straws11.egyptianpast.entity.ModEntityRegistration;
 import net.straws11.egyptianpast.entity.Mummy;
+import net.straws11.egyptianpast.entity.Pharaoh;
 import net.straws11.egyptianpast.item.ModItemRegistration;
 import org.slf4j.Logger;
 
@@ -24,7 +25,9 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
 import static net.straws11.egyptianpast.entity.ModEntityRegistration.MUMMY_ENTITY;
+import static net.straws11.egyptianpast.entity.ModEntityRegistration.PHARAOH_ENTITY;
 import static net.straws11.egyptianpast.item.ModItemRegistration.MUMMY_SPAWN_EGG;
+import static net.straws11.egyptianpast.item.ModItemRegistration.PHARAOH_SPAWN_EGG;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(EgyptianPast.MOD_ID)
@@ -66,12 +69,17 @@ public class EgyptianPast {
                 MUMMY_ENTITY.get(),
                 Mummy.createAttributes().build()
         );
+        event.put(
+                PHARAOH_ENTITY.get(),
+                Pharaoh.createAttributes().build()
+        );
     }
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
             event.accept(MUMMY_SPAWN_EGG);
+            event.accept(PHARAOH_SPAWN_EGG);
         }
     }
 

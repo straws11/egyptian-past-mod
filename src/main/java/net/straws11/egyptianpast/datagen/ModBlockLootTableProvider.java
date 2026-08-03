@@ -27,6 +27,8 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
     @Override
     protected void generate() {
         dropSelf(ModBlockRegistration.LIMESTONE.get());
+        dropSelf(ModBlockRegistration.EGYPTIAN_STONE.get());
+        dropSelf(ModBlockRegistration.EGYPTIAN_COBBLESTONE.get());
         dropSelf(ModBlockRegistration.PAPYRUS_REED_BLOCK.get());
         add(ModBlockRegistration.SARCOPHAGUS.get(), block ->
             LootTable.lootTable().withPool(LootPool.lootPool()

@@ -13,6 +13,8 @@ import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.straws11.egyptianpast.entity.ModEntityRegistration;
 import net.straws11.egyptianpast.renderer.entity.MummyRenderer;
+import net.straws11.egyptianpast.renderer.entity.PharaohRenderer;
+import org.lwjgl.vulkan.VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT;
 
 // This class will not load on dedicated servers. Accessing client side code from here is safe.
 @Mod(value = EgyptianPast.MOD_ID, dist = Dist.CLIENT)
@@ -38,6 +40,11 @@ public class EgyptianPastClient {
         event.registerEntityRenderer(
                 ModEntityRegistration.MUMMY_ENTITY.get(),
                 MummyRenderer::new
+        );
+
+        event.registerEntityRenderer(
+                ModEntityRegistration.PHARAOH_ENTITY.get(),
+                PharaohRenderer::new
         );
     }
 

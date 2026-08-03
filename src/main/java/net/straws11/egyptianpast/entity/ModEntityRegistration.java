@@ -36,6 +36,14 @@ public class ModEntityRegistration {
                         .notInPeaceful()
         );
 
+    public static final Supplier<EntityType<Pharaoh>> PHARAOH_ENTITY =
+            ENTITY_TYPES.registerEntityType(
+                    "pharaoh", Pharaoh::new, MobCategory.MONSTER,
+                    builder -> builder.sized(1.0f, 3.5f)
+                            .eyeHeight(3.2f)
+                            .notInPeaceful()
+            );
+
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

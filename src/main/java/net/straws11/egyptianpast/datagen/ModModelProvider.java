@@ -35,13 +35,17 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItemRegistration.PAPYRUS_SHEET.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModBlockRegistration.PAPYRUS_REED.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItemRegistration.MUMMY_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItemRegistration.PHARAOH_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItemRegistration.ANKH_OF_LIFE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModels.generateFlatItem(ModItemRegistration.MUMMY_WRAP.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItemRegistration.KEY_FRAGMENT.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItemRegistration.CRYPT_KEY.get(), ModelTemplates.FLAT_ITEM);
         // add more models here
 
         // Blocks
         blockModels.createTrivialCube(ModBlockRegistration.LIMESTONE.get());
+        blockModels.createTrivialCube(ModBlockRegistration.EGYPTIAN_STONE.get());
+        blockModels.createTrivialCube(ModBlockRegistration.EGYPTIAN_COBBLESTONE.get());
         createSarcophagus(blockModels);
         blockModels.createTrivialCube(ModBlockRegistration.PAPYRUS_REED_BLOCK.get());
         // add more models here

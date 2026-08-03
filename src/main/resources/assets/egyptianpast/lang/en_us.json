@@ -4,11 +4,16 @@
   "item.egyptianpast.papyrus_sheet": "Papyrus Sheet",
   "item.egyptianpast.ankh_of_life": "Ankh Of Life",
   "item.egyptianpast.mummy_wrap": "Mummy Wrap",
+  "item.egyptianpast.key_fragment": "Key Fragment",
   "item.egyptianpast.crypt_key": "Crypt Key",
   "block.egyptianpast.papyrus_reed": "Papyrus Reed",
   "block.egyptianpast.limestone": "Limestone",
+  "block.egyptianpast.egyptian_stone": "Egyptian Stone",
+  "block.egyptianpast.egyptian_cobblestone": "Egyptian Cobblestone",
   "block.egyptianpast.sarcophagus": "Sarcophagus",
+
   "entity.egyptianpast.mummy": "Mummy",
+  "entity.egyptianpast.pharaoh": "Pharaoh",
 
   "egyptianpast.configuration.title": "Egyptian Past Configs",
   "egyptianpast.configuration.section.egyptianpast.common.toml": "Egyptian Past Configs",

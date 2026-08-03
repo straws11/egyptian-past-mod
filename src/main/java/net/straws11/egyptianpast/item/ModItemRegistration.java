@@ -10,6 +10,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import static net.straws11.egyptianpast.EgyptianPast.MOD_ID;
 import static net.straws11.egyptianpast.entity.ModEntityRegistration.MUMMY_ENTITY;
+import static net.straws11.egyptianpast.entity.ModEntityRegistration.PHARAOH_ENTITY;
 
 public class ModItemRegistration {
     // Create a Deferred Register to hold Items which will all be registered under the "egyptianpast" namespace
@@ -27,6 +28,11 @@ public class ModItemRegistration {
                     properties.spawnEgg(MUMMY_ENTITY.get())
             ));
 
+    public static final DeferredItem<Item> PHARAOH_SPAWN_EGG =
+            ITEMS.registerItem("pharaoh_spawn_egg", properties -> new SpawnEggItem(
+                    properties.spawnEgg(PHARAOH_ENTITY.get())
+            ));
+
     public static final DeferredItem<AnkhOfLifeItem> ANKH_OF_LIFE =
             ITEMS.registerItem("ankh_of_life",
                     p -> new AnkhOfLifeItem(p.useCooldown(30f).stacksTo(1).rarity(Rarity.RARE))
@@ -39,6 +45,9 @@ public class ModItemRegistration {
 
     public static final DeferredItem<CryptKey> CRYPT_KEY =
             ITEMS.registerItem("crypt_key", p -> new CryptKey(p.rarity(Rarity.EPIC).stacksTo(1)));
+
+    public static final DeferredItem<Item> KEY_FRAGMENT =
+            ITEMS.registerSimpleItem("key_fragment");
 
 
     public static void register(IEventBus eventBus) {
