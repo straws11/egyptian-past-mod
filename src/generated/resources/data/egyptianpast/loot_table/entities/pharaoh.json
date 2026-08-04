@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:entity",
+  "functions": [
+    {
+      "count": 1.0,
+      "function": "minecraft:set_count"
+    }
+  ],
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "egyptianpast:key_fragment"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "egyptianpast:entities/pharaoh"
+}

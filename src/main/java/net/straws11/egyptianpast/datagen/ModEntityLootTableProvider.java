@@ -39,5 +39,14 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(ModItemRegistration.MUMMY_WRAP))
                         )
         );
+
+        add(ModEntityRegistration.PHARAOH_ENTITY.get(),
+                LootTable.lootTable()
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
+                        .withPool(LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(ModItemRegistration.KEY_FRAGMENT))
+                        )
+        );
     }
 }

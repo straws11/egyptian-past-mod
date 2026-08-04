@@ -32,6 +32,8 @@ public class EgyptianPastDataGen {
                 lookupProvider));
 
         generator.addProvider(true, new ModBlockTagsProvider(packOutput, lookupProvider));
+        generator.addProvider(true, new ModItemTagsProvider(packOutput, lookupProvider));
         generator.addProvider(true, new ModRecipeProvider.Runner(packOutput, lookupProvider));
+        generator.addProvider(true, new ModEquipmentAssetProvider(packOutput));
     }
 }

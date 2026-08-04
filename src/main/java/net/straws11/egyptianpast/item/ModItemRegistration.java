@@ -1,9 +1,22 @@
 package net.straws11.egyptianpast.item;
 
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.EquipmentAsset;
+import net.minecraft.world.item.equipment.EquipmentAssets;
+import net.minecraft.world.item.equipment.Equippable;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -48,6 +61,12 @@ public class ModItemRegistration {
 
     public static final DeferredItem<Item> KEY_FRAGMENT =
             ITEMS.registerSimpleItem("key_fragment");
+
+    public static final DeferredItem<Item> PHARAOH_CROWN =
+            ITEMS.registerItem("pharaoh_crown",p -> new Item(
+                    p.humanoidArmor(ModArmorMaterials.PHARAOH_ARMOR_MATERIAL, ArmorType.HELMET)
+                            .rarity(Rarity.EPIC))
+            );
 
 
     public static void register(IEventBus eventBus) {

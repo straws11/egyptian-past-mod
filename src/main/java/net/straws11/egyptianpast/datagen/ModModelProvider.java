@@ -40,6 +40,7 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItemRegistration.MUMMY_WRAP.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItemRegistration.KEY_FRAGMENT.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItemRegistration.CRYPT_KEY.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItemRegistration.PHARAOH_CROWN.get(), ModelTemplates.FLAT_ITEM);
         // add more models here
 
         // Blocks

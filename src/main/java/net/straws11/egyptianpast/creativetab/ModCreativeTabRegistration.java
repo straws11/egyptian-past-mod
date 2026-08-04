@@ -34,6 +34,7 @@ public class ModCreativeTabRegistration {
                 output.accept(MUMMY_WRAP.get());
                 output.accept(KEY_FRAGMENT.get());
                 output.accept(CRYPT_KEY.get());
+                output.accept(PHARAOH_CROWN.get());
                 output.accept(SARCOPHAGUS.get());
             }).build());
 
