@@ -1,5 +1,6 @@
 package net.straws11.egyptianpast;
 
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.straws11.egyptianpast.block.ModBlockRegistration;
 import net.straws11.egyptianpast.creativetab.ModCreativeTabRegistration;
@@ -7,6 +8,8 @@ import net.straws11.egyptianpast.entity.ModEntityRegistration;
 import net.straws11.egyptianpast.entity.Mummy;
 import net.straws11.egyptianpast.entity.Pharaoh;
 import net.straws11.egyptianpast.item.ModItemRegistration;
+import net.straws11.egyptianpast.worldgen.ModOverworldRegion;
+import net.straws11.egyptianpast.worldgen.ModSurfaceRuleManager;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -23,6 +26,8 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import terrablender.api.Regions;
+import terrablender.api.SurfaceRuleManager;
 
 import static net.straws11.egyptianpast.entity.ModEntityRegistration.MUMMY_ENTITY;
 import static net.straws11.egyptianpast.entity.ModEntityRegistration.PHARAOH_ENTITY;
@@ -94,6 +99,17 @@ public class EgyptianPast {
         LOGGER.info("{}{}", Config.MAGIC_NUMBER_INTRODUCTION.get(), Config.MAGIC_NUMBER.getAsInt());
 
         Config.ITEM_STRINGS.get().forEach((item) -> LOGGER.info("ITEM >> {}", item));
+        event.enqueueWork(() -> {
+            Regions.register(new ModOverworldRegion(
+                    Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "overworld_region"),
+                    4
+            ));
+        });
+        SurfaceRuleManager.addSurfaceRules(
+            SurfaceRuleManager.RuleCategory.OVERWORLD,
+            EgyptianPast.MOD_ID,
+            ModSurfaceRuleManager::makeRules
+        );
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
