@@ -23,5 +23,13 @@
   "egyptianpast.configuration.items": "Item List",
   "egyptianpast.configuration.logDirtBlock": "Log Dirt Block",
   "egyptianpast.configuration.magicNumberIntroduction": "Magic Number Text",
-  "egyptianpast.configuration.magicNumber": "Magic Number"
+  "egyptianpast.configuration.magicNumber": "Magic Number",
+
+  "tooltip.egyptianpast.jar.empty": "Empty",
+  "tooltip.egyptianpast.jar.contains": "Contains ",
+
+  "organ.egyptianpast.liver": "liver",
+  "organ.egyptianpast.lungs": "lungs",
+  "organ.egyptianpast.stomach": "stomach",
+  "organ.egyptianpast.intestines": "intestines"
 }

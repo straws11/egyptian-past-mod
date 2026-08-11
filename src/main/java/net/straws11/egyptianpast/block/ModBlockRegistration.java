@@ -5,6 +5,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -67,6 +68,14 @@ public class ModBlockRegistration {
 
     public static final DeferredItem<BlockItem> SARCOPHAGUS_ITEM =
             ITEMS.registerSimpleBlockItem("sarcophagus", SARCOPHAGUS);
+
+    public static final DeferredBlock<PedestalBlock> PEDESTAL_BLOCK =
+            BLOCKS.registerBlock("pedestal", p ->
+                    new PedestalBlock(p.strength(2f).requiresCorrectToolForDrops())
+            );
+
+    public static final DeferredItem<BlockItem> PEDESTAL_ITEM =
+            ITEMS.registerSimpleBlockItem("pedestal", PEDESTAL_BLOCK);
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);

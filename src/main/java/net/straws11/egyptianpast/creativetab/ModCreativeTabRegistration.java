@@ -4,9 +4,12 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.straws11.egyptianpast.data.ModDataComponentRegistration;
+import net.straws11.egyptianpast.item.OrganType;
 
 import static net.straws11.egyptianpast.EgyptianPast.MOD_ID;
 import static net.straws11.egyptianpast.block.ModBlockRegistration.*;
@@ -35,7 +38,16 @@ public class ModCreativeTabRegistration {
                 output.accept(KEY_FRAGMENT.get());
                 output.accept(CRYPT_KEY.get());
                 output.accept(PHARAOH_CROWN.get());
+
+                // canopic jar variants
+                for (OrganType organType : OrganType.values()) {
+                    ItemStack jarStack = CANOPIC_JAR.get().getDefaultInstance();
+                    jarStack.set(ModDataComponentRegistration.ORGAN_TYPE.get(), organType);
+                    output.accept(jarStack);
+                }
+
                 output.accept(SARCOPHAGUS.get());
+                output.accept(PEDESTAL_BLOCK.get());
             }).build());
 
     public static void register(IEventBus eventBus) {

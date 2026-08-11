@@ -3,7 +3,9 @@ package net.straws11.egyptianpast;
 import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.straws11.egyptianpast.block.ModBlockRegistration;
+import net.straws11.egyptianpast.block.entity.ModBlockEntityRegistration;
 import net.straws11.egyptianpast.creativetab.ModCreativeTabRegistration;
+import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.entity.ModEntityRegistration;
 import net.straws11.egyptianpast.entity.Mummy;
 import net.straws11.egyptianpast.entity.Pharaoh;
@@ -49,6 +51,9 @@ public class EgyptianPast {
 
         // Register the Deferred Register to the mod event bus so blocks get registered
         ModBlockRegistration.register(modEventBus);
+        ModBlockEntityRegistration.register(modEventBus);
+
+        ModDataComponentRegistration.register(modEventBus);
         // Register the Deferred Register to the mod event bus so items get registered
         ModItemRegistration.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered

@@ -14,6 +14,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePrope
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.straws11.egyptianpast.block.ModBlockRegistration;
 import net.straws11.egyptianpast.block.Sarcophagus;
+import net.straws11.egyptianpast.block.entity.ModBlockEntityRegistration;
 
 import java.util.Set;
 import java.util.function.Function;
@@ -39,6 +40,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
                     )
             )
         );
+        dropSelf(ModBlockRegistration.PEDESTAL_BLOCK.get());
     }
 
     // not sure if this is needed, got this function from tutorial

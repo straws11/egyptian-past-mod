@@ -68,6 +68,10 @@ public class ModItemRegistration {
                             .rarity(Rarity.EPIC))
             );
 
+    public static final DeferredItem<CanopicJar> CANOPIC_JAR =
+            ITEMS.registerItem("canopic_jar", p ->
+                    new CanopicJar(p.stacksTo(16))
+            );
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

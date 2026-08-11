@@ -7,6 +7,7 @@ import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.renderer.block.dispatch.VariantMutator;
 import net.minecraft.core.Direction;
@@ -41,7 +42,7 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItemRegistration.KEY_FRAGMENT.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItemRegistration.CRYPT_KEY.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItemRegistration.PHARAOH_CROWN.get(), ModelTemplates.FLAT_ITEM);
-        // add more models here
+        itemModels.generateFlatItem(ModItemRegistration.CANOPIC_JAR.get(), ModelTemplates.FLAT_ITEM);
 
         // Blocks
         blockModels.createTrivialCube(ModBlockRegistration.LIMESTONE.get());
@@ -49,7 +50,8 @@ public class ModModelProvider extends ModelProvider {
         blockModels.createTrivialCube(ModBlockRegistration.EGYPTIAN_COBBLESTONE.get());
         createSarcophagus(blockModels);
         blockModels.createTrivialCube(ModBlockRegistration.PAPYRUS_REED_BLOCK.get());
-        // add more models here
+        // TODO: this needs to change
+        blockModels.createTrivialCube(ModBlockRegistration.PEDESTAL_BLOCK.get());
 
     }
 
