@@ -62,8 +62,8 @@ public class ModItemRegistration {
     public static final DeferredItem<Item> KEY_FRAGMENT =
             ITEMS.registerSimpleItem("key_fragment");
 
-    public static final DeferredItem<Item> PHARAOH_CROWN =
-            ITEMS.registerItem("pharaoh_crown",p -> new Item(
+    public static final DeferredItem<PharaohCrown> PHARAOH_CROWN =
+            ITEMS.registerItem("pharaoh_crown",p -> new PharaohCrown(
                     p.humanoidArmor(ModArmorMaterials.PHARAOH_ARMOR_MATERIAL, ArmorType.HELMET)
                             .rarity(Rarity.EPIC))
             );

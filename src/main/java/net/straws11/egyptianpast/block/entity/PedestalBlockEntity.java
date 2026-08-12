@@ -18,15 +18,15 @@ import net.neoforged.neoforge.transfer.access.ItemAccess;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStackResourceHandler;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
-import net.straws11.egyptianpast.block.ModBlockRegistration;
 import net.straws11.egyptianpast.block.PedestalBlock;
+import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.item.CanopicJar;
+import net.straws11.egyptianpast.item.ICursedItem;
 import net.straws11.egyptianpast.item.ModItemRegistration;
 import net.straws11.egyptianpast.item.OrganType;
 import org.jspecify.annotations.NonNull;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class PedestalBlockEntity extends BlockEntity {
     private ItemStack storedStack = ItemStack.EMPTY;
@@ -46,12 +46,8 @@ public class PedestalBlockEntity extends BlockEntity {
 
         @Override
         protected boolean isValid(ItemResource resource) {
-            Set<Item> validPedestalItems = Set.of(
-                    ModItemRegistration.CANOPIC_JAR.get(),
-                    Items.DIAMOND,
-                    Items.NETHERITE_INGOT
-            );
-            return validPedestalItems.contains(resource.toStack().getItem());
+            return resource.getItem() instanceof ICursedItem
+                    || resource.is(ModItemRegistration.CANOPIC_JAR.get());
         }
 
         @Override
@@ -95,47 +91,71 @@ public class PedestalBlockEntity extends BlockEntity {
         this.itemHandler.deserialize(input);
     }
 
-    public void checkSuccessfulPedestalConfiguration(Level level, BlockPos pos) {
+    public void checkSuccessfulPedestalConfiguration(Level level) {
         ItemStack stack = this.getStoredStack();
         // early return if this isn't the main pedestal
         // NOTE: ^^ this means you have to place this item last
-        if (!stack.is(Items.DIAMOND)) return;
-        // TODO: make this the actual "cursed" item
+
+        if (!stack.getOrDefault(ModDataComponentRegistration.IS_CURSED.get(), false)) return;
 
         Set<OrganType> foundOrgans = new HashSet<>();
 
-        // TODO: refactor, this sucks lol
-        for (Direction direction : List.of(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST)) {
-            BlockPos blockPos = pos.relative(direction, 2);
-            System.out.println(blockPos.toShortString());
-            if (level.getBlockEntity(blockPos) instanceof PedestalBlockEntity pedestalBlockEntity) {
-                if (pedestalBlockEntity.getStoredStack().is(ModItemRegistration.CANOPIC_JAR)) {
-                    OrganType organ = CanopicJar.getOrgan(pedestalBlockEntity.getStoredStack());
-                    if (organ != OrganType.EMPTY) {
-                        foundOrgans.add(organ);
-                    } else break;
+        List<BlockPos> childPedestalPositions = Direction.Plane.HORIZONTAL.stream()
+                .map(dir -> getBlockPos().relative(dir, 2))
+                .toList();
 
-                    continue;
-                }
-                break;
-            }
-            break;
+        List<PedestalBlockEntity> childPedestals = new ArrayList<>();
+
+        for (BlockPos blockPos : childPedestalPositions) {
+            if (!(level.getBlockEntity(blockPos) instanceof PedestalBlockEntity otherPedestalBe)) break;
+            if (!otherPedestalBe.getStoredStack().is(ModItemRegistration.CANOPIC_JAR)) break;
+            childPedestals.add(otherPedestalBe);
+
+            OrganType organ = CanopicJar.getOrgan(otherPedestalBe.getStoredStack());
+            if (organ == OrganType.EMPTY) break;
+            foundOrgans.add(organ);
         }
 
         // all but the empty one needs to be present
         if (foundOrgans.size() < OrganType.values().length - 1) return;
-
         try (Transaction transaction = Transaction.openRoot()) {
-            int extracted = this.itemHandler.extract(ItemResource.of(Items.DIAMOND), 1, transaction);
-            if (extracted > 0) {
-                int inserted = this.itemHandler
-                        .insert(ItemResource.of(Items.NETHERITE_INGOT), 1, transaction);
-                if (inserted > 0) {
-                    transaction.commit();
-                    level.playSound(null, pos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 1f, 1f);
-                    // TODO: remove canopic jars from pedestals
-                }
+            performCleansing(getBlockPos(), level);
+            boolean successful = consumeCanopicJars(childPedestals, transaction);
+            if (successful) {
+                transaction.commit();
             }
+        }
+    }
+
+    private boolean consumeCanopicJars(List<PedestalBlockEntity> childPedestals, Transaction transaction) {
+        for (PedestalBlockEntity pedestal : childPedestals) {
+            int extracted = pedestal.getItemHandler().extract(
+                    ItemResource.of(pedestal.getStoredStack()), 1, transaction
+            );
+            if (extracted == 0) return false;
+            pedestal.setChanged();
+        }
+        return true;
+    }
+
+    /**
+     * Replaces item with cleansed version
+     * @param pos position of the main pedestal's BlockEntity
+     * @param level current level
+     */
+    private void performCleansing(BlockPos pos, Level level) {
+        ItemStack storedStack = getStoredStack();
+
+        if (!(storedStack.getItem() instanceof ICursedItem cursedItem)) return;
+        if (!cursedItem.isCursed(storedStack)) return;
+
+        // in place cleanse, no need to remove and insert
+        cursedItem.cleanse(storedStack);
+        this.setChanged();
+
+        if (level != null && !level.isClientSide()) {
+            level.sendBlockUpdated(pos, getBlockState(), getBlockState(), PedestalBlock.UPDATE_ALL);
+            level.playSound(null, pos, SoundEvents.BEACON_ACTIVATE, SoundSource.BLOCKS, 1f, 1f);
         }
     }
 }

@@ -31,5 +31,7 @@
   "organ.egyptianpast.liver": "liver",
   "organ.egyptianpast.lungs": "lungs",
   "organ.egyptianpast.stomach": "stomach",
-  "organ.egyptianpast.intestines": "intestines"
+  "organ.egyptianpast.intestines": "intestines",
+  "cursed_message.egyptianpast": "The ancient pharaoh's curse prevents this!",
+  "tooltip.egyptianpast.cursed": "This item is cursed"
 }

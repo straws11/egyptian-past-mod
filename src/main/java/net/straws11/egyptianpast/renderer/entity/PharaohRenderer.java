@@ -37,7 +37,7 @@ public class PharaohRenderer extends HumanoidMobRenderer<Pharaoh, PharaohRenderS
 
     @Override
     public Identifier getTextureLocation(PharaohRenderState state) {
-        return EgyptianPastClient.getEntityTexture("pharoah.png");
+        return EgyptianPastClient.getEntityTexture("pharaoh.png");
     }
 
     @Override

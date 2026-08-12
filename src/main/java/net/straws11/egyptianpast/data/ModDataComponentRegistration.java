@@ -1,5 +1,6 @@
 package net.straws11.egyptianpast.data;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.util.StringRepresentable;
@@ -20,6 +21,13 @@ public class ModDataComponentRegistration {
                          //.networkSynchronized()
                          .build()
                  );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> IS_CURSED =
+            DATA_COMPONENT_TYPES.register("is_cursed", () ->
+                    DataComponentType.<Boolean>builder()
+                            .persistent(Codec.BOOL)
+                            .build()
+                    );
 
     public static void register(IEventBus eventBus) {
         DATA_COMPONENT_TYPES.register(eventBus);

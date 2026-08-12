@@ -9,6 +9,7 @@ import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.entity.ModEntityRegistration;
 import net.straws11.egyptianpast.entity.Mummy;
 import net.straws11.egyptianpast.entity.Pharaoh;
+import net.straws11.egyptianpast.events.ModItemEvents;
 import net.straws11.egyptianpast.item.ModItemRegistration;
 import net.straws11.egyptianpast.worldgen.ModOverworldRegion;
 import net.straws11.egyptianpast.worldgen.ModSurfaceRuleManager;

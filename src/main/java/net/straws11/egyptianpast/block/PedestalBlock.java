@@ -66,7 +66,7 @@ public class PedestalBlock extends BaseEntityBlock {
                                 itemStack.shrink(1);
                             }
                             // do other cool stuff like checking whether the pedestal configuration is correct for transformation
-                            pedestalBlockEntity.checkSuccessfulPedestalConfiguration(level, pos);
+                            pedestalBlockEntity.checkSuccessfulPedestalConfiguration(level);
                         }
                     }
                 }
