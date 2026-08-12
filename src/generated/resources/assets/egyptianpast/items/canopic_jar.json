@@ -1,6 +1,48 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "egyptianpast:item/canopic_jar"
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "egyptianpast:item/canopic_jar_empty"
+        },
+        "when": "empty"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "egyptianpast:item/canopic_jar_liver"
+        },
+        "when": "liver"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "egyptianpast:item/canopic_jar_lungs"
+        },
+        "when": "lungs"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "egyptianpast:item/canopic_jar_stomach"
+        },
+        "when": "stomach"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "egyptianpast:item/canopic_jar_intestines"
+        },
+        "when": "intestines"
+      }
+    ],
+    "component": "egyptianpast:organ_type",
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "egyptianpast:item/canopic_jar_empty"
+    },
+    "property": "minecraft:component"
   }
 }

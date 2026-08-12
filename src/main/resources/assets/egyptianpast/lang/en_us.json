@@ -7,12 +7,14 @@
   "item.egyptianpast.key_fragment": "Key Fragment",
   "item.egyptianpast.crypt_key": "Crypt Key",
   "item.egyptianpast.pharaoh_crown": "Pharaoh's Crown",
+  "item.egyptianpast.canopic_jar": "Canopic Jar",
 
   "block.egyptianpast.papyrus_reed": "Papyrus Reed",
   "block.egyptianpast.limestone": "Limestone",
   "block.egyptianpast.egyptian_stone": "Egyptian Stone",
   "block.egyptianpast.egyptian_cobblestone": "Egyptian Cobblestone",
   "block.egyptianpast.sarcophagus": "Sarcophagus",
+  "block.egyptianpast.pedestal": "Egyptian Pedestal",
 
   "entity.egyptianpast.mummy": "Mummy",
   "entity.egyptianpast.pharaoh": "Pharaoh",

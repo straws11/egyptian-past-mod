@@ -2,6 +2,7 @@ package net.straws11.egyptianpast.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -35,11 +36,10 @@ public class CanopicJar extends Item {
                             .withStyle(ChatFormatting.GRAY)
             );
         } else {
-            builder.accept(Component.translatable("tooltip.egyptianpast.jar.contains"));
-            builder.accept(
-                    Component.translatable("organ.egyptianpast." + organ.getSerializedName())
-                            .withStyle(ChatFormatting.DARK_RED)
-            );
+            MutableComponent component = Component.translatable("tooltip.egyptianpast.jar.contains");
+            component.append(Component.translatable("organ.egyptianpast." + organ.getSerializedName())
+                            .withStyle(ChatFormatting.DARK_RED));
+            builder.accept(component);
         }
     }
 }

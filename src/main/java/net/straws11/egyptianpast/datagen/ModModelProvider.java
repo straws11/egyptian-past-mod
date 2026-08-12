@@ -1,5 +1,6 @@
 package net.straws11.egyptianpast.datagen;
 
+import com.mojang.math.Transformation;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
@@ -10,8 +11,14 @@ import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.renderer.block.dispatch.VariantMutator;
+import net.minecraft.client.renderer.item.CuboidItemModelWrapper;
+import net.minecraft.client.renderer.item.SelectItemModel;
+import net.minecraft.client.renderer.item.properties.select.ComponentContents;
+import net.minecraft.client.renderer.item.properties.select.DisplayContext;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BedPart;
@@ -20,7 +27,16 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.straws11.egyptianpast.EgyptianPast;
 import net.straws11.egyptianpast.block.ModBlockRegistration;
 import net.straws11.egyptianpast.block.Sarcophagus;
+import net.straws11.egyptianpast.data.ModDataComponentRegistration;
+import net.straws11.egyptianpast.item.CanopicJar;
 import net.straws11.egyptianpast.item.ModItemRegistration;
+import net.straws11.egyptianpast.item.OrganType;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static net.minecraft.client.data.models.BlockModelGenerators.*;
 
@@ -42,7 +58,34 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItemRegistration.KEY_FRAGMENT.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItemRegistration.CRYPT_KEY.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItemRegistration.PHARAOH_CROWN.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ModItemRegistration.CANOPIC_JAR.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.itemModelOutput.accept(
+            ModItemRegistration.CANOPIC_JAR.get(),
+            new SelectItemModel.Unbaked(
+                Optional.empty(),
+                new SelectItemModel.UnbakedSwitch<>(
+                    new ComponentContents<>(ModDataComponentRegistration.ORGAN_TYPE.get()),
+                    // this was a List.of() with duplicated stuff, this is better for this case at least
+                    Arrays.stream(OrganType.values()).map(organ ->
+                        new SelectItemModel.SwitchCase<>(
+                            List.of(organ),
+                            new CuboidItemModelWrapper.Unbaked(
+                                Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID,
+                                    "item/canopic_jar_" + organ.getSerializedName()),
+                                Optional.empty(),
+                                Collections.emptyList()
+                            )
+                        )
+                    ).collect(Collectors.toList())
+                ),
+                Optional.of(
+                    new CuboidItemModelWrapper.Unbaked(
+                        Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "item/canopic_jar_empty"),
+                        Optional.empty(),
+                        Collections.emptyList()
+                    )
+                )
+            )
+        );
 
         // Blocks
         blockModels.createTrivialCube(ModBlockRegistration.LIMESTONE.get());
