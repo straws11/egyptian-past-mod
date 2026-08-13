@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "organ=empty": {
+      "model": "egyptianpast:block/canopic_jar_empty"
+    },
+    "organ=intestines": {
+      "model": "egyptianpast:block/canopic_jar_intestines"
+    },
+    "organ=liver": {
+      "model": "egyptianpast:block/canopic_jar_liver"
+    },
+    "organ=lungs": {
+      "model": "egyptianpast:block/canopic_jar_lungs"
+    },
+    "organ=stomach": {
+      "model": "egyptianpast:block/canopic_jar_stomach"
+    }
+  }
+}

@@ -5,35 +5,35 @@
       {
         "model": {
           "type": "minecraft:model",
-          "model": "egyptianpast:item/canopic_jar_empty"
+          "model": "egyptianpast:block/canopic_jar_empty"
         },
         "when": "empty"
       },
       {
         "model": {
           "type": "minecraft:model",
-          "model": "egyptianpast:item/canopic_jar_liver"
+          "model": "egyptianpast:block/canopic_jar_liver"
         },
         "when": "liver"
       },
       {
         "model": {
           "type": "minecraft:model",
-          "model": "egyptianpast:item/canopic_jar_lungs"
+          "model": "egyptianpast:block/canopic_jar_lungs"
         },
         "when": "lungs"
       },
       {
         "model": {
           "type": "minecraft:model",
-          "model": "egyptianpast:item/canopic_jar_stomach"
+          "model": "egyptianpast:block/canopic_jar_stomach"
         },
         "when": "stomach"
       },
       {
         "model": {
           "type": "minecraft:model",
-          "model": "egyptianpast:item/canopic_jar_intestines"
+          "model": "egyptianpast:block/canopic_jar_intestines"
         },
         "when": "intestines"
       }

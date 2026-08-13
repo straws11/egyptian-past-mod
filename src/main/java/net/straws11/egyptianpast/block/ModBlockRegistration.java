@@ -10,6 +10,9 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.straws11.egyptianpast.data.ModDataComponentRegistration;
+import net.straws11.egyptianpast.item.CanopicJarBlockItem;
+import net.straws11.egyptianpast.item.OrganType;
 
 import static net.straws11.egyptianpast.EgyptianPast.MOD_ID;
 import static net.straws11.egyptianpast.item.ModItemRegistration.ITEMS;
@@ -75,6 +78,15 @@ public class ModBlockRegistration {
 
     public static final DeferredItem<BlockItem> PEDESTAL_ITEM =
             ITEMS.registerSimpleBlockItem("pedestal", PEDESTAL_BLOCK);
+
+    public static final DeferredBlock<CanopicJarBlock> CANOPIC_JAR_BLOCK =
+        BLOCKS.registerBlock("canopic_jar", p ->
+            new CanopicJarBlock(p.strength(1f).requiresCorrectToolForDrops()));
+
+    public static final DeferredItem<CanopicJarBlockItem> CANOPIC_JAR =
+        ITEMS.registerItem("canopic_jar", p ->
+            new CanopicJarBlockItem(CANOPIC_JAR_BLOCK.get(), p));
+
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);

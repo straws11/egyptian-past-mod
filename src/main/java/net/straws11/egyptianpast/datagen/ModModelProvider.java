@@ -1,6 +1,5 @@
 package net.straws11.egyptianpast.datagen;
 
-import com.mojang.math.Transformation;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
@@ -8,27 +7,21 @@ import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
-import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.ModelTemplates;
-import net.minecraft.client.renderer.block.dispatch.VariantMutator;
+import net.minecraft.client.renderer.block.dispatch.Variant;
 import net.minecraft.client.renderer.item.CuboidItemModelWrapper;
 import net.minecraft.client.renderer.item.SelectItemModel;
 import net.minecraft.client.renderer.item.properties.select.ComponentContents;
-import net.minecraft.client.renderer.item.properties.select.DisplayContext;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.StringRepresentable;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.straws11.egyptianpast.EgyptianPast;
+import net.straws11.egyptianpast.block.CanopicJarBlock;
 import net.straws11.egyptianpast.block.ModBlockRegistration;
 import net.straws11.egyptianpast.block.Sarcophagus;
 import net.straws11.egyptianpast.data.ModDataComponentRegistration;
-import net.straws11.egyptianpast.item.CanopicJar;
 import net.straws11.egyptianpast.item.ModItemRegistration;
 import net.straws11.egyptianpast.item.OrganType;
 
@@ -36,6 +29,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static net.minecraft.client.data.models.BlockModelGenerators.*;
@@ -58,8 +52,9 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItemRegistration.KEY_FRAGMENT.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItemRegistration.CRYPT_KEY.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItemRegistration.PHARAOH_CROWN.get(), ModelTemplates.FLAT_ITEM);
+
         itemModels.itemModelOutput.accept(
-            ModItemRegistration.CANOPIC_JAR.get(),
+            ModBlockRegistration.CANOPIC_JAR.get(),
             new SelectItemModel.Unbaked(
                 Optional.empty(),
                 new SelectItemModel.UnbakedSwitch<>(
@@ -70,7 +65,7 @@ public class ModModelProvider extends ModelProvider {
                             List.of(organ),
                             new CuboidItemModelWrapper.Unbaked(
                                 Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID,
-                                    "item/canopic_jar_" + organ.getSerializedName()),
+                                    "block/canopic_jar_" + organ.getSerializedName()),
                                 Optional.empty(),
                                 Collections.emptyList()
                             )
@@ -93,8 +88,28 @@ public class ModModelProvider extends ModelProvider {
         blockModels.createTrivialCube(ModBlockRegistration.EGYPTIAN_COBBLESTONE.get());
         createSarcophagus(blockModels);
         blockModels.createTrivialCube(ModBlockRegistration.PAPYRUS_REED_BLOCK.get());
-        // TODO: this needs to change
-        blockModels.createTrivialCube(ModBlockRegistration.PEDESTAL_BLOCK.get());
+        blockModels.createNonTemplateModelBlock(ModBlockRegistration.PEDESTAL_BLOCK.get());
+        createCanopicJar(blockModels);
+
+    }
+
+    public void createCanopicJar(BlockModelGenerators blockModels) {
+        // helper to get location for each enum member
+        Function<OrganType, MultiVariant> genResourceLocation = (organ) ->
+            plainVariant(ModelLocationUtils.getModelLocation(ModBlockRegistration.CANOPIC_JAR_BLOCK.get(),
+                "_" + organ.getSerializedName()));
+
+        var propertyDispatch = PropertyDispatch.initial(CanopicJarBlock.ORGAN);
+
+        for (OrganType organ : OrganType.values()) {
+            propertyDispatch.select(organ, genResourceLocation.apply(organ));
+        }
+
+        blockModels.blockStateOutput.accept(
+            MultiVariantGenerator.dispatch(
+                ModBlockRegistration.CANOPIC_JAR_BLOCK.get()).with(propertyDispatch
+            )
+        );
 
     }
 

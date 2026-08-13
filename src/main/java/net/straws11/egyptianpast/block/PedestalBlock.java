@@ -65,7 +65,6 @@ public class PedestalBlock extends BaseEntityBlock {
                             if (!player.isCreative()) {
                                 itemStack.shrink(1);
                             }
-                            // do other cool stuff like checking whether the pedestal configuration is correct for transformation
                             pedestalBlockEntity.checkSuccessfulPedestalConfiguration(level);
                         }
                     }
@@ -83,10 +82,7 @@ public class PedestalBlock extends BaseEntityBlock {
                                 .extract(ItemResource.of(taken), 1, transaction);
                         if (extracted > 0) {
                             transaction.commit();
-                            if (!player.getInventory().add(taken)) {
-                                player.drop(taken, false);
-
-                            }
+                            giveToPlayer(taken, player, hand);
                         }
                     }
                 }
@@ -94,6 +90,20 @@ public class PedestalBlock extends BaseEntityBlock {
             }
         }
         return super.useItemOn(itemStack, state, level, pos, player, hand, hitResult);
+    }
+
+    /**
+     * Attempt to place item in player's hand, else in inventory, else drop on floor
+     * @param stack ItemStack to receive
+     * @param player player
+     * @param hand the interaction hand
+     */
+    private void giveToPlayer(ItemStack stack, Player player, InteractionHand hand) {
+        if (player.getItemInHand(hand).isEmpty()) {
+            player.setItemInHand(hand, stack);
+        } else if (!player.getInventory().add(stack)) {
+            player.drop(stack, false);
+        }
     }
 
     @Override

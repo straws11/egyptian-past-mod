@@ -7,17 +7,19 @@ import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.straws11.egyptianpast.block.ModBlockRegistration;
 import net.straws11.egyptianpast.block.Sarcophagus;
-import net.straws11.egyptianpast.block.entity.ModBlockEntityRegistration;
+import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 
 import java.util.Set;
-import java.util.function.Function;
 
 public class ModBlockLootTableProvider extends BlockLootSubProvider {
 
@@ -41,6 +43,13 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
             )
         );
         dropSelf(ModBlockRegistration.PEDESTAL_BLOCK.get());
+
+        add(ModBlockRegistration.CANOPIC_JAR_BLOCK.get(), block ->
+            this.createSingleItemTable(block)
+                .apply(CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
+                    .include(ModDataComponentRegistration.ORGAN_TYPE.get())
+                )
+            );
     }
 
     // not sure if this is needed, got this function from tutorial

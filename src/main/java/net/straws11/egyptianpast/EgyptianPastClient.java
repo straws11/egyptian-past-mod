@@ -11,6 +11,8 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import net.straws11.egyptianpast.block.entity.ModBlockEntityRegistration;
+import net.straws11.egyptianpast.block.entity.renderer.PedestalBlockEntityRenderer;
 import net.straws11.egyptianpast.entity.ModEntityRegistration;
 import net.straws11.egyptianpast.renderer.entity.MummyRenderer;
 import net.straws11.egyptianpast.renderer.entity.PharaohRenderer;
@@ -46,6 +48,12 @@ public class EgyptianPastClient {
                 ModEntityRegistration.PHARAOH_ENTITY.get(),
                 PharaohRenderer::new
         );
+    }
+
+    @SubscribeEvent
+    public static void registerBlockEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(ModBlockEntityRegistration.PEDESTAL_BE.get(),
+            PedestalBlockEntityRenderer::new);
     }
 
     public static Identifier getEntityTexture(String image) {

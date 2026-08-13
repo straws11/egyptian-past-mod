@@ -19,6 +19,11 @@ public class ModBlockEntityRegistration {
                     PedestalBlockEntity::new, ModBlockRegistration.PEDESTAL_BLOCK.get()
             ));
 
+    public static final Supplier<BlockEntityType<CanopicJarBlockEntity>> CANOPIC_JAR_BE =
+        BLOCK_ENTITIES.register("canopic_jar_be", () -> new BlockEntityType<>(
+            CanopicJarBlockEntity::new, ModBlockRegistration.CANOPIC_JAR_BLOCK.get()
+        ));
+
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
     }
