@@ -38,6 +38,10 @@ public class ModCreativeTabRegistration {
                 output.accept(KEY_FRAGMENT.get());
                 output.accept(CRYPT_KEY.get());
                 output.accept(PHARAOH_CROWN.get());
+                output.accept(LIVER.get());
+                output.accept(LUNGS.get());
+                output.accept(STOMACH.get());
+                output.accept(INTESTINES.get());
 
                 // canopic jar variants
                 for (OrganType organType : OrganType.values()) {

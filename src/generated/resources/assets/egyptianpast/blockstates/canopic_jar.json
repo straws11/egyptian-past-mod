@@ -1,19 +1,79 @@
 {
   "variants": {
-    "organ=empty": {
+    "facing=east,organ=empty": {
+      "model": "egyptianpast:block/canopic_jar_empty",
+      "y": 90
+    },
+    "facing=east,organ=intestines": {
+      "model": "egyptianpast:block/canopic_jar_intestines",
+      "y": 90
+    },
+    "facing=east,organ=liver": {
+      "model": "egyptianpast:block/canopic_jar_liver",
+      "y": 90
+    },
+    "facing=east,organ=lungs": {
+      "model": "egyptianpast:block/canopic_jar_lungs",
+      "y": 90
+    },
+    "facing=east,organ=stomach": {
+      "model": "egyptianpast:block/canopic_jar_stomach",
+      "y": 90
+    },
+    "facing=north,organ=empty": {
       "model": "egyptianpast:block/canopic_jar_empty"
     },
-    "organ=intestines": {
+    "facing=north,organ=intestines": {
       "model": "egyptianpast:block/canopic_jar_intestines"
     },
-    "organ=liver": {
+    "facing=north,organ=liver": {
       "model": "egyptianpast:block/canopic_jar_liver"
     },
-    "organ=lungs": {
+    "facing=north,organ=lungs": {
       "model": "egyptianpast:block/canopic_jar_lungs"
     },
-    "organ=stomach": {
+    "facing=north,organ=stomach": {
       "model": "egyptianpast:block/canopic_jar_stomach"
+    },
+    "facing=south,organ=empty": {
+      "model": "egyptianpast:block/canopic_jar_empty",
+      "y": 180
+    },
+    "facing=south,organ=intestines": {
+      "model": "egyptianpast:block/canopic_jar_intestines",
+      "y": 180
+    },
+    "facing=south,organ=liver": {
+      "model": "egyptianpast:block/canopic_jar_liver",
+      "y": 180
+    },
+    "facing=south,organ=lungs": {
+      "model": "egyptianpast:block/canopic_jar_lungs",
+      "y": 180
+    },
+    "facing=south,organ=stomach": {
+      "model": "egyptianpast:block/canopic_jar_stomach",
+      "y": 180
+    },
+    "facing=west,organ=empty": {
+      "model": "egyptianpast:block/canopic_jar_empty",
+      "y": 270
+    },
+    "facing=west,organ=intestines": {
+      "model": "egyptianpast:block/canopic_jar_intestines",
+      "y": 270
+    },
+    "facing=west,organ=liver": {
+      "model": "egyptianpast:block/canopic_jar_liver",
+      "y": 270
+    },
+    "facing=west,organ=lungs": {
+      "model": "egyptianpast:block/canopic_jar_lungs",
+      "y": 270
+    },
+    "facing=west,organ=stomach": {
+      "model": "egyptianpast:block/canopic_jar_stomach",
+      "y": 270
     }
   }
 }

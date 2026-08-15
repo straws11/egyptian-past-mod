@@ -1,29 +1,41 @@
 package net.straws11.egyptianpast.block;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.straws11.egyptianpast.block.entity.CanopicJarBlockEntity;
 import net.straws11.egyptianpast.data.ModDataComponentRegistration;
+import net.straws11.egyptianpast.item.ModItems;
 import net.straws11.egyptianpast.item.OrganType;
 import org.jspecify.annotations.Nullable;
 
-public class CanopicJarBlock extends BaseEntityBlock {
+import java.util.List;
+import java.util.Map;
 
+public class CanopicJarBlock extends BaseEntityBlock {
+    private static EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     // used to store the state on the block instead of getting from blockentity, is better
     public static final EnumProperty<OrganType> ORGAN = EnumProperty.create("organ", OrganType.class);
 
@@ -32,13 +44,17 @@ public class CanopicJarBlock extends BaseEntityBlock {
 
     public CanopicJarBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(getStateDefinition().any().setValue(ORGAN, OrganType.EMPTY));
+        this.registerDefaultState(getStateDefinition().any()
+            .setValue(ORGAN, OrganType.EMPTY)
+            .setValue(FACING, Direction.NORTH)
+        );
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(ORGAN);
+        builder.add(FACING);
     }
 
     @Override
@@ -49,6 +65,46 @@ public class CanopicJarBlock extends BaseEntityBlock {
 
             level.setBlockAndUpdate(pos, state.setValue(ORGAN, organ));
         }
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+    }
+
+    @Override
+    protected BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+    }
+
+
+    @Override
+    protected BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
+    }
+
+    @Override
+    protected InteractionResult useItemOn(ItemStack itemStack, BlockState state, Level level, BlockPos pos,
+                                          Player player, InteractionHand hand, BlockHitResult hitResult) {
+       var organs = List.of(
+           Map.entry(ModItems.LIVER.get(), OrganType.LIVER),
+           Map.entry(ModItems.LUNGS.get(), OrganType.LUNGS),
+           Map.entry(ModItems.STOMACH.get(), OrganType.STOMACH),
+           Map.entry(ModItems.INTESTINES.get(), OrganType.INTESTINES)
+           );
+       for (Map.Entry<Item, OrganType> entry : organs) {
+           if (!itemStack.is(entry.getKey())) continue;
+           CanopicJarBlockEntity jarBe = (CanopicJarBlockEntity) level.getBlockEntity(pos);
+           assert jarBe != null;
+           if (jarBe.getOrganType() != OrganType.EMPTY) return InteractionResult.SUCCESS;
+           jarBe.setOrganType(entry.getValue());
+           if (!level.isClientSide()) {
+               level.setBlockAndUpdate(pos, state.setValue(ORGAN, entry.getValue()));
+           }
+           itemStack.shrink(1);
+           break;
+       }
+    return InteractionResult.SUCCESS;
     }
 
     @Override

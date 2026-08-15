@@ -15,8 +15,10 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.straws11.egyptianpast.block.ModBlocks;
+import net.straws11.egyptianpast.block.PomegranateCropBlock;
 import net.straws11.egyptianpast.block.Sarcophagus;
 import net.straws11.egyptianpast.data.ModDataComponentRegistration;
+import net.straws11.egyptianpast.item.ModItems;
 
 import java.util.Set;
 
@@ -47,8 +49,15 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
             this.createSingleItemTable(block)
                 .apply(CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
                     .include(ModDataComponentRegistration.ORGAN_TYPE.get())
-                )
-            );
+            )
+        );
+
+        add(ModBlocks.POMEGRANATE_CROP.get(), createCropDrops(ModBlocks.POMEGRANATE_CROP.get(),
+            ModItems.POMEGRANATE.get(), ModBlocks.POMEGRANATE_SEEDS.get(),
+            LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.POMEGRANATE_CROP.get())
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(PomegranateCropBlock.AGE, 3))
+            )
+        );
     }
 
     // not sure if this is needed, got this function from tutorial

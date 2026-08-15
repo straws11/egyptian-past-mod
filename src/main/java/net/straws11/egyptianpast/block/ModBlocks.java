@@ -1,8 +1,10 @@
 package net.straws11.egyptianpast.block;
 
+import io.netty.util.Attribute;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.PushReaction;
@@ -85,6 +87,16 @@ public class ModBlocks {
         ITEMS.registerItem("canopic_jar", p ->
             new CanopicJarBlockItem(CANOPIC_JAR_BLOCK.get(), p));
 
+    public static final DeferredBlock<Block> POMEGRANATE_CROP =
+        BLOCKS.registerBlock("pomegranate_crop",
+            p -> new PomegranateCropBlock(p.randomTicks()
+                .sound(SoundType.SWEET_BERRY_BUSH).noCollision()
+                .instabreak().pushReaction(PushReaction.DESTROY))
+        );
+
+    public static final DeferredItem<Item> POMEGRANATE_SEEDS =
+        ITEMS.registerItem("pomegranate_seeds",
+            p -> new BlockItem(POMEGRANATE_CROP.get(), p));
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);

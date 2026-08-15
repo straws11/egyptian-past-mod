@@ -41,7 +41,7 @@ public class PedestalBlockEntityRenderer implements BlockEntityRenderer<Pedestal
     public void submit(PedestalBlockEntityRenderState renderState, PoseStack poseStack,
                        SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
         poseStack.pushPose();
-        poseStack.translate(0.5f, 1.15f, 0.5f);
+        poseStack.translate(0.5f, 1.25f, 0.5f);
         poseStack.scale(0.5f, 0.5f, 0.5f);
         poseStack.mulPose(Axis.YP.rotationDegrees(renderState.rotation));
         renderState.itemStackRenderState.submit(poseStack, submitNodeCollector, renderState.lightCoords,

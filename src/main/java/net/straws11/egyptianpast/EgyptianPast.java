@@ -1,6 +1,11 @@
 package net.straws11.egyptianpast;
 
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
+import net.neoforged.bus.api.Event;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.straws11.egyptianpast.block.ModBlocks;
 import net.straws11.egyptianpast.block.entity.ModBlockEntities;
@@ -10,6 +15,7 @@ import net.straws11.egyptianpast.entity.ModEntities;
 import net.straws11.egyptianpast.entity.Mummy;
 import net.straws11.egyptianpast.entity.Pharaoh;
 import net.straws11.egyptianpast.item.ModItems;
+import net.straws11.egyptianpast.loot.ModLootModifiers;
 import net.straws11.egyptianpast.worldgen.ModOverworldRegion;
 import net.straws11.egyptianpast.worldgen.ModSurfaceRuleManager;
 import org.slf4j.Logger;
@@ -31,6 +37,9 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import terrablender.api.Regions;
 import terrablender.api.SurfaceRuleManager;
 
+import java.util.concurrent.CompletableFuture;
+
+import static net.straws11.egyptianpast.block.ModBlocks.POMEGRANATE_SEEDS;
 import static net.straws11.egyptianpast.entity.ModEntities.MUMMY_ENTITY;
 import static net.straws11.egyptianpast.entity.ModEntities.PHARAOH_ENTITY;
 import static net.straws11.egyptianpast.item.ModItems.MUMMY_SPAWN_EGG;
@@ -59,6 +68,8 @@ public class EgyptianPast {
         // Register the Deferred Register to the mod event bus so tabs get registered
         ModCreativeTabRegistration.register(modEventBus);
 
+        ModLootModifiers.register(modEventBus);
+
         ModEntities.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in.
@@ -69,7 +80,6 @@ public class EgyptianPast {
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
         modEventBus.addListener(this::createDefaultAttributes);
-
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
@@ -90,6 +100,9 @@ public class EgyptianPast {
         if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
             event.accept(MUMMY_SPAWN_EGG);
             event.accept(PHARAOH_SPAWN_EGG);
+        }
+        if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
+            event.accept(POMEGRANATE_SEEDS);
         }
     }
 

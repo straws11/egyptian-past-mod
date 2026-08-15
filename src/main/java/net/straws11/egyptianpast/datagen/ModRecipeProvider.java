@@ -5,9 +5,16 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.straws11.egyptianpast.block.ModBlocks;
+import net.straws11.egyptianpast.data.ModDataComponentRegistration;
+import net.straws11.egyptianpast.item.CanopicJarBlockItem;
 import net.straws11.egyptianpast.item.ModItems;
+import net.straws11.egyptianpast.item.OrganType;
 
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends RecipeProvider {
@@ -50,6 +57,5 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(ModItems.KEY_FRAGMENT.get()), has(ModItems.KEY_FRAGMENT.get()))
                 .group("crypt_key")
                 .save(output);
-
     }
 }

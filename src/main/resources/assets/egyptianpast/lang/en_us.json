@@ -1,12 +1,17 @@
 {
   "itemGroup.egyptianpast": "Egyptian Past",
   "item.egyptianpast.pomegranate": "Pomegranate",
+  "item.egyptianpast.pomegranate_seeds": "Pomegranate Seeds",
   "item.egyptianpast.papyrus_sheet": "Papyrus Sheet",
   "item.egyptianpast.ankh_of_life": "Ankh Of Life",
   "item.egyptianpast.mummy_wrap": "Mummy Wrap",
   "item.egyptianpast.key_fragment": "Key Fragment",
   "item.egyptianpast.crypt_key": "Crypt Key",
   "item.egyptianpast.pharaoh_crown": "Pharaoh's Crown",
+  "item.egyptianpast.liver": "Liver",
+  "item.egyptianpast.lungs": "Lungs",
+  "item.egyptianpast.stomach": "Stomach",
+  "item.egyptianpast.intestines": "Intestines",
 
   "block.egyptianpast.papyrus_reed": "Papyrus Reed",
   "block.egyptianpast.limestone": "Limestone",
@@ -40,5 +45,6 @@
   "organ.egyptianpast.stomach": "stomach",
   "organ.egyptianpast.intestines": "intestines",
   "cursed_message.egyptianpast": "The ancient pharaoh's curse prevents this!",
-  "tooltip.egyptianpast.cursed": "This item is cursed"
+  "tooltip.egyptianpast.cursed": "This item is cursed",
+  "enchantment.egyptianpast.harvesting": "Harvesting"
 }

@@ -1,6 +1,7 @@
 package net.straws11.egyptianpast.item;
 
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SpawnEggItem;
@@ -8,6 +9,7 @@ import net.minecraft.world.item.equipment.ArmorType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.straws11.egyptianpast.block.ModBlocks;
 
 import static net.straws11.egyptianpast.EgyptianPast.MOD_ID;
 import static net.straws11.egyptianpast.entity.ModEntities.MUMMY_ENTITY;
@@ -55,6 +57,22 @@ public class ModItems {
                     p.humanoidArmor(ModArmorMaterials.PHARAOH_ARMOR_MATERIAL, ArmorType.HELMET)
                             .rarity(Rarity.EPIC))
             );
+
+    /// --- ORGANS ---
+
+    public static final DeferredItem<Item> LIVER =
+        ITEMS.registerSimpleItem("liver");
+
+    public static final DeferredItem<Item> LUNGS =
+        ITEMS.registerSimpleItem("lungs");
+
+    public static final DeferredItem<Item> STOMACH =
+        ITEMS.registerSimpleItem("stomach");
+
+    public static final DeferredItem<Item> INTESTINES =
+        ITEMS.registerSimpleItem("intestines");
+
+    /// --------------
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

@@ -49,11 +49,11 @@ public class PedestalBlockEntity extends BlockEntity {
             setChanged();
         }
 
-        @Override
+        /*@Override
         protected boolean isValid(ItemResource resource) {
             return resource.getItem() instanceof ICursedItem
                     || resource.is(ModBlocks.CANOPIC_JAR.get());
-        }
+        }*/
 
         @Override
         protected void onRootCommit(ItemStack originalState) {

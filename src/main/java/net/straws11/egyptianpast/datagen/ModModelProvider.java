@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.straws11.egyptianpast.EgyptianPast;
 import net.straws11.egyptianpast.block.CanopicJarBlock;
 import net.straws11.egyptianpast.block.ModBlocks;
+import net.straws11.egyptianpast.block.PomegranateCropBlock;
 import net.straws11.egyptianpast.block.Sarcophagus;
 import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.item.ModItems;
@@ -51,6 +52,11 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItems.KEY_FRAGMENT.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.CRYPT_KEY.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.PHARAOH_CROWN.get(), ModelTemplates.FLAT_ITEM);
+
+        itemModels.generateFlatItem(ModItems.LIVER.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.LUNGS.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.STOMACH.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.INTESTINES.get(), ModelTemplates.FLAT_ITEM);
 
         itemModels.itemModelOutput.accept(
             ModBlocks.CANOPIC_JAR.get(),
@@ -86,8 +92,11 @@ public class ModModelProvider extends ModelProvider {
         blockModels.createTrivialCube(ModBlocks.EGYPTIAN_STONE.get());
         blockModels.createTrivialCube(ModBlocks.EGYPTIAN_COBBLESTONE.get());
         createSarcophagus(blockModels);
-        blockModels.createTrivialCube(ModBlocks.PAPYRUS_REED_BLOCK.get());
         blockModels.createNonTemplateModelBlock(ModBlocks.PEDESTAL_BLOCK.get());
+
+        blockModels.createCropBlock(ModBlocks.POMEGRANATE_CROP.get(), PomegranateCropBlock.AGE, 0, 1, 2, 3);
+        blockModels.createCrossBlock(ModBlocks.PAPYRUS_REED_BLOCK.get(), PlantType.NOT_TINTED);
+
         createCanopicJar(blockModels);
 
     }
@@ -98,16 +107,23 @@ public class ModModelProvider extends ModelProvider {
             plainVariant(ModelLocationUtils.getModelLocation(ModBlocks.CANOPIC_JAR_BLOCK.get(),
                 "_" + organ.getSerializedName()));
 
-        var propertyDispatch = PropertyDispatch.initial(CanopicJarBlock.ORGAN);
+        var organDispatch = PropertyDispatch.initial(CanopicJarBlock.ORGAN);
 
         for (OrganType organ : OrganType.values()) {
-            propertyDispatch.select(organ, genResourceLocation.apply(organ));
+            organDispatch.select(organ, genResourceLocation.apply(organ));
         }
+
+        var facingDispatch = PropertyDispatch.modify(BlockStateProperties.HORIZONTAL_FACING)
+            .select(Direction.NORTH, NOP)
+            .select(Direction.EAST, Y_ROT_90)
+            .select(Direction.SOUTH, Y_ROT_180)
+            .select(Direction.WEST, Y_ROT_270);
 
         blockModels.blockStateOutput.accept(
             MultiVariantGenerator.dispatch(
-                ModBlocks.CANOPIC_JAR_BLOCK.get()).with(propertyDispatch
-            )
+                ModBlocks.CANOPIC_JAR_BLOCK.get())
+                .with(organDispatch)
+                .with(facingDispatch)
         );
 
     }
