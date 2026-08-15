@@ -1,6 +1,5 @@
 package net.straws11.egyptianpast.item;
 
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -13,8 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.straws11.egyptianpast.entity.ModEntityRegistration;
-import org.jetbrains.annotations.NotNullByDefault;
+import net.straws11.egyptianpast.entity.ModEntities;
 
 public class MummyWrapItem extends Item {
 
@@ -25,7 +23,7 @@ public class MummyWrapItem extends Item {
     @Override
     public InteractionResult interactLivingEntity(ItemStack itemStack, Player player, LivingEntity target, InteractionHand type) {
         if (target instanceof Zombie entity && !entity.isBaby()) {
-            entity.convertTo(ModEntityRegistration.MUMMY_ENTITY.get(),
+            entity.convertTo(ModEntities.MUMMY_ENTITY.get(),
                     ConversionParams.single(
                             (Mob) entity,
                             true,

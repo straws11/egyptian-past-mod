@@ -5,8 +5,8 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.straws11.egyptianpast.block.ModBlockRegistration;
-import net.straws11.egyptianpast.item.ModItemRegistration;
+import net.straws11.egyptianpast.block.ModBlocks;
+import net.straws11.egyptianpast.item.ModItems;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -34,20 +34,20 @@ public class ModRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes() {
-        shaped(RecipeCategory.MISC, ModItemRegistration.PAPYRUS_SHEET.get(), 2)
+        shaped(RecipeCategory.MISC, ModItems.PAPYRUS_SHEET.get(), 2)
                 .pattern("AAA")
-                .define('A', ModBlockRegistration.PAPYRUS_REED.get())
-                .unlockedBy(getHasName(ModBlockRegistration.PAPYRUS_REED.get()),
-                        has(ModBlockRegistration.PAPYRUS_REED.get()))
+                .define('A', ModBlocks.PAPYRUS_REED.get())
+                .unlockedBy(getHasName(ModBlocks.PAPYRUS_REED.get()),
+                        has(ModBlocks.PAPYRUS_REED.get()))
                 .group("papyrus")
                 .save(output);
 
-        shaped(RecipeCategory.MISC, ModItemRegistration.CRYPT_KEY.get(), 1)
+        shaped(RecipeCategory.MISC, ModItems.CRYPT_KEY.get(), 1)
                 .pattern("AAA")
                 .pattern("A A")
                 .pattern(" A ")
-                .define('A', ModItemRegistration.KEY_FRAGMENT.get())
-                .unlockedBy(getHasName(ModItemRegistration.KEY_FRAGMENT.get()), has(ModItemRegistration.KEY_FRAGMENT.get()))
+                .define('A', ModItems.KEY_FRAGMENT.get())
+                .unlockedBy(getHasName(ModItems.KEY_FRAGMENT.get()), has(ModItems.KEY_FRAGMENT.get()))
                 .group("crypt_key")
                 .save(output);
 

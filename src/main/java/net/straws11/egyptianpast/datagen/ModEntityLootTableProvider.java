@@ -13,8 +13,8 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.straws11.egyptianpast.entity.ModEntityRegistration;
-import net.straws11.egyptianpast.item.ModItemRegistration;
+import net.straws11.egyptianpast.entity.ModEntities;
+import net.straws11.egyptianpast.item.ModItems;
 
 import java.util.stream.Stream;
 
@@ -26,14 +26,14 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
 
     @Override
     protected Stream<EntityType<?>> getKnownEntityTypes() {
-        return ModEntityRegistration.ENTITY_TYPES.getEntries()
+        return ModEntities.ENTITY_TYPES.getEntries()
                 .stream()
                 .map(e -> (EntityType<?>) e.value());
     }
 
     @Override
     public void generate() {
-        add(ModEntityRegistration.MUMMY_ENTITY.get(),
+        add(ModEntities.MUMMY_ENTITY.get(),
             LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1))
@@ -51,7 +51,7 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
                 .withPool(LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1))
                     .add(
-                        LootItem.lootTableItem(ModItemRegistration.MUMMY_WRAP)
+                        LootItem.lootTableItem(ModItems.MUMMY_WRAP)
                             .apply(SetItemCountFunction.setCount(
                                     UniformGenerator.between(-1.0F, 1.0F)
                             ))
@@ -64,12 +64,12 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
                 )
         );
 
-        add(ModEntityRegistration.PHARAOH_ENTITY.get(),
+        add(ModEntities.PHARAOH_ENTITY.get(),
                 LootTable.lootTable()
                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
                         .withPool(LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1))
-                                .add(LootItem.lootTableItem(ModItemRegistration.KEY_FRAGMENT))
+                                .add(LootItem.lootTableItem(ModItems.KEY_FRAGMENT))
                         )
         );
     }

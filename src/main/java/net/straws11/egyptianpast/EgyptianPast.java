@@ -2,15 +2,14 @@ package net.straws11.egyptianpast;
 
 import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
-import net.straws11.egyptianpast.block.ModBlockRegistration;
-import net.straws11.egyptianpast.block.entity.ModBlockEntityRegistration;
+import net.straws11.egyptianpast.block.ModBlocks;
+import net.straws11.egyptianpast.block.entity.ModBlockEntities;
 import net.straws11.egyptianpast.creativetab.ModCreativeTabRegistration;
 import net.straws11.egyptianpast.data.ModDataComponentRegistration;
-import net.straws11.egyptianpast.entity.ModEntityRegistration;
+import net.straws11.egyptianpast.entity.ModEntities;
 import net.straws11.egyptianpast.entity.Mummy;
 import net.straws11.egyptianpast.entity.Pharaoh;
-import net.straws11.egyptianpast.events.ModItemEvents;
-import net.straws11.egyptianpast.item.ModItemRegistration;
+import net.straws11.egyptianpast.item.ModItems;
 import net.straws11.egyptianpast.worldgen.ModOverworldRegion;
 import net.straws11.egyptianpast.worldgen.ModSurfaceRuleManager;
 import org.slf4j.Logger;
@@ -32,10 +31,10 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import terrablender.api.Regions;
 import terrablender.api.SurfaceRuleManager;
 
-import static net.straws11.egyptianpast.entity.ModEntityRegistration.MUMMY_ENTITY;
-import static net.straws11.egyptianpast.entity.ModEntityRegistration.PHARAOH_ENTITY;
-import static net.straws11.egyptianpast.item.ModItemRegistration.MUMMY_SPAWN_EGG;
-import static net.straws11.egyptianpast.item.ModItemRegistration.PHARAOH_SPAWN_EGG;
+import static net.straws11.egyptianpast.entity.ModEntities.MUMMY_ENTITY;
+import static net.straws11.egyptianpast.entity.ModEntities.PHARAOH_ENTITY;
+import static net.straws11.egyptianpast.item.ModItems.MUMMY_SPAWN_EGG;
+import static net.straws11.egyptianpast.item.ModItems.PHARAOH_SPAWN_EGG;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(EgyptianPast.MOD_ID)
@@ -51,16 +50,16 @@ public class EgyptianPast {
         modEventBus.addListener(this::commonSetup);
 
         // Register the Deferred Register to the mod event bus so blocks get registered
-        ModBlockRegistration.register(modEventBus);
-        ModBlockEntityRegistration.register(modEventBus);
+        ModBlocks.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
 
         ModDataComponentRegistration.register(modEventBus);
         // Register the Deferred Register to the mod event bus so items get registered
-        ModItemRegistration.register(modEventBus);
+        ModItems.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
         ModCreativeTabRegistration.register(modEventBus);
 
-        ModEntityRegistration.register(modEventBus);
+        ModEntities.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (EgyptianPast) to respond directly to events.

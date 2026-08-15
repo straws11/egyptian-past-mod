@@ -11,12 +11,11 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-import net.straws11.egyptianpast.block.entity.ModBlockEntityRegistration;
+import net.straws11.egyptianpast.block.entity.ModBlockEntities;
 import net.straws11.egyptianpast.block.entity.renderer.PedestalBlockEntityRenderer;
-import net.straws11.egyptianpast.entity.ModEntityRegistration;
+import net.straws11.egyptianpast.entity.ModEntities;
 import net.straws11.egyptianpast.renderer.entity.MummyRenderer;
 import net.straws11.egyptianpast.renderer.entity.PharaohRenderer;
-import org.lwjgl.vulkan.VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT;
 
 // This class will not load on dedicated servers. Accessing client side code from here is safe.
 @Mod(value = EgyptianPast.MOD_ID, dist = Dist.CLIENT)
@@ -40,19 +39,19 @@ public class EgyptianPastClient {
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(
-                ModEntityRegistration.MUMMY_ENTITY.get(),
+                ModEntities.MUMMY_ENTITY.get(),
                 MummyRenderer::new
         );
 
         event.registerEntityRenderer(
-                ModEntityRegistration.PHARAOH_ENTITY.get(),
+                ModEntities.PHARAOH_ENTITY.get(),
                 PharaohRenderer::new
         );
     }
 
     @SubscribeEvent
     public static void registerBlockEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(ModBlockEntityRegistration.PEDESTAL_BE.get(),
+        event.registerBlockEntityRenderer(ModBlockEntities.PEDESTAL_BE.get(),
             PedestalBlockEntityRenderer::new);
     }
 

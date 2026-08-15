@@ -12,8 +12,8 @@ import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.item.OrganType;
 
 import static net.straws11.egyptianpast.EgyptianPast.MOD_ID;
-import static net.straws11.egyptianpast.block.ModBlockRegistration.*;
-import static net.straws11.egyptianpast.item.ModItemRegistration.*;
+import static net.straws11.egyptianpast.block.ModBlocks.*;
+import static net.straws11.egyptianpast.item.ModItems.*;
 
 public class ModCreativeTabRegistration {
 

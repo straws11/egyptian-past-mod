@@ -10,10 +10,10 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import static net.straws11.egyptianpast.EgyptianPast.MOD_ID;
-import static net.straws11.egyptianpast.entity.ModEntityRegistration.MUMMY_ENTITY;
-import static net.straws11.egyptianpast.entity.ModEntityRegistration.PHARAOH_ENTITY;
+import static net.straws11.egyptianpast.entity.ModEntities.MUMMY_ENTITY;
+import static net.straws11.egyptianpast.entity.ModEntities.PHARAOH_ENTITY;
 
-public class ModItemRegistration {
+public class ModItems {
     // Create a Deferred Register to hold Items which will all be registered under the "egyptianpast" namespace
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MOD_ID);
 

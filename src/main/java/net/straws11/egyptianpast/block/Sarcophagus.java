@@ -3,10 +3,8 @@ package net.straws11.egyptianpast.block;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -27,11 +25,10 @@ import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.straws11.egyptianpast.item.ModItemRegistration;
+import net.straws11.egyptianpast.item.ModItems;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Set;
@@ -68,7 +65,7 @@ public class Sarcophagus extends HorizontalDirectionalBlock {
 
         if (state.getValue(OPENED)) return super.useItemOn(itemStack, state, level, pos, player, hand, hitResult);
 
-        if (itemStack.getItem() == ModItemRegistration.CRYPT_KEY.get()) {
+        if (itemStack.getItem() == ModItems.CRYPT_KEY.get()) {
             BlockPos otherPos = pos.relative(getNeighbourDirection(state.getValue(PART), state.getValue(FACING)));
             BlockState otherState = level.getBlockState(otherPos);
 

@@ -10,14 +10,12 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.item.CanopicJarBlockItem;
-import net.straws11.egyptianpast.item.OrganType;
 
 import static net.straws11.egyptianpast.EgyptianPast.MOD_ID;
-import static net.straws11.egyptianpast.item.ModItemRegistration.ITEMS;
+import static net.straws11.egyptianpast.item.ModItems.ITEMS;
 
-public class ModBlockRegistration {
+public class ModBlocks {
 
     // Create a Deferred Register to hold Blocks which will all be registered under the "egyptianpast" namespace
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MOD_ID);

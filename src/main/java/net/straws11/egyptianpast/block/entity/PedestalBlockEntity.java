@@ -22,7 +22,7 @@ import net.neoforged.neoforge.transfer.access.ItemAccess;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStackResourceHandler;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
-import net.straws11.egyptianpast.block.ModBlockRegistration;
+import net.straws11.egyptianpast.block.ModBlocks;
 import net.straws11.egyptianpast.block.PedestalBlock;
 import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.item.CanopicJarBlockItem;
@@ -52,7 +52,7 @@ public class PedestalBlockEntity extends BlockEntity {
         @Override
         protected boolean isValid(ItemResource resource) {
             return resource.getItem() instanceof ICursedItem
-                    || resource.is(ModBlockRegistration.CANOPIC_JAR.get());
+                    || resource.is(ModBlocks.CANOPIC_JAR.get());
         }
 
         @Override
@@ -71,7 +71,7 @@ public class PedestalBlockEntity extends BlockEntity {
     };
 
     public PedestalBlockEntity(BlockPos worldPosition, BlockState blockState) {
-        super(ModBlockEntityRegistration.PEDESTAL_BE.get(), worldPosition, blockState);
+        super(ModBlockEntities.PEDESTAL_BE.get(), worldPosition, blockState);
     }
 
     public ItemStack getStoredStack() {
@@ -122,7 +122,7 @@ public class PedestalBlockEntity extends BlockEntity {
 
         for (BlockPos blockPos : childPedestalPositions) {
             if (!(level.getBlockEntity(blockPos) instanceof PedestalBlockEntity otherPedestalBe)) break;
-            if (!otherPedestalBe.getStoredStack().is(ModBlockRegistration.CANOPIC_JAR)) break;
+            if (!otherPedestalBe.getStoredStack().is(ModBlocks.CANOPIC_JAR)) break;
             childPedestals.add(otherPedestalBe);
 
             OrganType organ = CanopicJarBlockItem.getOrgan(otherPedestalBe.getStoredStack());

@@ -2,17 +2,13 @@ package net.straws11.egyptianpast.renderer.entity;
 
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.model.monster.zombie.BabyZombieModel;
-import net.minecraft.client.model.monster.zombie.ZombieModel;
 import net.minecraft.client.renderer.entity.ArmorModelSet;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
-import net.minecraft.client.renderer.entity.state.ZombieRenderState;
 import net.minecraft.resources.Identifier;
 import net.straws11.egyptianpast.EgyptianPastClient;
 import net.straws11.egyptianpast.entity.Mummy;
-import net.straws11.egyptianpast.item.ModItemRegistration;
 import net.straws11.egyptianpast.model.entity.MummyModel;
 import net.straws11.egyptianpast.renderer.entity.state.MummyRenderState;
 

@@ -14,7 +14,7 @@ public class CanopicJarBlockEntity extends BlockEntity {
     private OrganType organType = OrganType.EMPTY;
 
     public CanopicJarBlockEntity(BlockPos worldPosition, BlockState blockState) {
-        super(ModBlockEntityRegistration.CANOPIC_JAR_BE.get(), worldPosition, blockState);
+        super(ModBlockEntities.CANOPIC_JAR_BE.get(), worldPosition, blockState);
     }
 
     public OrganType getOrganType() {

@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 
 import static net.straws11.egyptianpast.EgyptianPast.MOD_ID;
 
-public class ModEntityRegistration {
+public class ModEntities {
     // Create a Deferred Register to hold Items which will all be registered under the "egyptianpast" namespace
     public static final DeferredRegister.Entities ENTITY_TYPES = DeferredRegister.createEntities(MOD_ID);
 

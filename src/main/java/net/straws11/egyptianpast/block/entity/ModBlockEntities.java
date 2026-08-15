@@ -5,23 +5,23 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.straws11.egyptianpast.EgyptianPast;
-import net.straws11.egyptianpast.block.ModBlockRegistration;
+import net.straws11.egyptianpast.block.ModBlocks;
 
 import java.util.function.Supplier;
 
 
-public class ModBlockEntityRegistration {
+public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, EgyptianPast.MOD_ID);
 
     public static final Supplier<BlockEntityType<PedestalBlockEntity>> PEDESTAL_BE =
             BLOCK_ENTITIES.register("pedestal_be", () -> new BlockEntityType<>(
-                    PedestalBlockEntity::new, ModBlockRegistration.PEDESTAL_BLOCK.get()
+                    PedestalBlockEntity::new, ModBlocks.PEDESTAL_BLOCK.get()
             ));
 
     public static final Supplier<BlockEntityType<CanopicJarBlockEntity>> CANOPIC_JAR_BE =
         BLOCK_ENTITIES.register("canopic_jar_be", () -> new BlockEntityType<>(
-            CanopicJarBlockEntity::new, ModBlockRegistration.CANOPIC_JAR_BLOCK.get()
+            CanopicJarBlockEntity::new, ModBlocks.CANOPIC_JAR_BLOCK.get()
         ));
 
     public static void register(IEventBus eventBus) {
