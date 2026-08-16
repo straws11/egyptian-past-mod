@@ -1,5 +1,6 @@
 package net.straws11.egyptianpast;
 
+import com.geckolib.renderer.GeoEntityRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
@@ -14,7 +15,6 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.straws11.egyptianpast.block.entity.ModBlockEntities;
 import net.straws11.egyptianpast.block.entity.renderer.PedestalBlockEntityRenderer;
 import net.straws11.egyptianpast.entity.ModEntities;
-import net.straws11.egyptianpast.renderer.entity.MummyRenderer;
 import net.straws11.egyptianpast.renderer.entity.PharaohRenderer;
 
 // This class will not load on dedicated servers. Accessing client side code from here is safe.
@@ -40,7 +40,7 @@ public class EgyptianPastClient {
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(
                 ModEntities.MUMMY_ENTITY.get(),
-                MummyRenderer::new
+                context -> new GeoEntityRenderer<>(context, ModEntities.MUMMY_ENTITY.get())
         );
 
         event.registerEntityRenderer(
