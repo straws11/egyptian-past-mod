@@ -1,0 +1,37 @@
+{
+  "parent": "egyptianpast:egyptianpast/get_crypt_key",
+  "criteria": {
+    "kill_pharaoh": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "minecraft:entity_type": "egyptianpast:pharaoh"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.egyptianpast.kill_pharaoh.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "egyptianpast:pharaoh_crown"
+    },
+    "title": {
+      "translate": "advancements.egyptianpast.kill_pharaoh.title"
+    }
+  },
+  "requirements": [
+    [
+      "kill_pharaoh"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

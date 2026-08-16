@@ -2,10 +2,14 @@ package net.straws11.egyptianpast.datagen;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
+import net.neoforged.neoforge.common.loot.AddTableLootModifier;
+import net.neoforged.neoforge.common.loot.LootTableIdCondition;
 import net.straws11.egyptianpast.EgyptianPast;
 import net.straws11.egyptianpast.loot.OrganHarvestLootModifier;
 
@@ -25,6 +29,12 @@ public class ModGlobalLootModifierProvider extends GlobalLootModifierProvider {
             },
             10
         ));
+
+        add("canopic_jar_to_desert_temple",
+            new AddTableLootModifier(new LootItemCondition[] {
+                new LootTableIdCondition.Builder(Identifier.withDefaultNamespace("chests/desert_pyramid")).build()
+            }, 10, ModExtraLootProvider.CANOPIC_JARS)
+        );
 
     }
 }

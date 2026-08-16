@@ -1,0 +1,64 @@
+{
+  "pools": [
+    {
+      "conditions": [
+        {
+          "chance": 0.5,
+          "condition": "minecraft:random_chance"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "components": {
+                "egyptianpast:organ_type": "liver"
+              },
+              "function": "minecraft:set_components"
+            }
+          ],
+          "name": "egyptianpast:canopic_jar"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "components": {
+                "egyptianpast:organ_type": "lungs"
+              },
+              "function": "minecraft:set_components"
+            }
+          ],
+          "name": "egyptianpast:canopic_jar"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "components": {
+                "egyptianpast:organ_type": "stomach"
+              },
+              "function": "minecraft:set_components"
+            }
+          ],
+          "name": "egyptianpast:canopic_jar"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "components": {
+                "egyptianpast:organ_type": "intestines"
+              },
+              "function": "minecraft:set_components"
+            }
+          ],
+          "name": "egyptianpast:canopic_jar"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "egyptianpast:extra/glm/canopic_jars"
+}

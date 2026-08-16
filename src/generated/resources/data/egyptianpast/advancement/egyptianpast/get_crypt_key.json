@@ -1,0 +1,32 @@
+{
+  "parent": "egyptianpast:egyptianpast/root",
+  "criteria": {
+    "crypt_key": {
+      "conditions": {
+        "items": [
+          {
+            "items": "egyptianpast:crypt_key"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.egyptianpast.get_crypt_key.description"
+    },
+    "icon": {
+      "id": "egyptianpast:crypt_key"
+    },
+    "title": {
+      "translate": "advancements.egyptianpast.get_crypt_key.title"
+    }
+  },
+  "requirements": [
+    [
+      "crypt_key"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -10,8 +10,10 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -28,6 +30,7 @@ import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.item.CanopicJarBlockItem;
 import net.straws11.egyptianpast.item.ICursedItem;
 import net.straws11.egyptianpast.item.OrganType;
+import net.straws11.egyptianpast.stat.ModStats;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -105,7 +108,7 @@ public class PedestalBlockEntity extends BlockEntity {
         this.itemHandler.deserialize(input);
     }
 
-    public void checkSuccessfulPedestalConfiguration(Level level) {
+    public void checkSuccessfulPedestalConfiguration(Level level, Player player) {
         ItemStack stack = this.getStoredStack();
         // early return if this isn't the main pedestal
         // NOTE: ^^ this means you have to place this item last
@@ -137,6 +140,7 @@ public class PedestalBlockEntity extends BlockEntity {
             boolean successful = consumeCanopicJars(childPedestals, transaction);
             if (successful) {
                 transaction.commit();
+                player.awardStat(ModStats.ITEMS_CLEANSED.get(), 1);
             }
         }
     }

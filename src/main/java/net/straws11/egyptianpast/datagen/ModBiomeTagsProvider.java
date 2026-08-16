@@ -27,5 +27,8 @@ public class ModBiomeTagsProvider extends TagsProvider<Biome> {
 
         this.tag(BiomeTags.IS_OVERWORLD)
                 .add(ModBiomes.EGYPTIAN_DESERT);
+
+        this.tag(BiomeTags.HAS_DESERT_PYRAMID)
+            .add(ModBiomes.EGYPTIAN_DESERT);
     }
 }

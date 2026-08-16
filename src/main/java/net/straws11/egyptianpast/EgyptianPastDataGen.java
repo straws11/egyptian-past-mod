@@ -5,11 +5,15 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.straws11.egyptianpast.datagen.*;
+import net.straws11.egyptianpast.datagen.villager.ModVillagerTradeTags;
+import net.straws11.egyptianpast.villager.ModPOITags;
+import net.straws11.egyptianpast.villager.ModVillagers;
 
 import java.util.Collections;
 import java.util.List;
@@ -48,7 +52,8 @@ public class EgyptianPastDataGen {
                 new LootTableProvider(packOutput, Collections.emptySet(),
                     List.of(
                             new LootTableProvider.SubProviderEntry(ModBlockLootTableProvider::new, LootContextParamSets.BLOCK),
-                            new LootTableProvider.SubProviderEntry( ModEntityLootTableProvider::new, LootContextParamSets.ENTITY)
+                            new LootTableProvider.SubProviderEntry(ModEntityLootTableProvider::new, LootContextParamSets.ENTITY),
+                            new LootTableProvider.SubProviderEntry(ModExtraLootProvider::new, LootContextParamSets.ALL_PARAMS)
                     ),
                 lookupProvider));
         generator.addProvider(true, new ModEquipmentAssetProvider(packOutput));
@@ -57,5 +62,8 @@ public class EgyptianPastDataGen {
         generator.addProvider(true, new ModBiomeTagsProvider(packOutput, lookupProvider));
         generator.addProvider(true, new ModRecipeProvider.Runner(packOutput, lookupProvider));
         generator.addProvider(true, new ModGlobalLootModifierProvider(packOutput, lookupProvider));
+        generator.addProvider(true, new ModAdvancements(packOutput, lookupProvider));
+        generator.addProvider(true, new ModVillagerTradeTags(packOutput, lookupProvider));
+        generator.addProvider(true, new ModPOITags(packOutput, lookupProvider));
     }
 }

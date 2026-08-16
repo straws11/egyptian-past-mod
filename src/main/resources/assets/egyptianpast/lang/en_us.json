@@ -40,11 +40,21 @@
   "tooltip.egyptianpast.jar.empty": "Empty",
   "tooltip.egyptianpast.jar.contains": "Contains ",
 
+  "stat.egyptianpast.items_cleansed" : "Items Cleansed",
+
   "organ.egyptianpast.liver": "liver",
   "organ.egyptianpast.lungs": "lungs",
   "organ.egyptianpast.stomach": "stomach",
   "organ.egyptianpast.intestines": "intestines",
   "cursed_message.egyptianpast": "The ancient pharaoh's curse prevents this!",
   "tooltip.egyptianpast.cursed": "This item is cursed",
-  "enchantment.egyptianpast.harvesting": "Harvesting"
+  "enchantment.egyptianpast.harvesting": "Harvesting",
+  "advancements.egyptianpast.root.title": "Egyptian Past Advancements",
+  "advancements.egyptianpast.root.description": "Exploring the Ancient Egyptian world!",
+  "advancements.egyptianpast.get_crypt_key.title": "Obtain the Crypt Key",
+  "advancements.egyptianpast.get_crypt_key.description": "Craft the Crypt Key from key fragments",
+  "advancements.egyptianpast.kill_pharaoh.title": "Kill the Ancient Pharaoh",
+  "advancements.egyptianpast.kill_pharaoh.description": "Wait, the crown is cursed?",
+
+  "entity.minecraft.villager.egyptianpast.ancient_egyptian": "Ancient Egyptian"
 }
