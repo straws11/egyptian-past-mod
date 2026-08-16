@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
@@ -19,12 +20,17 @@ import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.straws11.egyptianpast.EgyptianPast;
 import net.straws11.egyptianpast.datagen.ModBiomes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@EventBusSubscriber(modid = EgyptianPast.MOD_ID)
 public class ModStructures {
 
     // Keys
@@ -37,6 +43,34 @@ public class ModStructures {
         Registries.TEMPLATE_POOL,
         Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "test_structure_pool")
     );
+
+    private static final ResourceKey<StructureTemplatePool> DESERT_VILLAGE_HOUSES =
+        ResourceKey.create(
+            Registries.TEMPLATE_POOL,
+            Identifier.withDefaultNamespace("village/desert/houses")
+        );
+
+
+    public static void onServerAboutToStart(ServerAboutToStartEvent event) {
+        Registry<StructureTemplatePool> templatePoolRegistry =
+            event.getServer().registryAccess().lookupOrThrow(Registries.TEMPLATE_POOL);
+
+        StructureTemplatePool pool = templatePoolRegistry.getValue(DESERT_VILLAGE_HOUSES);
+        if (pool == null) return;
+
+        String piecePath = EgyptianPast.MOD_ID + ":village/egyptian_village_house";
+
+        StructurePoolElement piece = StructurePoolElement.legacy(piecePath)
+            .apply(StructureTemplatePool.Projection.RIGID);
+
+        // frequency (vanilla is 2-5)
+        int weight = 3;
+//        pool.getTemplates().add(Pair.of(piece, weight));
+
+        var rawTemplates = new ArrayList<>(pool.getTemplates());
+        rawTemplates.add(Pair.of(piece, weight));
+//        pool
+    }
 
     public static void bootstrapPools(BootstrapContext<StructureTemplatePool> context) {
         HolderGetter<StructureTemplatePool> poolGetter = context.lookup(Registries.TEMPLATE_POOL);

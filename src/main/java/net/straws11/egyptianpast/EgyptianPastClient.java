@@ -15,7 +15,6 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.straws11.egyptianpast.block.entity.ModBlockEntities;
 import net.straws11.egyptianpast.block.entity.renderer.PedestalBlockEntityRenderer;
 import net.straws11.egyptianpast.entity.ModEntities;
-import net.straws11.egyptianpast.renderer.entity.PharaohRenderer;
 
 // This class will not load on dedicated servers. Accessing client side code from here is safe.
 @Mod(value = EgyptianPast.MOD_ID, dist = Dist.CLIENT)
@@ -45,7 +44,7 @@ public class EgyptianPastClient {
 
         event.registerEntityRenderer(
                 ModEntities.PHARAOH_ENTITY.get(),
-                PharaohRenderer::new
+                context -> new GeoEntityRenderer<>(context, ModEntities.PHARAOH_ENTITY.get())
         );
     }
 
