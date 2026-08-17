@@ -5,8 +5,12 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
 import net.straws11.egyptianpast.block.ModBlocks;
 import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.item.CanopicJarBlockItem;
@@ -42,20 +46,30 @@ public class ModRecipeProvider extends RecipeProvider {
     @Override
     protected void buildRecipes() {
         shaped(RecipeCategory.MISC, ModItems.PAPYRUS_SHEET.get(), 2)
-                .pattern("AAA")
-                .define('A', ModBlocks.PAPYRUS_REED.get())
-                .unlockedBy(getHasName(ModBlocks.PAPYRUS_REED.get()),
-                        has(ModBlocks.PAPYRUS_REED.get()))
-                .group("papyrus")
-                .save(output);
+            .pattern("AAA")
+            .define('A', ModBlocks.PAPYRUS_REED.get())
+            .unlockedBy(getHasName(ModBlocks.PAPYRUS_REED.get()),
+                    has(ModBlocks.PAPYRUS_REED.get()))
+            .group("papyrus")
+            .save(output);
 
         shaped(RecipeCategory.MISC, ModItems.CRYPT_KEY.get(), 1)
-                .pattern("AAA")
-                .pattern("A A")
-                .pattern(" A ")
-                .define('A', ModItems.KEY_FRAGMENT.get())
-                .unlockedBy(getHasName(ModItems.KEY_FRAGMENT.get()), has(ModItems.KEY_FRAGMENT.get()))
-                .group("crypt_key")
-                .save(output);
+            .pattern("AAA")
+            .pattern("A A")
+            .pattern(" A ")
+            .define('A', ModItems.KEY_FRAGMENT.get())
+            .unlockedBy(getHasName(ModItems.KEY_FRAGMENT.get()), has(ModItems.KEY_FRAGMENT.get()))
+            .group("crypt_key")
+            .save(output);
+
+        shaped(RecipeCategory.MISC, ModBlocks.PEDESTAL_BLOCK.get(), 1)
+            .pattern("AAA")
+            .pattern("B B")
+            .pattern(" B ")
+            .define('A', Blocks.SMOOTH_STONE_SLAB)
+            .define('B', ItemTags.TERRACOTTA)
+            .unlockedBy(getHasName(Blocks.SMOOTH_STONE_SLAB), has(Blocks.SMOOTH_STONE_SLAB))
+            .group("pedestal")
+            .save(output);
     }
 }

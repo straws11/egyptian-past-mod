@@ -122,9 +122,12 @@ public class PedestalBlockEntity extends BlockEntity {
         ItemStack stack = this.getStoredStack();
         // early return if this isn't the main pedestal
         // NOTE: ^^ this means you have to place this item last
-        boolean isCursed = stack.getOrDefault(ModDataComponentRegistration.IS_CURSED.get(), false);
+        boolean isCursedItem = stack.getItem() instanceof ICursedItem cursedItem
+            && cursedItem.isCursed(stack);
 
-        if (!isCursed && !CurseUtils.hasCurse(stack)) return;
+        System.out.println("before return");
+        if (!isCursedItem && !CurseUtils.hasCurse(stack)) return;
+        System.out.println("after return");
 
         Set<OrganType> foundOrgans = new HashSet<>();
 
@@ -161,11 +164,9 @@ public class PedestalBlockEntity extends BlockEntity {
 
     /**
      * Replaces item with cleansed version
-     * @param pos position of the main pedestal's BlockEntity
-     * @param level current level
      * @param root the current transaction
      */
-    private void performCleansing(BlockPos pos, Level level, Transaction root) {
+    private void performCleansing(Transaction root) {
         ItemStack storedStack = getStoredStack();
 
         boolean isCursedItem = storedStack.getItem() instanceof ICursedItem cursedItem
@@ -213,7 +214,7 @@ public class PedestalBlockEntity extends BlockEntity {
     public void startRitual(Player player, List<BlockPos> childPedestalPositions) {
         if (this.ritualTicks > 0) return;
         this.ritualTicks = RITUAL_DURATION;
-        this.cachedChildPedestals = childPedestalPositions;
+        this.cachedChildPedestals = new ArrayList<>(childPedestalPositions);
         this.triggeringPlayerId = player.getUUID();
 
         if (this.level != null && !this.level.isClientSide()) {
@@ -283,7 +284,7 @@ public class PedestalBlockEntity extends BlockEntity {
         Player player = this.triggeringPlayerId != null ? serverLevel.getPlayerByUUID(this.triggeringPlayerId) : null;
 
         try (Transaction transaction = Transaction.openRoot()) {
-            performCleansing(pos, serverLevel, transaction);
+            performCleansing(transaction);
             boolean successful = consumeCanopicJars(this.cachedChildPedestals, transaction);
 
             if (successful) {

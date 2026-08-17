@@ -1,12 +1,13 @@
 package net.straws11.egyptianpast.util;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
-import net.minecraft.world.level.ItemLike;
 
 /**
  * General helpers for detecting and removing curses off items and books
@@ -15,7 +16,11 @@ import net.minecraft.world.level.ItemLike;
 public class CurseUtils {
 
     public static boolean hasCurse(ItemStack item) {
-        return EnchantmentHelper.hasTag(item, EnchantmentTags.CURSE);
+        ItemEnchantments enchants =  EnchantmentHelper.getEnchantmentsForCrafting(item);
+        for (Holder<Enchantment> holder: enchants.keySet()) {
+            if (holder.is(EnchantmentTags.CURSE)) return true;
+        }
+        return false;
     }
 
     public static ItemStack removeCurse(ItemStack item) {

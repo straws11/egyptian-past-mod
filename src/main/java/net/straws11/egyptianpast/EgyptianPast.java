@@ -16,6 +16,7 @@ import net.straws11.egyptianpast.entity.Mummy;
 import net.straws11.egyptianpast.entity.Pharaoh;
 import net.straws11.egyptianpast.item.ModItems;
 import net.straws11.egyptianpast.loot.ModLootModifiers;
+import net.straws11.egyptianpast.stat.ModStats;
 import net.straws11.egyptianpast.villager.ModVillagers;
 import net.straws11.egyptianpast.worldgen.ModOverworldRegion;
 import net.straws11.egyptianpast.worldgen.ModSurfaceRuleManager;
@@ -74,6 +75,7 @@ public class EgyptianPast {
         ModEntities.register(modEventBus);
 
         ModVillagers.register(modEventBus);
+        ModStats.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (EgyptianPast) to respond directly to events.
