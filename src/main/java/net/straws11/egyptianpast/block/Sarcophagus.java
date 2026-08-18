@@ -44,7 +44,7 @@ public class Sarcophagus extends HorizontalDirectionalBlock {
         super(properties);
         // this is default to false anyway but here's an example
         this.registerDefaultState(stateDefinition.any()
-                .setValue(OPENED, false)
+                .setValue(OPENED, true)
                 .setValue(PART, BedPart.FOOT)
                 .setValue(FACING, Direction.NORTH)
         );

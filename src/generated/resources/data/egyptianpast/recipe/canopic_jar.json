@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "canopic_jar",
+  "key": {
+    "A": "minecraft:smooth_stone_slab",
+    "B": "#minecraft:terracotta"
+  },
+  "pattern": [
+    "AAA",
+    "B B",
+    " B "
+  ],
+  "result": {
+    "id": "egyptianpast:canopic_jar"
+  }
+}

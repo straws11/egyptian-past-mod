@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "group": "pedestal",
   "key": {
-    "A": "minecraft:smooth_stone_slab",
-    "B": "#minecraft:terracotta"
+    "A": "minecraft:blackstone",
+    "G": "minecraft:gold_block"
   },
   "pattern": [
     "AAA",
-    "B B",
-    " B "
+    " G ",
+    "AAA"
   ],
   "result": {
     "id": "egyptianpast:pedestal"

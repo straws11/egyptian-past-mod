@@ -44,6 +44,9 @@ public class ModVillagerTrades {
     public static final ResourceKey<VillagerTrade> ANCIENT_EGYPTIAN_2_EMERALD_AND_BOOK_HARVESTING_BOOK =
         createKey("ancient_egyptian/2/emerald_harvesting_book");
 
+    public static final ResourceKey<VillagerTrade> ANCIENT_EGYPTIAN_2_EMERALD_KEY_FRAGMENT =
+        createKey("ancient_egyptian/2/emerald_key_fragment");
+
     public static void bootstrap(BootstrapContext<VillagerTrade> context) {
         HolderGetter<Enchantment> enchantments = context.lookup(Registries.ENCHANTMENT);
         HolderGetter<Item> items = context.lookup(Registries.ITEM);
@@ -66,6 +69,13 @@ public class ModVillagerTrades {
             new ItemStackTemplate(Items.ENCHANTED_BOOK, 1),
             12, 1, 0.05f, Optional.empty(),
             VillagerTrades.enchantedBook(items, enchantments.getOrThrow(ModEnchantments.HARVESTING), 1)
+        ));
+
+        context.register(ANCIENT_EGYPTIAN_2_EMERALD_KEY_FRAGMENT, new VillagerTrade(
+            new TradeCost(Items.EMERALD, UniformGenerator.between(32f, 48f)),
+            new ItemStackTemplate(ModItems.KEY_FRAGMENT, 1),
+            12, 1, 0.05f, Optional.empty(),
+            List.of()
         ));
     }
 

@@ -22,7 +22,8 @@ public class ModVillagerTradeTags extends VillagerTradesTagsProvider {
             .add(TagEntry.element(ModVillagerTrades.ANCIENT_EGYPTIAN_1_EMERALD_POMEGRANATE_SEEDS.identifier()));
 
         getOrCreateRawBuilder(ModTags.Trades.ANCIENT_EGYPTIAN_LEVEL_2)
-            .add(TagEntry.element(ModVillagerTrades.ANCIENT_EGYPTIAN_2_EMERALD_AND_BOOK_HARVESTING_BOOK.identifier()));
+            .add(TagEntry.element(ModVillagerTrades.ANCIENT_EGYPTIAN_2_EMERALD_AND_BOOK_HARVESTING_BOOK.identifier()))
+            .add(TagEntry.element(ModVillagerTrades.ANCIENT_EGYPTIAN_2_EMERALD_KEY_FRAGMENT.identifier()));
 
     }
 }

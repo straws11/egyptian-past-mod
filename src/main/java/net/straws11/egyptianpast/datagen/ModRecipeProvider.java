@@ -62,13 +62,23 @@ public class ModRecipeProvider extends RecipeProvider {
             .group("crypt_key")
             .save(output);
 
-        shaped(RecipeCategory.MISC, ModBlocks.PEDESTAL_BLOCK.get(), 1)
+        shaped(RecipeCategory.MISC, ModBlocks.CANOPIC_JAR.get(), 1)
             .pattern("AAA")
             .pattern("B B")
             .pattern(" B ")
             .define('A', Blocks.SMOOTH_STONE_SLAB)
             .define('B', ItemTags.TERRACOTTA)
             .unlockedBy(getHasName(Blocks.SMOOTH_STONE_SLAB), has(Blocks.SMOOTH_STONE_SLAB))
+            .group("canopic_jar")
+            .save(output);
+
+        shaped(RecipeCategory.MISC, ModBlocks.PEDESTAL_BLOCK.get(), 1)
+            .pattern("AAA")
+            .pattern(" G ")
+            .pattern("AAA")
+            .define('A', Blocks.BLACKSTONE)
+            .define('G', Blocks.GOLD_BLOCK)
+            .unlockedBy(getHasName(Blocks.BLACKSTONE), has(Blocks.BLACKSTONE))
             .group("pedestal")
             .save(output);
     }
