@@ -10,16 +10,22 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.straws11.egyptianpast.block.ModBlocks;
 import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.item.CanopicJarBlockItem;
 import net.straws11.egyptianpast.item.ModItems;
 import net.straws11.egyptianpast.item.OrganType;
+import net.straws11.egyptianpast.recipe.PedestalRecipeBuilder;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ModRecipeProvider extends RecipeProvider {
 
@@ -80,6 +86,16 @@ public class ModRecipeProvider extends RecipeProvider {
             .define('G', Blocks.GOLD_BLOCK)
             .unlockedBy(getHasName(Blocks.BLACKSTONE), has(Blocks.BLACKSTONE))
             .group("pedestal")
+            .save(output);
+
+        new PedestalRecipeBuilder(
+            new ItemStackTemplate(Items.DIAMOND),
+            RecipeCategory.MISC,
+            Ingredient.of(Items.EMERALD),
+            Stream.of(Items.ANDESITE, Items.ANCIENT_DEBRIS, Items.NETHERITE_SWORD, Items.BOOK)
+                .map(Ingredient::of)
+                .collect(Collectors.toList())
+        ).unlockedBy("has_thing", has(Items.WOODEN_AXE))
             .save(output);
     }
 }
