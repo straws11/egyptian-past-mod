@@ -6,6 +6,7 @@ import net.minecraft.data.recipes.RecipeUnlockAdvancementBuilder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Recipe;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Objects;
@@ -25,13 +26,13 @@ public abstract class SimpleRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public RecipeBuilder group(@Nullable String group) {
+    public @NonNull RecipeBuilder group(@Nullable String group) {
         this.group = Objects.requireNonNullElse(group, "");
         return this;
     }
 
     @Override
-    public ResourceKey<Recipe<?>> defaultId() {
+    public @NonNull ResourceKey<Recipe<?>> defaultId() {
         return RecipeBuilder.getDefaultRecipeId(this.result);
     }
 

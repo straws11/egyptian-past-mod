@@ -1,32 +1,32 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_the_recipe": {
-      "conditions": {
-        "recipe": "minecraft:diamond"
-      },
-      "trigger": "minecraft:recipe_unlocked"
-    },
-    "has_thing": {
+    "has_main": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:wooden_axe"
+            "items": "minecraft:enchanted_book"
           }
         ]
       },
       "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:enchanted_book"
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
       "has_the_recipe",
-      "has_thing"
+      "has_main"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:diamond"
+      "minecraft:enchanted_book"
     ]
   }
 }

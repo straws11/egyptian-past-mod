@@ -69,7 +69,7 @@ public class PedestalBlock extends BaseEntityBlock {
                             if (!player.isCreative()) {
                                 itemStack.shrink(1);
                             }
-                            pedestalBlockEntity.checkSuccessfulPedestalConfiguration(level, player);
+                            pedestalBlockEntity.tryStartRitual(player);
                         }
                     }
                 }

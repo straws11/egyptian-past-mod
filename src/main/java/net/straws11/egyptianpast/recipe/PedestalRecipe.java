@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,29 +18,17 @@ import java.util.List;
 
 public class PedestalRecipe implements Recipe<PedestalRecipeInput> {
 
-    private final Ingredient mainItem;
-    private final List<Ingredient> childItems;
-    private final ItemStackTemplate result;
+    protected final Ingredient mainItem;
+    protected final List<Ingredient> childItems;
+    protected final ItemStackTemplate result;
 
     public static final MapCodec<PedestalRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
         Ingredient.CODEC.fieldOf("mainItem").forGetter(PedestalRecipe::getMainItem),
         Ingredient.CODEC.listOf()
             .fieldOf("childItems")
-            .flatXmap(field -> {
-                int max = 4;
-                var childItems = field.toArray(Ingredient[]::new);
-                if (childItems.length == 0) {
-                    return DataResult.error(() -> "No ingredients for pedestal ritual recipe");
-                } else {
-                    return childItems.length > max
-                        ? DataResult.error(() -> "Too many ingredients for pedestal ritual recipe")
-                        : DataResult.success(Arrays.stream(childItems).toList());
-                }
-            },
-                DataResult::success
-            )
+            .flatXmap(PedestalRecipe::validateChildItems, DataResult::success)
             .forGetter(PedestalRecipe::getChildItems),
-        ItemStackTemplate.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+        ItemStackTemplate.CODEC.fieldOf("result").forGetter(PedestalRecipe::getResult)
     ).apply(inst, PedestalRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, PedestalRecipe> STREAM_CODEC = StreamCodec.of(
@@ -60,8 +49,24 @@ public class PedestalRecipe implements Recipe<PedestalRecipeInput> {
         return this.childItems;
     }
 
+    public ItemStackTemplate getResult() {
+        return this.result;
+    }
+
+    protected static DataResult<List<Ingredient>> validateChildItems(List<Ingredient> childItems) {
+        int max = 4;
+        var childItemsArray = childItems.toArray(Ingredient[]::new);
+        if (childItemsArray.length == 0) {
+            return DataResult.error(() -> "No ingredients for pedestal ritual recipe");
+        }
+
+        return childItemsArray.length > max
+            ? DataResult.error(() -> "Too many ingredients for pedestal ritual recipe")
+            : DataResult.success(Arrays.stream(childItemsArray).toList());
+    }
+
     @Override
-    public boolean matches(PedestalRecipeInput input, Level level) {
+    public boolean matches(PedestalRecipeInput input, @NonNull Level level) {
         if (!this.mainItem.test(input.mainItem())) return false;
 
         List<ItemStack> nonNullInputs = input.childItems().stream()
@@ -88,14 +93,8 @@ public class PedestalRecipe implements Recipe<PedestalRecipeInput> {
     }
 
     @Override
-    public ItemStack assemble(PedestalRecipeInput input) {
-        return this.result.create();
-    }
-
-    @Override
-    public boolean isSpecial() {
-        // TODO: check if need to override?
-        return true;
+    public @NonNull ItemStack assemble(@NonNull PedestalRecipeInput input) {
+        return this.result != null ? this.result.create() : ItemStack.EMPTY;
     }
 
     @Override
@@ -104,38 +103,38 @@ public class PedestalRecipe implements Recipe<PedestalRecipeInput> {
     }
 
     @Override
-    public String group() {
+    public @NonNull String group() {
         return "egyptianpast:pedestal_ritual";
     }
 
     @Override
-    public RecipeSerializer<? extends Recipe<PedestalRecipeInput>> getSerializer() {
+    public @NonNull RecipeSerializer<? extends Recipe<PedestalRecipeInput>> getSerializer() {
         return ModRecipes.PEDESTAL_RITUAL_SERIALIZER.get();
     }
 
     @Override
-    public RecipeType<? extends Recipe<PedestalRecipeInput>> getType() {
+    public @NonNull RecipeType<? extends Recipe<PedestalRecipeInput>> getType() {
         return ModRecipes.PEDESTAL_RITUAL_TYPE.get();
     }
 
     @Override
-    public PlacementInfo placementInfo() {
+    public @NonNull PlacementInfo placementInfo() {
         return PlacementInfo.NOT_PLACEABLE;
     }
 
     @Override
-    public RecipeBookCategory recipeBookCategory() {
+    public @NonNull RecipeBookCategory recipeBookCategory() {
         return RecipeBookCategories.CRAFTING_MISC;
     }
 
-    private static PedestalRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
+    protected static PedestalRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
         var mainItem = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
         var childItems = Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buffer);
         var result = ItemStackTemplate.STREAM_CODEC.decode(buffer);
         return new PedestalRecipe(mainItem, childItems, result);
     }
 
-    private static void toNetwork(RegistryFriendlyByteBuf buffer, PedestalRecipe recipe) {
+    protected static void toNetwork(RegistryFriendlyByteBuf buffer, PedestalRecipe recipe) {
         Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.mainItem);
         Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()).encode(buffer, recipe.childItems);
         ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.result);

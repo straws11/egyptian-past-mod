@@ -2,9 +2,7 @@ package net.straws11.egyptianpast.block.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -14,16 +12,11 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
-import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.item.enchantment.ItemEnchantments;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -36,10 +29,12 @@ import net.neoforged.neoforge.transfer.item.ItemStackResourceHandler;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import net.straws11.egyptianpast.block.ModBlocks;
 import net.straws11.egyptianpast.block.PedestalBlock;
-import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.item.CanopicJarBlockItem;
 import net.straws11.egyptianpast.item.ICursedItem;
 import net.straws11.egyptianpast.item.OrganType;
+import net.straws11.egyptianpast.recipe.ModRecipes;
+import net.straws11.egyptianpast.recipe.PedestalRecipe;
+import net.straws11.egyptianpast.recipe.PedestalRecipeInput;
 import net.straws11.egyptianpast.stat.ModStats;
 import net.straws11.egyptianpast.util.CurseUtils;
 import org.jspecify.annotations.NonNull;
@@ -53,6 +48,8 @@ public class PedestalBlockEntity extends BlockEntity {
     private int ritualTicks = 0;
     private List<BlockPos> cachedChildPedestals = new ArrayList<>();
     private UUID triggeringPlayerId = null;
+    private RecipeHolder<PedestalRecipe> activeRecipe;
+    private PedestalRecipeInput recipeInput;
 
     private ItemStack storedStack = ItemStack.EMPTY;
     private final ItemStackResourceHandler itemHandler = new ItemStackResourceHandler() {
@@ -118,37 +115,6 @@ public class PedestalBlockEntity extends BlockEntity {
         this.itemHandler.deserialize(input);
     }
 
-    public void checkSuccessfulPedestalConfiguration(Level level, Player player) {
-        ItemStack stack = this.getStoredStack();
-        // early return if this isn't the main pedestal
-        // NOTE: ^^ this means you have to place this item last
-        boolean isCursedItem = stack.getItem() instanceof ICursedItem cursedItem
-            && cursedItem.isCursed(stack);
-
-        System.out.println("before return");
-        if (!isCursedItem && !CurseUtils.hasCurse(stack)) return;
-        System.out.println("after return");
-
-        Set<OrganType> foundOrgans = new HashSet<>();
-
-        List<BlockPos> childPedestalPositions = Direction.Plane.HORIZONTAL.stream()
-                .map(dir -> getBlockPos().relative(dir, 2))
-                .toList();
-
-        for (BlockPos blockPos : childPedestalPositions) {
-            if (!(level.getBlockEntity(blockPos) instanceof PedestalBlockEntity otherPedestalBe)) break;
-            if (!otherPedestalBe.getStoredStack().is(ModBlocks.CANOPIC_JAR)) break;
-
-            OrganType organ = CanopicJarBlockItem.getOrgan(otherPedestalBe.getStoredStack());
-            if (organ == OrganType.EMPTY) break;
-            foundOrgans.add(organ);
-        }
-
-        // all but the empty one needs to be present
-        if (foundOrgans.size() < OrganType.values().length - 1) return;
-        this.startRitual(player, childPedestalPositions);
-    }
-
     private boolean consumeCanopicJars(List<BlockPos> childPedestals, Transaction transaction) {
         for (BlockPos pos: childPedestals) {
             assert this.level != null && !this.level.isClientSide();
@@ -163,31 +129,19 @@ public class PedestalBlockEntity extends BlockEntity {
     }
 
     /**
-     * Replaces item with cleansed version
+     * Replaces item with recipe output version
+     * @param resultStack the recipe result stack
      * @param root the current transaction
      */
-    private void performCleansing(Transaction root) {
+    private void replaceCenterPedestalItem(ItemStack resultStack, Transaction root) {
         ItemStack storedStack = getStoredStack();
 
-        boolean isCursedItem = storedStack.getItem() instanceof ICursedItem cursedItem
-            && cursedItem.isCursed(storedStack);
-
-        if (!isCursedItem && !CurseUtils.hasCurse(storedStack)) return;
-
-        if (isCursedItem) { // my cursed items
-            // in place cleanse, no need to remove and insert
-            ((ICursedItem)storedStack.getItem()).cleanse(storedStack);
-
-        } else { // minecraft curse tag items/equipment
-            ItemStack updatedStack = CurseUtils.removeCurse(storedStack);
-
-            try (Transaction transaction = Transaction.open(root)) {
-                int extracted = this.itemHandler.extract(ItemResource.of(storedStack), 1, transaction);
-                if (extracted > 0) {
-                    int inserted = this.itemHandler.insert(ItemResource.of(updatedStack), 1, transaction);
-                    if (inserted > 0) {
-                        transaction.commit();
-                    }
+        try (Transaction transaction = Transaction.open(root)) {
+            int extracted = this.itemHandler.extract(ItemResource.of(storedStack), 1, transaction);
+            if (extracted > 0) {
+                int inserted = this.itemHandler.insert(ItemResource.of(resultStack), 1, transaction);
+                if (inserted > 0) {
+                    transaction.commit();
                 }
             }
         }
@@ -211,16 +165,42 @@ public class PedestalBlockEntity extends BlockEntity {
     }
 
     // ritual stuff
-    public void startRitual(Player player, List<BlockPos> childPedestalPositions) {
-        if (this.ritualTicks > 0) return;
+    public void tryStartRitual(Player player) {
+        if (this.level == null || this.level.isClientSide() || this.ritualTicks > 0) return;
+        if (this.getStoredStack().isEmpty()) return;
+
+        // gather pedestal items
+        List<BlockPos> childPedestalPositions = Direction.Plane.HORIZONTAL.stream()
+            .map(dir -> getBlockPos().relative(dir, 2))
+            .toList();
+
+        List<ItemStack> outerItems = new ArrayList<>();
+
+        for (BlockPos pos : childPedestalPositions) {
+            if (!(level.getBlockEntity(pos) instanceof PedestalBlockEntity childBe)) return;
+            if (childBe.getStoredStack().isEmpty()) return;
+
+            outerItems.add(childBe.getStoredStack());
+        }
+
+        // build recipe input
+        this.recipeInput = new PedestalRecipeInput(this.getStoredStack(), outerItems);
+
+        Optional<RecipeHolder<PedestalRecipe>> match = this.level.getServer().getRecipeManager()
+            .getRecipeFor(ModRecipes.PEDESTAL_RITUAL_TYPE.get(), this.recipeInput, this.level);
+
+        if (match.isEmpty()) {
+            System.out.println("no recipe match!");
+            return; // no matching recipes found
+        }
+
+        this.activeRecipe = match.get();
         this.ritualTicks = RITUAL_DURATION;
         this.cachedChildPedestals = new ArrayList<>(childPedestalPositions);
         this.triggeringPlayerId = player.getUUID();
 
-        if (this.level != null && !this.level.isClientSide()) {
-            this.level.playSound(null, this.worldPosition, SoundEvents.BEACON_ACTIVATE,
-                SoundSource.BLOCKS, 1f, 1.2f);
-        }
+        this.level.playSound(null, this.worldPosition, SoundEvents.BEACON_ACTIVATE,
+            SoundSource.BLOCKS, 1f, 1.2f);
         setChanged();
     }
 
@@ -281,28 +261,32 @@ public class PedestalBlockEntity extends BlockEntity {
     }
 
     public void finishRitual(ServerLevel serverLevel, BlockPos pos) {
+        if (this.activeRecipe == null) return;
+
         Player player = this.triggeringPlayerId != null ? serverLevel.getPlayerByUUID(this.triggeringPlayerId) : null;
 
         try (Transaction transaction = Transaction.openRoot()) {
-            performCleansing(transaction);
-            boolean successful = consumeCanopicJars(this.cachedChildPedestals, transaction);
-
-            if (successful) {
+            // TODO: figure out transactions better
+            boolean removed = consumeCanopicJars(this.cachedChildPedestals, transaction);
+            ItemStack resultStack = this.activeRecipe.value().assemble(this.recipeInput);
+            replaceCenterPedestalItem(resultStack, transaction);
+            if (removed) {
                 transaction.commit();
-
                 if (player != null) {
                     player.awardStat(ModStats.ITEMS_CLEANSED.get(), 1);
                 }
-
-                // Completion burst
-                Vec3 center = Vec3.atCenterOf(pos).add(0, 0.8, 0);
-                serverLevel.sendParticles(ParticleTypes.SOUL, center.x, center.y, center.z, 30, 0.5, 0.5, 0.5, 0.1);
-                serverLevel.sendParticles(ParticleTypes.FLAME, center.x, center.y, center.z, 1, 0, 0, 0, 0);
-                serverLevel.playSound(null, pos, SoundEvents.GENERIC_EXPLODE.value(), SoundSource.BLOCKS, 0.8f, 1.4f);
-                serverLevel.playSound(null, pos, SoundEvents.TOTEM_USE, SoundSource.BLOCKS, 1.0f, 1.0f);
             }
         }
+        // Completion burst
+        Vec3 center = Vec3.atCenterOf(pos).add(0, 0.8, 0);
+        serverLevel.sendParticles(ParticleTypes.SOUL, center.x, center.y, center.z, 30, 0.5, 0.5, 0.5, 0.1);
+        serverLevel.sendParticles(ParticleTypes.FLAME, center.x, center.y, center.z, 1, 0, 0, 0, 0);
+        serverLevel.playSound(null, pos, SoundEvents.GENERIC_EXPLODE.value(), SoundSource.BLOCKS, 0.8f, 1.4f);
+        serverLevel.playSound(null, pos, SoundEvents.TOTEM_USE, SoundSource.BLOCKS, 1.0f, 1.0f);
+
         this.cachedChildPedestals.clear();
         this.triggeringPlayerId = null;
+        this.activeRecipe = null;
+        this.recipeInput = null;
     }
 }

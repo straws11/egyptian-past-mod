@@ -1,0 +1,37 @@
+{
+  "type": "egyptianpast:pedestal_ritual",
+  "childItems": [
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "components": {
+        "egyptianpast:organ_type": "liver"
+      },
+      "items": "egyptianpast:canopic_jar"
+    },
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "components": {
+        "egyptianpast:organ_type": "lungs"
+      },
+      "items": "egyptianpast:canopic_jar"
+    },
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "components": {
+        "egyptianpast:organ_type": "stomach"
+      },
+      "items": "egyptianpast:canopic_jar"
+    },
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "components": {
+        "egyptianpast:organ_type": "intestines"
+      },
+      "items": "egyptianpast:canopic_jar"
+    }
+  ],
+  "mainItem": "minecraft:enchanted_book",
+  "result": {
+    "id": "minecraft:enchanted_book"
+  }
+}

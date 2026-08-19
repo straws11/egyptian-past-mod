@@ -1,11 +1,24 @@
 package net.straws11.egyptianpast.datagen;
 
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.minecraft.advancements.predicates.EnchantmentPredicate;
+import net.minecraft.advancements.predicates.MinMaxBounds;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentExactPredicate;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.component.predicates.DataComponentPredicate;
+import net.minecraft.core.component.predicates.DataComponentPredicates;
+import net.minecraft.core.component.predicates.EnchantmentsPredicate;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -13,16 +26,23 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.block.Blocks;
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 import net.straws11.egyptianpast.block.ModBlocks;
 import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.item.CanopicJarBlockItem;
 import net.straws11.egyptianpast.item.ModItems;
 import net.straws11.egyptianpast.item.OrganType;
+import net.straws11.egyptianpast.item.PharaohCrown;
+import net.straws11.egyptianpast.recipe.PedestalCleansingRecipe;
 import net.straws11.egyptianpast.recipe.PedestalRecipeBuilder;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -88,14 +108,76 @@ public class ModRecipeProvider extends RecipeProvider {
             .group("pedestal")
             .save(output);
 
-        new PedestalRecipeBuilder(
-            new ItemStackTemplate(Items.DIAMOND),
-            RecipeCategory.MISC,
-            Ingredient.of(Items.EMERALD),
-            Stream.of(Items.ANDESITE, Items.ANCIENT_DEBRIS, Items.NETHERITE_SWORD, Items.BOOK)
-                .map(Ingredient::of)
-                .collect(Collectors.toList())
-        ).unlockedBy("has_thing", has(Items.WOODEN_AXE))
+        PedestalRecipeBuilder.cleansing(
+            cursedCrown(),
+            uniqueCanopicJars(),
+            new ItemStackTemplate(ModItems.PHARAOH_CROWN)
+        )
+            .unlockedBy("has_main", has(ModItems.PHARAOH_CROWN))
             .save(output);
+
+        PedestalRecipeBuilder.cleansing(
+            Ingredient.of(Items.ENCHANTED_BOOK),
+            uniqueCanopicJars(),
+            new ItemStackTemplate(Items.ENCHANTED_BOOK)
+        )
+            .unlockedBy("has_main", has(Items.ENCHANTED_BOOK))
+            .save(output);
+
+        PedestalRecipeBuilder.cleansing(
+                Ingredient.of(Items.ENCHANTED_BOOK),
+                uniqueCanopicJars(),
+                new ItemStackTemplate(Items.ENCHANTED_BOOK)
+            )
+            .unlockedBy("has_main", has(Items.BOOK))
+            .save(output);
+
+        PedestalRecipeBuilder.cleansing(
+                enchantableTool(),
+                uniqueCanopicJars(),
+                new ItemStackTemplate(Items.ENCHANTED_BOOK)
+            )
+            .unlockedBy("has_main", has(Items.BOOK))
+            .save(output);
+    }
+
+    // --- HELPERS ---
+
+    private Ingredient canopicJarWithOrgan(OrganType organ) {
+        var predicate = DataComponentPatch.builder().set(ModDataComponentRegistration.ORGAN_TYPE.get(), organ).build();
+
+        return DataComponentIngredient.of(
+            false,
+            predicate,
+            ModBlocks.CANOPIC_JAR.get()
+        );
+    }
+
+    private Ingredient enchantableTool() {
+        var itemLookup = this.registries.lookupOrThrow(Registries.ITEM);
+
+        return Ingredient.of(
+            itemLookup.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
+            itemLookup.getOrThrow(ItemTags.WEAPON_ENCHANTABLE)
+        );
+    }
+
+    private List<Ingredient> uniqueCanopicJars() {
+        return Arrays.stream(OrganType.values())
+            .filter(x -> x != OrganType.EMPTY)
+            .map(this::canopicJarWithOrgan)
+            .toList();
+    }
+
+    private Ingredient cursedCrown() {
+        // doing this roundabout way because I can't just instantiate an ItemStack during datagen
+
+        var predicate = DataComponentPatch.builder().set(ModDataComponentRegistration.IS_CURSED.get(), true).build();
+
+        return DataComponentIngredient.of(
+            false,
+            predicate,
+            ModItems.PHARAOH_CROWN.get()
+        );
     }
 }
