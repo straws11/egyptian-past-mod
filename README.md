@@ -1,25 +1,28 @@
+# Egyptian Past
 
-Installation information
-=======
+The NeoForge Minecraft Mod for exploring and utilizing the powers of the Ancient Egyptians.
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+## Features
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
+### Pedestal Rituals
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
+Cleanse various items like the cursed Pharaoh's Crown, remove curse enchantments off of items and books
 
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
+### Exploration
 
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+Find the egyptian pyramid in the egyptian desert biome where you may find the pharaoh's sarcophagus
+
+### Items
+
+Canopic Jars may contain organs obtained before the mummification process. Find them in desert temples or harvest them from zombies using the Harvesting enchantment.
+
+Mummy wraps can be used to regain a small bit of health, or convert zombies into mummies!
+
+### Trading
+
+Find yourself the Ancient Egyptian villager in a nearby desert village, who can supply you with various useful items
+
+
+## Credits
+
+Artist: [@jabberginger_art](https://www.instagram/jabberginger_art)
