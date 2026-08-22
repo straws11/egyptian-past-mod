@@ -1,5 +1,5 @@
 {
-  "type": "egyptianpast:pedestal_ritual",
+  "type": "egyptianpast:pedestal_ritual_cleansing",
   "childItems": [
     {
       "neoforge:ingredient_type": "neoforge:components",
@@ -30,8 +30,5 @@
       "items": "egyptianpast:canopic_jar"
     }
   ],
-  "mainItem": "minecraft:enchanted_book",
-  "result": {
-    "id": "minecraft:enchanted_book"
-  }
+  "mainItem": "#c:tools"
 }

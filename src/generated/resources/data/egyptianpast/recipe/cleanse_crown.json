@@ -1,5 +1,5 @@
 {
-  "type": "egyptianpast:pedestal_ritual",
+  "type": "egyptianpast:pedestal_ritual_cleansing",
   "childItems": [
     {
       "neoforge:ingredient_type": "neoforge:components",
@@ -36,8 +36,5 @@
       "egyptianpast:is_cursed": true
     },
     "items": "egyptianpast:pharaoh_crown"
-  },
-  "result": {
-    "id": "egyptianpast:pharaoh_crown"
   }
 }

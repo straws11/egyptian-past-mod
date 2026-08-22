@@ -8,6 +8,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jspecify.annotations.NonNull;
@@ -41,6 +42,13 @@ public class PedestalRecipe implements Recipe<PedestalRecipeInput> {
         this.result = result;
     }
 
+    // constructor for no static result item
+    public PedestalRecipe(Ingredient mainItem, List<Ingredient> childItems) {
+        this.mainItem = mainItem;
+        this.childItems = childItems;
+        this.result = null;
+    }
+
     public Ingredient getMainItem() {
         return this.mainItem;
     }
@@ -50,7 +58,7 @@ public class PedestalRecipe implements Recipe<PedestalRecipeInput> {
     }
 
     public ItemStackTemplate getResult() {
-        return this.result;
+        return this.result == null ? new ItemStackTemplate(Items.EMERALD) : this.result;
     }
 
     protected static DataResult<List<Ingredient>> validateChildItems(List<Ingredient> childItems) {

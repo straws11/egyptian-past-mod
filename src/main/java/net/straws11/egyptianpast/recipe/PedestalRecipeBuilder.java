@@ -5,8 +5,8 @@ import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import org.jspecify.annotations.NonNull;
@@ -33,14 +33,16 @@ public class PedestalRecipeBuilder extends SimpleRecipeBuilder {
     }
 
     /**
-     * Creates builder for a cleansing recipe
+     * Creates builder for a cleansing recipe with no output item
      * @param mainItem central pedestal item
      * @param childItems surrounding pedestal items
      * @return PedestalRecipeBuilder
      */
-    public static PedestalRecipeBuilder cleansing(Ingredient mainItem, List<Ingredient> childItems, ItemStackTemplate result) {
-        return new PedestalRecipeBuilder(result,
-            RecipeCategory.MISC, mainItem, childItems, PedestalCleansingRecipe::new);
+    public static PedestalRecipeBuilder cleansing(Ingredient mainItem, List<Ingredient> childItems) {
+        return new PedestalRecipeBuilder(
+            null,
+            RecipeCategory.MISC, mainItem, childItems,
+            (main, child, ignoredResult) -> new PedestalCleansingRecipe(main, child));
     }
 
     @Override
@@ -59,6 +61,5 @@ public class PedestalRecipeBuilder extends SimpleRecipeBuilder {
 
         recipeOutput.accept(resourceKey, recipe,
             this.advancementBuilder.build(recipeOutput, resourceKey, this.category));
-
     }
 }

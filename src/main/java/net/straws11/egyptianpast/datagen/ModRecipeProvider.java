@@ -17,6 +17,8 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.ItemTags;
@@ -30,7 +32,10 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.block.Blocks;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
+import net.straws11.egyptianpast.EgyptianPast;
 import net.straws11.egyptianpast.block.ModBlocks;
 import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.item.CanopicJarBlockItem;
@@ -110,35 +115,38 @@ public class ModRecipeProvider extends RecipeProvider {
 
         PedestalRecipeBuilder.cleansing(
             cursedCrown(),
-            uniqueCanopicJars(),
-            new ItemStackTemplate(ModItems.PHARAOH_CROWN)
+            uniqueCanopicJars()
         )
-            .unlockedBy("has_main", has(ModItems.PHARAOH_CROWN))
-            .save(output);
+        .unlockedBy("has_main", has(ModItems.PHARAOH_CROWN))
+        .save(output, ResourceKey.create(Registries.RECIPE,
+            Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "cleanse_crown")));
 
         PedestalRecipeBuilder.cleansing(
             Ingredient.of(Items.ENCHANTED_BOOK),
-            uniqueCanopicJars(),
-            new ItemStackTemplate(Items.ENCHANTED_BOOK)
+            uniqueCanopicJars()
         )
-            .unlockedBy("has_main", has(Items.ENCHANTED_BOOK))
-            .save(output);
+        .unlockedBy("has_main", has(Items.ENCHANTED_BOOK))
+        .save(output, ResourceKey.create(Registries.RECIPE,
+            Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "cleanse_enchanted_book"))
+        );
 
         PedestalRecipeBuilder.cleansing(
-                Ingredient.of(Items.ENCHANTED_BOOK),
-                uniqueCanopicJars(),
-                new ItemStackTemplate(Items.ENCHANTED_BOOK)
-            )
-            .unlockedBy("has_main", has(Items.BOOK))
-            .save(output);
+            this.tag(Tags.Items.TOOLS),
+            uniqueCanopicJars()
+        )
+        .unlockedBy("has_main", has(Tags.Items.TOOLS))
+        .save(output, ResourceKey.create(Registries.RECIPE,
+            Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "cleanse_tools"))
+        );
 
         PedestalRecipeBuilder.cleansing(
-                enchantableTool(),
-                uniqueCanopicJars(),
-                new ItemStackTemplate(Items.ENCHANTED_BOOK)
+                this.tag(Tags.Items.ARMORS),
+                uniqueCanopicJars()
             )
-            .unlockedBy("has_main", has(Items.BOOK))
-            .save(output);
+            .unlockedBy("has_main", has(Tags.Items.ARMORS))
+            .save(output, ResourceKey.create(Registries.RECIPE,
+                Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "cleanse_armor"))
+            );
     }
 
     // --- HELPERS ---
@@ -156,10 +164,7 @@ public class ModRecipeProvider extends RecipeProvider {
     private Ingredient enchantableTool() {
         var itemLookup = this.registries.lookupOrThrow(Registries.ITEM);
 
-        return Ingredient.of(
-            itemLookup.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
-            itemLookup.getOrThrow(ItemTags.WEAPON_ENCHANTABLE)
-        );
+        return this.tag(ItemTags.WEAPON_ENCHANTABLE);
     }
 
     private List<Ingredient> uniqueCanopicJars() {

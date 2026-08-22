@@ -19,7 +19,7 @@ public abstract class SimpleRecipeBuilder implements RecipeBuilder {
     protected final RecipeUnlockAdvancementBuilder advancementBuilder;
     protected final RecipeCategory category;
 
-    public SimpleRecipeBuilder(ItemStackTemplate result, RecipeCategory category) {
+    public SimpleRecipeBuilder(@Nullable ItemStackTemplate result, RecipeCategory category) {
         this.result = result;
         this.category = category;
         this.advancementBuilder = new RecipeUnlockAdvancementBuilder();
@@ -33,6 +33,9 @@ public abstract class SimpleRecipeBuilder implements RecipeBuilder {
 
     @Override
     public @NonNull ResourceKey<Recipe<?>> defaultId() {
+        if (this.result == null) {
+            throw new IllegalStateException("Dynamic recipes without static result must use save(output, id)");
+        }
         return RecipeBuilder.getDefaultRecipeId(this.result);
     }
 

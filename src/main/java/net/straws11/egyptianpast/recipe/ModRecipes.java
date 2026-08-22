@@ -25,6 +25,12 @@ public class ModRecipes {
             () -> new RecipeSerializer<>(PedestalRecipe.CODEC, PedestalRecipe.STREAM_CODEC)
         );
 
+    public static final Supplier<RecipeSerializer<PedestalRecipe>> PEDESTAL_RITUAL_CLEANSING_SERIALIZER =
+        RECIPE_SERIALIZERS.register(
+            "pedestal_ritual_cleansing",
+            () -> new RecipeSerializer<>(PedestalCleansingRecipe.CODEC, PedestalCleansingRecipe.STREAM_CODEC)
+        );
+
     public static void register(IEventBus eventBus) {
         RECIPE_TYPES.register(eventBus);
         RECIPE_SERIALIZERS.register(eventBus);

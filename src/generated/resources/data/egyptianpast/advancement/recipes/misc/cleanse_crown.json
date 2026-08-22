@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "egyptianpast:pharaoh_crown"
+        "recipe": "egyptianpast:cleanse_crown"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "egyptianpast:pharaoh_crown"
+      "egyptianpast:cleanse_crown"
     ]
   }
 }
