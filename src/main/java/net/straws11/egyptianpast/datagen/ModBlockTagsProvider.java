@@ -23,6 +23,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
             .add(ModBlocks.getBlockResourceKey(ModBlocks.EGYPTIAN_COBBLESTONE.get()))
             //.add(ModBlockRegistration.getBlockResourceKey(ModBlockRegistration.SARCOPHAGUS.get()))
             .add(ModBlocks.getBlockResourceKey(ModBlocks.CANOPIC_JAR_BLOCK.get()))
+            .add(ModBlocks.getBlockResourceKey(ModBlocks.SPHINX_BLOCK.get()))
             .add(ModBlocks.getBlockResourceKey(ModBlocks.PEDESTAL_BLOCK.get()));
 
     }

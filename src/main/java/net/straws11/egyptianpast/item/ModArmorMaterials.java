@@ -19,7 +19,7 @@ public class ModArmorMaterials {
     );
 
     public static final ResourceKey<EquipmentAsset> PHARAOH_ARMOR_KEY =
-            ResourceKey.create(ROOT_ID, Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "pharaoh_armor"));
+            ResourceKey.create(ROOT_ID, Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "pharaoh"));
 
     public static final ArmorMaterial PHARAOH_ARMOR_MATERIAL = new ArmorMaterial(
             1200,

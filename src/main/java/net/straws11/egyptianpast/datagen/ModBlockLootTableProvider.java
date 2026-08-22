@@ -34,6 +34,11 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(ModBlocks.EGYPTIAN_STONE.get());
         dropSelf(ModBlocks.EGYPTIAN_COBBLESTONE.get());
         dropSelf(ModBlocks.PAPYRUS_REED_BLOCK.get());
+        dropSelf(ModBlocks.SPHINX_BLOCK.get());
+        dropSelf(ModBlocks.EGYPTIAN_POT_1.get());
+        dropSelf(ModBlocks.EGYPTIAN_POT_2.get());
+        dropSelf(ModBlocks.EGYPTIAN_POT_3.get());
+        dropSelf(ModBlocks.ANUBIS_BLOCK.get());
         add(ModBlocks.SARCOPHAGUS.get(), block ->
             LootTable.lootTable().withPool(LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1.0F))

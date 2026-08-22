@@ -52,6 +52,11 @@ public class ModCreativeTabRegistration {
 
                 output.accept(SARCOPHAGUS.get());
                 output.accept(PEDESTAL_BLOCK.get());
+                output.accept(SPHINX_BLOCK.get());
+                output.accept(EGYPTIAN_POT_1.get());
+                output.accept(EGYPTIAN_POT_2.get());
+                output.accept(EGYPTIAN_POT_3.get());
+                output.accept(ANUBIS_BLOCK.get());
             }).build());
 
     public static void register(IEventBus eventBus) {

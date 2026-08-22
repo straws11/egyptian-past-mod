@@ -1,6 +1,5 @@
 package net.straws11.egyptianpast.block;
 
-import io.netty.util.Attribute;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
@@ -87,6 +86,13 @@ public class ModBlocks {
         ITEMS.registerItem("canopic_jar", p ->
             new CanopicJarBlockItem(CANOPIC_JAR_BLOCK.get(), p));
 
+    public static final DeferredBlock<SphinxBlock> SPHINX_BLOCK =
+        BLOCKS.registerBlock("sphinx", p ->
+            new SphinxBlock(p.strength(1f).requiresCorrectToolForDrops()));
+
+    public static final DeferredItem<BlockItem> SPHINX =
+        ITEMS.registerSimpleBlockItem("sphinx", SPHINX_BLOCK);
+
     public static final DeferredBlock<Block> POMEGRANATE_CROP =
         BLOCKS.registerBlock("pomegranate_crop",
             p -> new PomegranateCropBlock(p.randomTicks()
@@ -94,9 +100,39 @@ public class ModBlocks {
                 .instabreak().pushReaction(PushReaction.DESTROY))
         );
 
+    public static final DeferredBlock<EgyptianPotBlock> EGYPTIAN_POT_1 =
+        BLOCKS.registerBlock("egyptian_pot_1", p ->
+            new EgyptianPotBlock(p.strength(0.2f).sound(SoundType.DECORATED_POT))
+        );
+
+    public static final DeferredItem<BlockItem> EGYPTIAN_POT_1_ITEM =
+        ITEMS.registerSimpleBlockItem("egyptian_pot_1", EGYPTIAN_POT_1);
+
+    public static final DeferredBlock<EgyptianPotBlock> EGYPTIAN_POT_2 =
+        BLOCKS.registerBlock("egyptian_pot_2", p ->
+            new EgyptianPotBlock(p.strength(0.2f).sound(SoundType.DECORATED_POT))
+        );
+
+    public static final DeferredItem<BlockItem> EGYPTIAN_POT_2_ITEM =
+        ITEMS.registerSimpleBlockItem("egyptian_pot_2", EGYPTIAN_POT_2);
+
+    public static final DeferredBlock<EgyptianPotBlock> EGYPTIAN_POT_3 =
+        BLOCKS.registerBlock("egyptian_pot_3", p ->
+            new EgyptianPotBlock(p.strength(0.2f).sound(SoundType.DECORATED_POT))
+        );
+
+    public static final DeferredItem<BlockItem> EGYPTIAN_POT_3_ITEM =
+        ITEMS.registerSimpleBlockItem("egyptian_pot_3", EGYPTIAN_POT_3);
+
     public static final DeferredItem<Item> POMEGRANATE_SEEDS =
         ITEMS.registerItem("pomegranate_seeds",
             p -> new BlockItem(POMEGRANATE_CROP.get(), p));
+
+    public static final DeferredBlock<AnubisBlock> ANUBIS_BLOCK =
+        BLOCKS.registerBlock("anubis", p -> new AnubisBlock(p.strength(0.7f)));
+
+    public static final DeferredItem<BlockItem> ANUBIS =
+        ITEMS.registerSimpleBlockItem("anubis", ANUBIS_BLOCK);
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);

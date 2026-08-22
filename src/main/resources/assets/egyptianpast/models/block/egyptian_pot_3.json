@@ -1,0 +1,103 @@
+{
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"1": "egyptianpast:block/egyptian_pot_3",
+		"particle": "egyptianpast:block/egyptian_pot_3"
+	},
+	"elements": [
+		{
+			"name": "Pot_Neck",
+			"from": [5, 22, 5],
+			"to": [11, 23, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 21, 0]},
+			"faces": {
+				"north": {"uv": [9, 2, 10.5, 2.25], "texture": "#1"},
+				"east": {"uv": [9, 2.25, 10.5, 2.5], "texture": "#1"},
+				"south": {"uv": [9, 2.5, 10.5, 2.75], "texture": "#1"},
+				"west": {"uv": [9, 2.75, 10.5, 3], "texture": "#1"},
+				"up": {"uv": [9.5, 7.5, 8, 6], "texture": "#missing"},
+				"down": {"uv": [9.5, 7.5, 8, 9], "texture": "#missing"}
+			}
+		},
+		{
+			"name": "Pot_Base",
+			"from": [2, 0, 2],
+			"to": [14, 22, 14],
+			"faces": {
+				"north": {"uv": [0, 0, 3, 5.5], "texture": "#1"},
+				"east": {"uv": [3, 0, 6, 5.5], "texture": "#1"},
+				"south": {"uv": [0, 5.5, 3, 11], "texture": "#1"},
+				"west": {"uv": [3, 5, 6, 10.5], "texture": "#1"},
+				"up": {"uv": [9, 3, 6, 0], "texture": "#1"},
+				"down": {"uv": [9, 3, 6, 6], "texture": "#missing"}
+			}
+		},
+		{
+			"name": "Pot_Top",
+			"from": [4, 23, 4],
+			"to": [12, 25, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 23, 0]},
+			"faces": {
+				"north": {"uv": [9, 0, 11, 0.5], "texture": "#1"},
+				"east": {"uv": [9, 0.5, 11, 1], "texture": "#1"},
+				"south": {"uv": [9, 1, 11, 1.5], "texture": "#1"},
+				"west": {"uv": [9, 1.5, 11, 2], "texture": "#1"},
+				"up": {"uv": [8, 8, 6, 6], "texture": "#1"},
+				"down": {"uv": [8, 8, 6, 10], "texture": "#1"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 3, 1],
+			"scale": [0.3, 0.3, 0.3]
+		},
+		"thirdperson_lefthand": {
+			"translation": [0, 3, 1],
+			"scale": [0.3, 0.3, 0.3]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, -90, 25],
+			"translation": [1.13, 3.2, 1.13],
+			"scale": [0.3, 0.3, 0.3]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, -90, 25],
+			"translation": [1.13, 3.2, 1.13],
+			"scale": [0.3, 0.3, 0.3]
+		},
+		"ground": {
+			"translation": [0, 2, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"gui": {
+			"rotation": [32, -35, 0],
+			"translation": [0, -1.75, 0],
+			"scale": [0.55, 0.55, 0.55]
+		},
+		"head": {
+			"rotation": [0, -180, 0],
+			"translation": [0, 13, 7],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"fixed": {
+			"rotation": [0, -180, 0],
+			"scale": [0.8, 0.8, 0.8]
+		},
+		"on_shelf": {
+			"rotation": [0, -180, 0],
+			"scale": [0.8, 0.8, 0.8]
+		}
+	},
+	"groups": [
+		{
+			"name": "pot3",
+			"origin": [0, 21, 0],
+			"scope": 0,
+			"color": 0,
+			"children": [0, 1, 2]
+		}
+	]
+}

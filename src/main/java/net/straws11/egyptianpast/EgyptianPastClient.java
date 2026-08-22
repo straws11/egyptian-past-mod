@@ -1,7 +1,9 @@
 package net.straws11.egyptianpast;
 
+import com.geckolib.renderer.GeoBlockRenderer;
 import com.geckolib.renderer.GeoEntityRenderer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.state.ItemDisplayEntityRenderState;
 import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;

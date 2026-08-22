@@ -45,6 +45,11 @@ public class PedestalRecipeBuilder extends SimpleRecipeBuilder {
             (main, child, ignoredResult) -> new PedestalCleansingRecipe(main, child));
     }
 
+    public static PedestalRecipeBuilder infusing(Ingredient mainItem, List<Ingredient> childItems,
+                                                 ItemStackTemplate result) {
+        return new PedestalRecipeBuilder(result, RecipeCategory.MISC, mainItem, childItems, PedestalInfusingRecipe::new);
+    }
+
     @Override
     public @NonNull RecipeBuilder unlockedBy(String s, Criterion<?> criterion) {
         this.advancementBuilder.unlockedBy(s, criterion);

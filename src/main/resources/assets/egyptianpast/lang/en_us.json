@@ -19,6 +19,10 @@
   "block.egyptianpast.egyptian_cobblestone": "Egyptian Cobblestone",
   "block.egyptianpast.sarcophagus": "Sarcophagus",
   "block.egyptianpast.pedestal": "Egyptian Pedestal",
+  "block.egyptianpast.egyptian_pot_1": "Small Egyptian Pot",
+  "block.egyptianpast.egyptian_pot_2": "Medium Egyptian Pot",
+  "block.egyptianpast.egyptian_pot_3": "Tall Egyptian Pot",
+  "block.egyptianpast.anubis": "Anubis Statue",
 
   "block.egyptianpast.canopic_jar.empty": "Empty Canopic Jar",
   "block.egyptianpast.canopic_jar.lungs": "Hapy Canopic Jar",

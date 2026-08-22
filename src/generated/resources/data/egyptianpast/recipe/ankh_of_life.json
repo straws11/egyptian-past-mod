@@ -1,0 +1,13 @@
+{
+  "type": "egyptianpast:pedestal_ritual",
+  "childItems": [
+    "minecraft:diamond",
+    "minecraft:nether_star",
+    "minecraft:wither_skeleton_skull",
+    "minecraft:netherite_ingot"
+  ],
+  "mainItem": "minecraft:totem_of_undying",
+  "result": {
+    "id": "egyptianpast:ankh_of_life"
+  }
+}

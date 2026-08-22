@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "egyptianpast:anubis"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "egyptianpast:blocks/anubis"
+}

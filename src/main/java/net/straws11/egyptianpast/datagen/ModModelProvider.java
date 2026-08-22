@@ -93,6 +93,11 @@ public class ModModelProvider extends ModelProvider {
         blockModels.createTrivialCube(ModBlocks.EGYPTIAN_COBBLESTONE.get());
         createSarcophagus(blockModels);
         blockModels.createNonTemplateModelBlock(ModBlocks.PEDESTAL_BLOCK.get());
+        blockModels.createNonTemplateModelBlock(ModBlocks.SPHINX_BLOCK.get());
+        blockModels.createNonTemplateModelBlock(ModBlocks.EGYPTIAN_POT_1.get());
+        blockModels.createNonTemplateModelBlock(ModBlocks.EGYPTIAN_POT_2.get());
+        blockModels.createNonTemplateModelBlock(ModBlocks.EGYPTIAN_POT_3.get());
+        blockModels.createNonTemplateModelBlock(ModBlocks.ANUBIS_BLOCK.get());
 
         blockModels.createCropBlock(ModBlocks.POMEGRANATE_CROP.get(), PomegranateCropBlock.AGE, 0, 1, 2, 3);
         blockModels.createCrossBlock(ModBlocks.PAPYRUS_REED_BLOCK.get(), PlantType.NOT_TINTED);

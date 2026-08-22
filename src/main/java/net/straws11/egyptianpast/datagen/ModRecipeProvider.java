@@ -43,6 +43,7 @@ import net.straws11.egyptianpast.item.ModItems;
 import net.straws11.egyptianpast.item.OrganType;
 import net.straws11.egyptianpast.item.PharaohCrown;
 import net.straws11.egyptianpast.recipe.PedestalCleansingRecipe;
+import net.straws11.egyptianpast.recipe.PedestalRecipe;
 import net.straws11.egyptianpast.recipe.PedestalRecipeBuilder;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -147,6 +148,16 @@ public class ModRecipeProvider extends RecipeProvider {
             .save(output, ResourceKey.create(Registries.RECIPE,
                 Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "cleanse_armor"))
             );
+
+        PedestalRecipeBuilder.infusing(
+            Ingredient.of(Items.TOTEM_OF_UNDYING),
+            Stream.of(Items.DIAMOND, Items.NETHER_STAR, Items.WITHER_SKELETON_SKULL, Items.NETHERITE_INGOT)
+                .map(Ingredient::of)
+                .collect(Collectors.toList()),
+            new ItemStackTemplate(ModItems.ANKH_OF_LIFE)
+        )
+        .unlockedBy(getHasName(Items.TOTEM_OF_UNDYING), has(Items.TOTEM_OF_UNDYING))
+        .save(output);
     }
 
     // --- HELPERS ---
