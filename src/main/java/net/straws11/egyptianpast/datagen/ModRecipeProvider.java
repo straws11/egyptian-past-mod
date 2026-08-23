@@ -31,6 +31,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.Tags;
@@ -38,10 +39,7 @@ import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 import net.straws11.egyptianpast.EgyptianPast;
 import net.straws11.egyptianpast.block.ModBlocks;
 import net.straws11.egyptianpast.data.ModDataComponentRegistration;
-import net.straws11.egyptianpast.item.CanopicJarBlockItem;
-import net.straws11.egyptianpast.item.ModItems;
-import net.straws11.egyptianpast.item.OrganType;
-import net.straws11.egyptianpast.item.PharaohCrown;
+import net.straws11.egyptianpast.item.*;
 import net.straws11.egyptianpast.recipe.PedestalCleansingRecipe;
 import net.straws11.egyptianpast.recipe.PedestalRecipe;
 import net.straws11.egyptianpast.recipe.PedestalRecipeBuilder;
@@ -114,6 +112,15 @@ public class ModRecipeProvider extends RecipeProvider {
             .group("pedestal")
             .save(output);
 
+        shaped(RecipeCategory.MISC, ModItems.EGYPTIAN_SCROLL.get(), 1)
+            .pattern("AA")
+            .pattern("AA")
+            .pattern("AA")
+            .define('A', ModItems.PAPYRUS_SHEET)
+            .unlockedBy(getHasName(ModItems.PAPYRUS_SHEET), has(ModItems.PAPYRUS_SHEET))
+            .group("egyptian_scroll")
+            .save(output);
+
         PedestalRecipeBuilder.cleansing(
             cursedCrown(),
             uniqueCanopicJars()
@@ -158,6 +165,33 @@ public class ModRecipeProvider extends RecipeProvider {
         )
         .unlockedBy(getHasName(Items.TOTEM_OF_UNDYING), has(Items.TOTEM_OF_UNDYING))
         .save(output);
+
+        PedestalRecipeBuilder.infusing(
+            scrollWithType(ScrollType.BLANK),
+            Stream.of(Items.FIRE_CHARGE, Items.GOLD_NUGGET, Items.SUNFLOWER, Items.GOLD_NUGGET)
+                .map(Ingredient::of)
+                .collect(Collectors.toList()),
+            scrollStackTemplate(ScrollType.SUN_STRIKE)
+        )
+        .unlockedBy(getHasName(ModItems.EGYPTIAN_SCROLL), has(ModItems.EGYPTIAN_SCROLL))
+        .save(output, ResourceKey.create(Registries.RECIPE,
+                Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID,
+                    "infuse_scroll_" + ScrollType.SUN_STRIKE.getSerializedName())
+            )
+        );
+    }
+
+    private ItemStackTemplate scrollStackTemplate(ScrollType type) {
+        var predicate = DataComponentPatch.builder().set(ModDataComponentRegistration.SCROLL_TYPE.get(), type).build();
+        return new ItemStackTemplate(ModItems.EGYPTIAN_SCROLL.get(), predicate);
+    }
+    private Ingredient scrollWithType(ScrollType type) {
+        var predicate = DataComponentPatch.builder().set(ModDataComponentRegistration.SCROLL_TYPE.get(), type).build();
+        return DataComponentIngredient.of(
+            false,
+            predicate,
+            ModItems.EGYPTIAN_SCROLL.get()
+        );
     }
 
     // --- HELPERS ---

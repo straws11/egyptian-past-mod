@@ -1,5 +1,6 @@
 package net.straws11.egyptianpast;
 
+import com.geckolib.renderer.GeoArmorRenderer;
 import com.geckolib.renderer.GeoBlockRenderer;
 import com.geckolib.renderer.GeoEntityRenderer;
 import net.minecraft.client.Minecraft;
@@ -17,6 +18,8 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.straws11.egyptianpast.block.entity.ModBlockEntities;
 import net.straws11.egyptianpast.block.entity.renderer.PedestalBlockEntityRenderer;
 import net.straws11.egyptianpast.entity.ModEntities;
+import net.straws11.egyptianpast.item.ModItems;
+import net.straws11.egyptianpast.item.PharaohCrown;
 
 // This class will not load on dedicated servers. Accessing client side code from here is safe.
 @Mod(value = EgyptianPast.MOD_ID, dist = Dist.CLIENT)

@@ -5,11 +5,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.straws11.egyptianpast.block.ModBlocks;
 import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.item.OrganType;
+import net.straws11.egyptianpast.item.ScrollType;
 
 import static net.straws11.egyptianpast.EgyptianPast.MOD_ID;
 import static net.straws11.egyptianpast.block.ModBlocks.*;
@@ -25,7 +28,7 @@ public class ModCreativeTabRegistration {
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.egyptianpast")) //The language key for the title of your CreativeModeTab
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> PAPYRUS_REED.get().getDefaultInstance())
+            .icon(() -> CRYPT_KEY.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(POMEGRANATE.get());// Add the example item to the tab. For your own tabs, this method is preferred over the event
                 output.accept(PAPYRUS_REED_BLOCK.get());
@@ -38,6 +41,7 @@ public class ModCreativeTabRegistration {
                 output.accept(KEY_FRAGMENT.get());
                 output.accept(CRYPT_KEY.get());
                 output.accept(PHARAOH_CROWN.get());
+                output.accept(EGYPTIAN_SCROLL.get());
                 output.accept(LIVER.get());
                 output.accept(LUNGS.get());
                 output.accept(STOMACH.get());
@@ -48,6 +52,13 @@ public class ModCreativeTabRegistration {
                     ItemStack jarStack = CANOPIC_JAR.get().getDefaultInstance();
                     jarStack.set(ModDataComponentRegistration.ORGAN_TYPE.get(), organType);
                     output.accept(jarStack);
+                }
+
+                // scroll variants
+                for (ScrollType scrollType : ScrollType.values()) {
+                    ItemStack scrollStack = EGYPTIAN_SCROLL.get().getDefaultInstance();
+                    scrollStack.set(ModDataComponentRegistration.SCROLL_TYPE.get(), scrollType);
+                    output.accept(scrollStack);
                 }
 
                 output.accept(SARCOPHAGUS.get());

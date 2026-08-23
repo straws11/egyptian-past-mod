@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_egyptian_scroll": {
+      "conditions": {
+        "items": [
+          {
+            "items": "egyptianpast:egyptian_scroll"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "egyptianpast:infuse_scroll_sun_strike"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_egyptian_scroll"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "egyptianpast:infuse_scroll_sun_strike"
+    ]
+  }
+}

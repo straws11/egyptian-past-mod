@@ -9,6 +9,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.straws11.egyptianpast.EgyptianPast;
 import net.straws11.egyptianpast.item.OrganType;
+import net.straws11.egyptianpast.item.ScrollType;
 
 public class ModDataComponentRegistration {
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES =
@@ -28,6 +29,13 @@ public class ModDataComponentRegistration {
                             .persistent(Codec.BOOL)
                             .build()
                     );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ScrollType>> SCROLL_TYPE =
+        DATA_COMPONENT_TYPES.register("scroll_type", () ->
+            DataComponentType.<ScrollType>builder()
+                .persistent(StringRepresentable.fromEnum(ScrollType::values))
+                .build()
+            );
 
     public static void register(IEventBus eventBus) {
         DATA_COMPONENT_TYPES.register(eventBus);

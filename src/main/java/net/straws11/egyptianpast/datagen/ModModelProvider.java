@@ -53,6 +53,8 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItems.CRYPT_KEY.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.PHARAOH_CROWN.get(), ModelTemplates.FLAT_ITEM);
 
+        itemModels.generateFlatItem(ModItems.EGYPTIAN_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+
         itemModels.generateFlatItem(ModItems.LIVER.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.LUNGS.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.STOMACH.get(), ModelTemplates.FLAT_ITEM);

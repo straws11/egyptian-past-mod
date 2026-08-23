@@ -1,0 +1,22 @@
+{
+  "type": "egyptianpast:pedestal_ritual",
+  "childItems": [
+    "minecraft:fire_charge",
+    "minecraft:gold_nugget",
+    "minecraft:sunflower",
+    "minecraft:gold_nugget"
+  ],
+  "mainItem": {
+    "neoforge:ingredient_type": "neoforge:components",
+    "components": {
+      "egyptianpast:scroll_type": "blank"
+    },
+    "items": "egyptianpast:egyptian_scroll"
+  },
+  "result": {
+    "components": {
+      "egyptianpast:scroll_type": "sun_strike"
+    },
+    "id": "egyptianpast:egyptian_scroll"
+  }
+}

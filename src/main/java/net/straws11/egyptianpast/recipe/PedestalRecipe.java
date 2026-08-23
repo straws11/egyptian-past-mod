@@ -76,6 +76,7 @@ public class PedestalRecipe implements Recipe<PedestalRecipeInput> {
     @Override
     public boolean matches(PedestalRecipeInput input, @NonNull Level level) {
         if (!this.mainItem.test(input.mainItem())) return false;
+        System.out.println("matching recipe..");
 
         List<ItemStack> nonNullInputs = input.childItems().stream()
             .filter(stack -> !stack.isEmpty())
@@ -97,6 +98,7 @@ public class PedestalRecipe implements Recipe<PedestalRecipeInput> {
             }
             if (!matched) return false;
         }
+        System.out.println(remainingInputs.isEmpty());
         return remainingInputs.isEmpty();
     }
 

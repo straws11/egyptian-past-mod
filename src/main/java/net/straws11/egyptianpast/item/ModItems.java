@@ -58,6 +58,10 @@ public class ModItems {
                             .rarity(Rarity.EPIC))
             );
 
+    public static final DeferredItem<EgyptianScroll> EGYPTIAN_SCROLL =
+        ITEMS.registerItem("egyptian_scroll", p -> new EgyptianScroll(p.rarity(Rarity.RARE))
+        );
+
     /// --- ORGANS ---
 
     public static final DeferredItem<Item> LIVER =

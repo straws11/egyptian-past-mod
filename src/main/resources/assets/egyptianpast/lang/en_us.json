@@ -13,6 +13,10 @@
   "item.egyptianpast.stomach": "Stomach",
   "item.egyptianpast.intestines": "Intestines",
 
+  "item.egyptianpast.scroll" : "Scroll",
+  "item.egyptianpast.scroll.blank" : "Blank Scroll",
+  "item.egyptianpast.scroll.sun_strike" : "Sun Strike Scroll",
+
   "block.egyptianpast.papyrus_reed": "Papyrus Reed",
   "block.egyptianpast.limestone": "Limestone",
   "block.egyptianpast.egyptian_stone": "Egyptian Stone",
@@ -59,6 +63,8 @@
   "advancements.egyptianpast.get_crypt_key.description": "Craft the Crypt Key from key fragments",
   "advancements.egyptianpast.kill_pharaoh.title": "Kill the Ancient Pharaoh",
   "advancements.egyptianpast.kill_pharaoh.description": "Wait, the crown is cursed?",
+
+  "message.egyptianpast.used_sun_strike" : " used Sun Strike scroll!",
 
   "entity.minecraft.villager.egyptianpast.ancient_egyptian": "Ancient Egyptian"
 }
