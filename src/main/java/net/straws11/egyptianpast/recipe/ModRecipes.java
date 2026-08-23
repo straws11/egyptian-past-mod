@@ -31,6 +31,14 @@ public class ModRecipes {
             () -> new RecipeSerializer<>(PedestalCleansingRecipe.CODEC, PedestalCleansingRecipe.STREAM_CODEC)
         );
 
+    public static final Supplier<RecipeType<AnkhChargeRecipe>> ANKH_CHARGE_RECIPE =
+        RECIPE_TYPES.register("ankh_charging", RecipeType::simple);
+
+    public static final Supplier<RecipeSerializer<AnkhChargeRecipe>> ANKH_CHARGE_RECIPE_SERIALIZER =
+        RECIPE_SERIALIZERS.register("ankh_charging",
+            () -> new RecipeSerializer<>(AnkhChargeRecipe.CODEC, AnkhChargeRecipe.STREAM_CODEC)
+        );
+
     public static void register(IEventBus eventBus) {
         RECIPE_TYPES.register(eventBus);
         RECIPE_SERIALIZERS.register(eventBus);

@@ -27,6 +27,7 @@
   "block.egyptianpast.egyptian_pot_2": "Medium Egyptian Pot",
   "block.egyptianpast.egyptian_pot_3": "Tall Egyptian Pot",
   "block.egyptianpast.anubis": "Anubis Statue",
+  "block.egyptianpast.sphinx": "Sphinx Statue",
 
   "block.egyptianpast.canopic_jar.empty": "Empty Canopic Jar",
   "block.egyptianpast.canopic_jar.lungs": "Hapy Canopic Jar",
@@ -66,5 +67,6 @@
 
   "message.egyptianpast.used_sun_strike" : " used Sun Strike scroll!",
 
-  "entity.minecraft.villager.egyptianpast.ancient_egyptian": "Ancient Egyptian"
+  "entity.minecraft.villager.egyptianpast.ancient_egyptian": "Ancient Egyptian",
+  "tooltip.egyptianpast.stored_totems": "Stored Totems"
 }

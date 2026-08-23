@@ -24,11 +24,6 @@ public class ModBlockEntities {
             CanopicJarBlockEntity::new, ModBlocks.CANOPIC_JAR_BLOCK.get()
         ));
 
-    public static final Supplier<BlockEntityType<SphinxBlockEntity>> SPHINX_BE =
-        BLOCK_ENTITIES.register("sphinx_be", () -> new BlockEntityType<>(
-            SphinxBlockEntity::new, ModBlocks.SPHINX_BLOCK.get()
-        ));
-
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
     }

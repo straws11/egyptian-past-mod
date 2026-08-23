@@ -3,6 +3,7 @@ package net.straws11.egyptianpast.data;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.util.StringRepresentable;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -36,6 +37,14 @@ public class ModDataComponentRegistration {
                 .persistent(StringRepresentable.fromEnum(ScrollType::values))
                 .build()
             );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> STORED_TOTEMS =
+        DATA_COMPONENT_TYPES.register("stored_totems", () ->
+            DataComponentType.<Integer>builder()
+                .persistent(Codec.INT)
+                .networkSynchronized(ByteBufCodecs.VAR_INT)
+                .build()
+        );
 
     public static void register(IEventBus eventBus) {
         DATA_COMPONENT_TYPES.register(eventBus);

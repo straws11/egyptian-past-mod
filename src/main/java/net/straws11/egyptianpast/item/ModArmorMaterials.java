@@ -22,8 +22,8 @@ public class ModArmorMaterials {
             ResourceKey.create(ROOT_ID, Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "pharaoh"));
 
     public static final ArmorMaterial PHARAOH_ARMOR_MATERIAL = new ArmorMaterial(
-            1200,
-            makeDefense(5, 7, 9, 5, 11), 16, SoundEvents.ARMOR_EQUIP_DIAMOND,
+            40,
+            makeDefense(5, 7, 9, 4, 12), 16, SoundEvents.ARMOR_EQUIP_DIAMOND,
             2f, 0.1f, ModTags.Items.PHARAOH_ARMOR_REPAIRABLE, PHARAOH_ARMOR_KEY);
 
     private static Map<ArmorType, Integer> makeDefense(int boots, int legs, int chest, int helm, int body) {

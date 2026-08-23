@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "egyptianpast:block/sphinx",
+      "y": 90
+    },
+    "facing=north": {
       "model": "egyptianpast:block/sphinx"
+    },
+    "facing=south": {
+      "model": "egyptianpast:block/sphinx",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "egyptianpast:block/sphinx",
+      "y": 270
     }
   }
 }

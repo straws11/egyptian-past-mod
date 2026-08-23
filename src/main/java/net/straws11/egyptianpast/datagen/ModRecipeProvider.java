@@ -17,6 +17,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -27,6 +28,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -40,6 +42,7 @@ import net.straws11.egyptianpast.EgyptianPast;
 import net.straws11.egyptianpast.block.ModBlocks;
 import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.item.*;
+import net.straws11.egyptianpast.recipe.AnkhChargeRecipe;
 import net.straws11.egyptianpast.recipe.PedestalCleansingRecipe;
 import net.straws11.egyptianpast.recipe.PedestalRecipe;
 import net.straws11.egyptianpast.recipe.PedestalRecipeBuilder;
@@ -179,6 +182,10 @@ public class ModRecipeProvider extends RecipeProvider {
                     "infuse_scroll_" + ScrollType.SUN_STRIKE.getSerializedName())
             )
         );
+
+        SpecialRecipeBuilder.special(
+            () -> new AnkhChargeRecipe(CraftingBookCategory.MISC))
+            .save(output, "ankh_charging");
     }
 
     private ItemStackTemplate scrollStackTemplate(ScrollType type) {

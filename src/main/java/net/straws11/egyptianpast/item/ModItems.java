@@ -38,7 +38,7 @@ public class ModItems {
 
     public static final DeferredItem<AnkhOfLifeItem> ANKH_OF_LIFE =
             ITEMS.registerItem("ankh_of_life",
-                    p -> new AnkhOfLifeItem(p.useCooldown(30f).stacksTo(1).rarity(Rarity.RARE))
+                    p -> new AnkhOfLifeItem(p.stacksTo(1).rarity(Rarity.RARE))
             );
 
     public static final DeferredItem<MummyWrapItem> MUMMY_WRAP =
