@@ -1,15 +1,19 @@
 package net.straws11.egyptianpast.creativetab;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.straws11.egyptianpast.block.ModBlocks;
+import net.straws11.egyptianpast.block.Sarcophagus;
 import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.item.OrganType;
 import net.straws11.egyptianpast.item.ScrollType;
@@ -62,6 +66,12 @@ public class ModCreativeTabRegistration {
                 }
 
                 output.accept(SARCOPHAGUS.get());
+                // sealed variant of sarcophagus
+                ItemStack sealed = new ItemStack(SARCOPHAGUS.get());
+                sealed.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(Sarcophagus.OPENED, false));
+                sealed.set(DataComponents.CUSTOM_NAME, Component.translatable("block.egyptianpast.sarcophagus.sealed"));
+                output.accept(sealed);
+
                 output.accept(PEDESTAL_BLOCK.get());
                 output.accept(SPHINX_BLOCK.get());
                 output.accept(EGYPTIAN_POT_1.get());

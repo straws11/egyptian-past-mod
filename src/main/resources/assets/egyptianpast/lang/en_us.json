@@ -70,5 +70,6 @@
   "entity.minecraft.villager.egyptianpast.ancient_egyptian": "Ancient Egyptian",
   "tooltip.egyptianpast.stored_totems": "Stored Totems",
 
-  "biome.egyptianpast.egyptian_desert": "Egyptian Desert"
+  "biome.egyptianpast.egyptian_desert": "Egyptian Desert",
+  "block.egyptianpast.sarcophagus.sealed": "Sealed Sarcophagus"
 }

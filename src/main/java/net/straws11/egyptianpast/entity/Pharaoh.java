@@ -1,6 +1,5 @@
 package net.straws11.egyptianpast.entity;
 
-import com.geckolib.animatable.GeoAnimatable;
 import com.geckolib.animatable.GeoEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager;
@@ -40,14 +39,15 @@ public class Pharaoh extends Monster implements GeoEntity {
         return Monster.createMonsterAttributes()
                 .add(Attributes.FOLLOW_RANGE, 35.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
-                .add(Attributes.ATTACK_DAMAGE, 8)
-                .add(Attributes.ARMOR, 6.0);
+                .add(Attributes.ATTACK_DAMAGE, 12)
+                .add(Attributes.MAX_HEALTH, 120)
+                .add(Attributes.ARMOR, 5.0);
     }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(DefaultAnimations.genericWalkIdleController());
-        controllers.add(new AnimationController<>(test -> {
+        controllers.add(DefaultAnimations.genericWalkIdleController(),
+        new AnimationController<>(test -> {
             if (Pharaoh.this.swinging) {
                 return test.setAndContinue(DefaultAnimations.ATTACK_SWING);
             }

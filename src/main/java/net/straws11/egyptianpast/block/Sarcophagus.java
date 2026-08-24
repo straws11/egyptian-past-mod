@@ -5,9 +5,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -25,14 +29,18 @@ import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.straws11.egyptianpast.entity.ModEntities;
+import net.straws11.egyptianpast.entity.Pharaoh;
 import net.straws11.egyptianpast.item.ModItems;
 import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Sarcophagus extends HorizontalDirectionalBlock {
 
@@ -78,6 +86,17 @@ public class Sarcophagus extends HorizontalDirectionalBlock {
 
             level.addAlwaysVisibleParticle(ParticleTypes.POOF, pos.getX(), pos.getY(), pos.getZ(), 0.5d, 0.5d, 0.5d);
 
+            // find middle block position
+            BlockPos middlePos = pos;
+            for (int i = 0; i < 2; i++) {
+                if (otherStates.get(i).getValue(PART) == SarcophagusPart.MIDDLE) {
+                    middlePos = otherPositions.get(i);
+                    break;
+                }
+            }
+
+            spawnPharaoh(level, middlePos, player);
+
             if (!player.isCreative()) {
                 itemStack.shrink(1);
             }
@@ -85,6 +104,26 @@ public class Sarcophagus extends HorizontalDirectionalBlock {
         }
 
         return super.useItemOn(itemStack, state, level, pos, player, hand, hitResult);
+    }
+
+    private void spawnPharaoh(Level level, BlockPos middlePos, Player player) {
+        ModEntities.PHARAOH_ENTITY.get().spawn(
+            (ServerLevel) level,
+            pharaoh -> {
+                pharaoh.moveOrInterpolateTo(player.getYRot() + 180f, 0f);
+                ItemStack crown = new ItemStack(ModItems.PHARAOH_CROWN.get());
+                // random damage 25 to 75%
+                crown.setDamageValue((int) (crown.getMaxDamage() * (0.25 + level.getRandom().nextFloat() * 0.50)));
+                pharaoh.setItemSlot(EquipmentSlot.HEAD, crown);
+                pharaoh.setGuaranteedDrop(EquipmentSlot.HEAD);
+                pharaoh.setPersistenceRequired();
+                pharaoh.setTarget(player);
+            },
+            BlockPos.containing(new Vec3(middlePos).add(new Vec3(0.5, 1, 0.5))),
+            EntitySpawnReason.TRIGGERED,
+            false,
+            false
+        );
     }
 
     @Override

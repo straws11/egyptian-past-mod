@@ -1,7 +1,6 @@
 {
 	"format_version": "1.21.11",
 	"credit": "Made with Blockbench",
-	"parent": "Head_Closed",
 	"texture_size": [64, 64],
 	"textures": {
 		"4": "egyptianpast:block/sarcophagus_head",

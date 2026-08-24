@@ -124,6 +124,12 @@ public class ModRecipeProvider extends RecipeProvider {
             .group("egyptian_scroll")
             .save(output);
 
+        shapeless(RecipeCategory.DECORATIONS, Items.DYE.red(), 1)
+            .requires(ModItems.POMEGRANATE)
+            .unlockedBy(getHasName(ModItems.POMEGRANATE), has(ModItems.POMEGRANATE))
+            .group("dye")
+            .save(output);
+
         PedestalRecipeBuilder.cleansing(
             cursedCrown(),
             uniqueCanopicJars()
