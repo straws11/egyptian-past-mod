@@ -18,11 +18,9 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.straws11.egyptianpast.EgyptianPast;
-import net.straws11.egyptianpast.block.CanopicJarBlock;
-import net.straws11.egyptianpast.block.ModBlocks;
-import net.straws11.egyptianpast.block.PomegranateCropBlock;
-import net.straws11.egyptianpast.block.Sarcophagus;
+import net.straws11.egyptianpast.block.*;
 import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.item.ModItems;
 import net.straws11.egyptianpast.item.OrganType;
@@ -138,18 +136,22 @@ public class ModModelProvider extends ModelProvider {
     }
 
     public void createSarcophagus(BlockModelGenerators blockModels) {
-        MultiVariant footClosed = plainVariant(ModelLocationUtils.getModelLocation(ModBlocks.SARCOPHAGUS.get(), "_foot"));
-        MultiVariant footOpen = plainVariant(ModelLocationUtils.getModelLocation(ModBlocks.SARCOPHAGUS.get(), "_foot_open"));
+        MultiVariant footClosed = plainVariant(ModelLocationUtils.getModelLocation(ModBlocks.SARCOPHAGUS.get(), "_feet"));
+        MultiVariant footOpen = plainVariant(ModelLocationUtils.getModelLocation(ModBlocks.SARCOPHAGUS.get(), "_feet_open"));
+        MultiVariant middleClosed = plainVariant(ModelLocationUtils.getModelLocation(ModBlocks.SARCOPHAGUS.get(), "_middle"));
+        MultiVariant middleOpen = plainVariant(ModelLocationUtils.getModelLocation(ModBlocks.SARCOPHAGUS.get(), "_middle_open"));
         MultiVariant headClosed = plainVariant(ModelLocationUtils.getModelLocation(ModBlocks.SARCOPHAGUS.get(), "_head"));
         MultiVariant headOpen = plainVariant(ModelLocationUtils.getModelLocation(ModBlocks.SARCOPHAGUS.get(), "_head_open"));
 
         blockModels.blockStateOutput.accept(
                 MultiVariantGenerator.dispatch(ModBlocks.SARCOPHAGUS.get())
-                        .with(PropertyDispatch.initial(Sarcophagus.OPENED, BlockStateProperties.BED_PART)
-                                .select(false, BedPart.FOOT, footClosed)
-                                .select(true, BedPart.FOOT, footOpen)
-                                .select(false, BedPart.HEAD, headClosed)
-                                .select(true, BedPart.HEAD, headOpen)
+                        .with(PropertyDispatch.initial(Sarcophagus.OPENED, Sarcophagus.PART)
+                                .select(false, SarcophagusPart.FEET, footClosed)
+                                .select(true, SarcophagusPart.FEET, footOpen)
+                                .select(false, SarcophagusPart.MIDDLE, middleClosed)
+                                .select(true, SarcophagusPart.MIDDLE, middleOpen)
+                                .select(false, SarcophagusPart.HEAD, headClosed)
+                                .select(true, SarcophagusPart.HEAD, headOpen)
                         )
                         .with(PropertyDispatch.modify(BlockStateProperties.HORIZONTAL_FACING)
                                 .select(Direction.NORTH, NOP)

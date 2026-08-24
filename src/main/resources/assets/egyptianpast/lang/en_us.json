@@ -68,5 +68,7 @@
   "message.egyptianpast.used_sun_strike" : " used Sun Strike scroll!",
 
   "entity.minecraft.villager.egyptianpast.ancient_egyptian": "Ancient Egyptian",
-  "tooltip.egyptianpast.stored_totems": "Stored Totems"
+  "tooltip.egyptianpast.stored_totems": "Stored Totems",
+
+  "biome.egyptianpast.egyptian_desert": "Egyptian Desert"
 }

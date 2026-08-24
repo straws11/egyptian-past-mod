@@ -1,63 +1,93 @@
 {
   "variants": {
-    "facing=east,opened=false,part=foot": {
-      "model": "egyptianpast:block/sarcophagus_foot",
+    "facing=east,opened=false,part=feet": {
+      "model": "egyptianpast:block/sarcophagus_feet",
       "y": 90
     },
     "facing=east,opened=false,part=head": {
       "model": "egyptianpast:block/sarcophagus_head",
       "y": 90
     },
-    "facing=east,opened=true,part=foot": {
-      "model": "egyptianpast:block/sarcophagus_foot_open",
+    "facing=east,opened=false,part=middle": {
+      "model": "egyptianpast:block/sarcophagus_middle",
+      "y": 90
+    },
+    "facing=east,opened=true,part=feet": {
+      "model": "egyptianpast:block/sarcophagus_feet_open",
       "y": 90
     },
     "facing=east,opened=true,part=head": {
       "model": "egyptianpast:block/sarcophagus_head_open",
       "y": 90
     },
-    "facing=north,opened=false,part=foot": {
-      "model": "egyptianpast:block/sarcophagus_foot"
+    "facing=east,opened=true,part=middle": {
+      "model": "egyptianpast:block/sarcophagus_middle_open",
+      "y": 90
+    },
+    "facing=north,opened=false,part=feet": {
+      "model": "egyptianpast:block/sarcophagus_feet"
     },
     "facing=north,opened=false,part=head": {
       "model": "egyptianpast:block/sarcophagus_head"
     },
-    "facing=north,opened=true,part=foot": {
-      "model": "egyptianpast:block/sarcophagus_foot_open"
+    "facing=north,opened=false,part=middle": {
+      "model": "egyptianpast:block/sarcophagus_middle"
+    },
+    "facing=north,opened=true,part=feet": {
+      "model": "egyptianpast:block/sarcophagus_feet_open"
     },
     "facing=north,opened=true,part=head": {
       "model": "egyptianpast:block/sarcophagus_head_open"
     },
-    "facing=south,opened=false,part=foot": {
-      "model": "egyptianpast:block/sarcophagus_foot",
+    "facing=north,opened=true,part=middle": {
+      "model": "egyptianpast:block/sarcophagus_middle_open"
+    },
+    "facing=south,opened=false,part=feet": {
+      "model": "egyptianpast:block/sarcophagus_feet",
       "y": 180
     },
     "facing=south,opened=false,part=head": {
       "model": "egyptianpast:block/sarcophagus_head",
       "y": 180
     },
-    "facing=south,opened=true,part=foot": {
-      "model": "egyptianpast:block/sarcophagus_foot_open",
+    "facing=south,opened=false,part=middle": {
+      "model": "egyptianpast:block/sarcophagus_middle",
+      "y": 180
+    },
+    "facing=south,opened=true,part=feet": {
+      "model": "egyptianpast:block/sarcophagus_feet_open",
       "y": 180
     },
     "facing=south,opened=true,part=head": {
       "model": "egyptianpast:block/sarcophagus_head_open",
       "y": 180
     },
-    "facing=west,opened=false,part=foot": {
-      "model": "egyptianpast:block/sarcophagus_foot",
+    "facing=south,opened=true,part=middle": {
+      "model": "egyptianpast:block/sarcophagus_middle_open",
+      "y": 180
+    },
+    "facing=west,opened=false,part=feet": {
+      "model": "egyptianpast:block/sarcophagus_feet",
       "y": 270
     },
     "facing=west,opened=false,part=head": {
       "model": "egyptianpast:block/sarcophagus_head",
       "y": 270
     },
-    "facing=west,opened=true,part=foot": {
-      "model": "egyptianpast:block/sarcophagus_foot_open",
+    "facing=west,opened=false,part=middle": {
+      "model": "egyptianpast:block/sarcophagus_middle",
+      "y": 270
+    },
+    "facing=west,opened=true,part=feet": {
+      "model": "egyptianpast:block/sarcophagus_feet_open",
       "y": 270
     },
     "facing=west,opened=true,part=head": {
       "model": "egyptianpast:block/sarcophagus_head_open",
+      "y": 270
+    },
+    "facing=west,opened=true,part=middle": {
+      "model": "egyptianpast:block/sarcophagus_middle_open",
       "y": 270
     }
   }

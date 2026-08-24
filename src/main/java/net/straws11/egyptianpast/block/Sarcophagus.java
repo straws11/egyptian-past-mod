@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BedPart;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
@@ -31,13 +30,15 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.straws11.egyptianpast.item.ModItems;
 import org.jspecify.annotations.Nullable;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Sarcophagus extends HorizontalDirectionalBlock {
 
     public static final MapCodec<Sarcophagus> CODEC = simpleCodec(Sarcophagus::new);
 
-    public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
+    public static final EnumProperty<SarcophagusPart> PART = EnumProperty.create("part", SarcophagusPart.class);
     public static final BooleanProperty OPENED = BooleanProperty.create("opened");
 
     public Sarcophagus(Properties properties) {
@@ -45,7 +46,7 @@ public class Sarcophagus extends HorizontalDirectionalBlock {
         // this is default to false anyway but here's an example
         this.registerDefaultState(stateDefinition.any()
                 .setValue(OPENED, true)
-                .setValue(PART, BedPart.FOOT)
+                .setValue(PART, SarcophagusPart.FEET)
                 .setValue(FACING, Direction.NORTH)
         );
     }
@@ -66,11 +67,14 @@ public class Sarcophagus extends HorizontalDirectionalBlock {
         if (state.getValue(OPENED)) return super.useItemOn(itemStack, state, level, pos, player, hand, hitResult);
 
         if (itemStack.getItem() == ModItems.CRYPT_KEY.get()) {
-            BlockPos otherPos = pos.relative(getNeighbourDirection(state.getValue(PART), state.getValue(FACING)));
-            BlockState otherState = level.getBlockState(otherPos);
+            List<BlockPos> otherPositions = getOtherPositions(pos, state.getValue(PART), state.getValue(FACING));
+            List<BlockState> otherStates = otherPositions.stream().map(level::getBlockState).toList();
 
             level.setBlockAndUpdate(pos, state.setValue(OPENED, true));
-            level.setBlockAndUpdate(otherPos, otherState.setValue(OPENED, true));
+
+            for (int i = 0; i < otherPositions.size(); i++) {
+                level.setBlockAndUpdate(otherPositions.get(i), otherStates.get(i).setValue(OPENED, true));
+            }
 
             level.addAlwaysVisibleParticle(ParticleTypes.POOF, pos.getX(), pos.getY(), pos.getZ(), 0.5d, 0.5d, 0.5d);
 
@@ -87,15 +91,17 @@ public class Sarcophagus extends HorizontalDirectionalBlock {
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
         Direction facing = context.getHorizontalDirection();
         BlockPos pos = context.getClickedPos();
-        BlockPos otherPos = pos.relative(facing);
+        List<BlockPos> otherPositions = getOtherPositions(pos, SarcophagusPart.FEET, facing);
         Level level = context.getLevel();
 
         // if space to place full one
-        if (level.getBlockState(otherPos).canBeReplaced(context) && level.getWorldBorder().isWithinBounds(otherPos)) {
-            // this is the blockstate used on the place you clicked, for the foot
-            return this.defaultBlockState().setValue(FACING, facing).setValue(PART, BedPart.FOOT);
+        for (BlockPos otherPos : otherPositions) {
+            if (!level.getBlockState(otherPos).canBeReplaced(context)
+                || !level.getWorldBorder().isWithinBounds(otherPos)) return null; // cannot place
         }
-        return null; // cannot place
+
+        // this is the blockstate used on the place you clicked, for the foot
+        return this.defaultBlockState().setValue(FACING, facing).setValue(PART, SarcophagusPart.FEET);
     }
 
     @Override
@@ -111,13 +117,19 @@ public class Sarcophagus extends HorizontalDirectionalBlock {
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         // below is fix for double block dropping an item in creative
         if (!level.isClientSide() && player.preventsBlockDrops()) {
-            BedPart part = state.getValue(PART);
-            if (part == BedPart.FOOT) {
-                BlockPos headPos = pos.relative(getNeighbourDirection(part, state.getValue(FACING)));
-                BlockState headState = level.getBlockState(headPos);
-                if (headState.is(this) && headState.getValue(PART) == BedPart.HEAD) {
-                    level.setBlock(headPos, Blocks.AIR.defaultBlockState(), 35);
-                    level.levelEvent(player, 2001, headPos, Block.getId(headState));
+            SarcophagusPart part = state.getValue(PART);
+
+            if (part == SarcophagusPart.FEET) {
+                List<BlockPos> otherPositions = getOtherPositions(pos, SarcophagusPart.FEET, state.getValue(FACING));
+                List<BlockState> otherStates = otherPositions.stream().map(level::getBlockState).toList();
+
+                for (int i = 0; i < otherPositions.size(); i++) {
+                    if (otherStates.get(i).is(this)
+                        && List.of(SarcophagusPart.MIDDLE, SarcophagusPart.HEAD).contains(otherStates.get(i).getValue(PART))) {
+                        level.setBlock(otherPositions.get(i), Blocks.AIR.defaultBlockState(), 35);
+                        level.levelEvent(player, 2001, otherPositions.get(i), Block.getId(otherStates.get(i)));
+                    }
+
                 }
             }
         }
@@ -129,31 +141,67 @@ public class Sarcophagus extends HorizontalDirectionalBlock {
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity by, ItemStack itemStack) {
         super.setPlacedBy(level, pos, state, by, itemStack);
         if (!level.isClientSide()) {
-            BlockPos headPos = pos.relative(state.getValue(FACING));
-            level.setBlockAndUpdate(headPos, state.setValue(PART, BedPart.HEAD));
+            List<BlockPos> otherPositions = getOtherPositions(pos, SarcophagusPart.FEET, state.getValue(FACING));
+            level.setBlockAndUpdate(otherPositions.get(0), state.setValue(PART, SarcophagusPart.MIDDLE));
+            level.setBlockAndUpdate(otherPositions.get(1), state.setValue(PART, SarcophagusPart.HEAD));
             // do I need this?
             state.updateNeighbourShapes(level, pos, 3);
         }
     }
 
     @Override
-    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos, Direction directionToNeighbour, BlockPos neighbourPos, BlockState neighbourState, RandomSource random) {
-        Direction connectedDirection = getNeighbourDirection(state.getValue(PART), state.getValue(FACING));
-        if (directionToNeighbour == connectedDirection) {
-            if (!neighbourState.is(this) || neighbourState.getValue(PART) == state.getValue(PART)) {
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos,
+                                     Direction directionToNeighbour, BlockPos neighbourPos, BlockState neighbourState,
+                                     RandomSource random) {
+        SarcophagusPart currentPart = state.getValue(PART);
+        Direction facing = state.getValue(FACING);
+
+        SarcophagusPart expectedNeighborPart = getExpectedNeighborPart(currentPart, facing, directionToNeighbour);
+        if (expectedNeighborPart != null) {
+            if (!neighbourState.is(this) || neighbourState.getValue(PART) != expectedNeighborPart) {
                 return Blocks.AIR.defaultBlockState();
             }
         }
+
         return super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
     }
 
-    private static Direction getNeighbourDirection(BedPart part, Direction facing) {
-        return part == BedPart.FOOT ? facing : facing.getOpposite();
+    private static List<BlockPos> getOtherPositions(BlockPos pos, SarcophagusPart part, Direction facing) {
+        if (part == SarcophagusPart.HEAD) {
+            return List.of(
+                pos.relative(facing.getOpposite()),
+                pos.relative(facing.getOpposite(), 2)
+            );
+
+        } else if (part == SarcophagusPart.MIDDLE) {
+            return List.of(
+                pos.relative(facing),
+                pos.relative(facing.getOpposite())
+            );
+
+        } else {
+            return List.of(
+                pos.relative(facing),
+                pos.relative(facing, 2)
+            );
+        }
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(OPENED, PART, FACING);
+    }
+
+    private SarcophagusPart getExpectedNeighborPart(SarcophagusPart currentPart, Direction facing, Direction directionToNeighbor) {
+        return switch (currentPart) {
+            case FEET -> (directionToNeighbor == facing) ? SarcophagusPart.MIDDLE : null;
+            case MIDDLE -> {
+                if (directionToNeighbor == facing) yield SarcophagusPart.HEAD;
+                if (directionToNeighbor == facing.getOpposite()) yield SarcophagusPart.FEET;
+                yield null;
+            }
+            case HEAD -> (directionToNeighbor == facing.getOpposite()) ? SarcophagusPart.MIDDLE : null;
+        };
     }
 
     @Override

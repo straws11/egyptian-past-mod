@@ -17,6 +17,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.straws11.egyptianpast.block.ModBlocks;
 import net.straws11.egyptianpast.block.PomegranateCropBlock;
 import net.straws11.egyptianpast.block.Sarcophagus;
+import net.straws11.egyptianpast.block.SarcophagusPart;
 import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.item.ModItems;
 
@@ -44,7 +45,8 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
                     .setRolls(ConstantValue.exactly(1.0F))
                     .add(LootItem.lootTableItem(block))
                     .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(Sarcophagus.PART, BedPart.HEAD))
+                            .setProperties(StatePropertiesPredicate.Builder.properties()
+                                .hasProperty(Sarcophagus.PART, SarcophagusPart.HEAD))
                     )
             )
         );
