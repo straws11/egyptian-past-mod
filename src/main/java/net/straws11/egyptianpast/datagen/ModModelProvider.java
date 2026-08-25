@@ -6,13 +6,15 @@ import net.minecraft.client.data.models.ModelProvider;
 import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
+import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.client.renderer.block.model.BlockModel;
-import net.minecraft.client.renderer.item.CuboidItemModelWrapper;
-import net.minecraft.client.renderer.item.SelectItemModel;
+import net.minecraft.client.renderer.item.*;
+import net.minecraft.client.renderer.item.properties.conditional.HasComponent;
 import net.minecraft.client.renderer.item.properties.select.ComponentContents;
+import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
@@ -24,11 +26,9 @@ import net.straws11.egyptianpast.block.*;
 import net.straws11.egyptianpast.data.ModDataComponentRegistration;
 import net.straws11.egyptianpast.item.ModItems;
 import net.straws11.egyptianpast.item.OrganType;
+import net.straws11.egyptianpast.item.ScrollType;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -53,13 +53,42 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItems.CRYPT_KEY.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.PHARAOH_CROWN.get(), ModelTemplates.FLAT_ITEM);
 
-        itemModels.generateFlatItem(ModItems.EGYPTIAN_SCROLL.get(), ModelTemplates.FLAT_ITEM);
-
         itemModels.generateFlatItem(ModItems.LIVER.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.LUNGS.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.STOMACH.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.INTESTINES.get(), ModelTemplates.FLAT_ITEM);
 
+        // --- SCROLLS ---
+        Function<ScrollType, ItemModel.Unbaked> genResourceLocation = (scrollType) ->
+            ItemModelUtils.plainModel(itemModels.createFlatItemModel(ModItems.EGYPTIAN_SCROLL.get(),
+                "_" + scrollType.getSerializedName(), ModelTemplates.FLAT_ITEM));
+
+        Map<ScrollType, ItemModel.Unbaked> scrollModels = Arrays.stream(ScrollType.values())
+            .collect(Collectors.toMap(
+                scroll -> scroll,
+                genResourceLocation
+            ));
+
+        itemModels.itemModelOutput.accept(
+            ModItems.EGYPTIAN_SCROLL.get(),
+            new SelectItemModel.Unbaked(
+                Optional.empty(),
+                new SelectItemModel.UnbakedSwitch<>(
+                    new ComponentContents<>(ModDataComponentRegistration.SCROLL_TYPE.get()),
+                    Arrays.stream(ScrollType.values()).map(scrollType ->
+                        new SelectItemModel.SwitchCase<>(
+                            List.of(scrollType),
+                            scrollModels.get(scrollType)
+                        )
+                    ).collect(Collectors.toList())
+                ),
+                Optional.of(scrollModels.get(ScrollType.BLANK))
+            )
+        );
+
+        // ------------
+
+        // --- CANOPIC JARS ---
         itemModels.itemModelOutput.accept(
             ModBlocks.CANOPIC_JAR.get(),
             new SelectItemModel.Unbaked(
@@ -88,6 +117,7 @@ public class ModModelProvider extends ModelProvider {
                 )
             )
         );
+        // --------------
 
         // Blocks
         blockModels.createTrivialCube(ModBlocks.LIMESTONE.get());

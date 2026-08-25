@@ -29,10 +29,6 @@ public class MummyAttackGoal extends MeleeAttackGoal {
     public void tick() {
         super.tick();
         this.raiseArmTicks++;
-        if (this.raiseArmTicks >= 5 && this.getTicksUntilNextAttack() < this.getAttackInterval() / 2) {
-            this.mummy.setAggressive(true);
-        } else {
-            this.mummy.setAggressive(false);
-        }
+        this.mummy.setAggressive(this.raiseArmTicks >= 5 && this.getTicksUntilNextAttack() < this.getAttackInterval() / 2);
     }
 }

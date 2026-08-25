@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "egyptianpast:item/egyptian_scroll"
+    "layer0": "egyptianpast:item/egyptian_scroll_sun_strike"
   }
 }

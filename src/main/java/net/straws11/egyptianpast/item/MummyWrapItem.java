@@ -25,7 +25,7 @@ public class MummyWrapItem extends Item {
         if (target instanceof Zombie entity && !entity.isBaby()) {
             entity.convertTo(ModEntities.MUMMY_ENTITY.get(),
                     ConversionParams.single(
-                            (Mob) entity,
+                        entity,
                             true,
                             true),
                     mob -> {}

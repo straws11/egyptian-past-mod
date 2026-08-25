@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CanopicJarBlock extends BaseEntityBlock {
-    private static EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
+    private static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     // used to store the state on the block instead of getting from blockentity, is better
     public static final EnumProperty<OrganType> ORGAN = EnumProperty.create("organ", OrganType.class);
 

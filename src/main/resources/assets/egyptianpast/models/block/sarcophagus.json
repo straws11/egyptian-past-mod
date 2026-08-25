@@ -588,11 +588,21 @@
 		"firstperson_lefthand": {
 			"scale": [0.3, 0.3, 0.3]
 		},
+		"ground": {
+			"scale": [0.4, 0.4, 0.4]
+		},
 		"gui": {
 			"rotation": [31, -52, 0],
 			"scale": [0.3, 0.3, 0.3]
 		},
+		"head": {
+			"translation": [0, 7, 0],
+			"scale": [0.67, 0.67, 0.67]
+		},
 		"fixed": {
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"on_shelf": {
 			"scale": [0.4, 0.4, 0.4]
 		}
 	},

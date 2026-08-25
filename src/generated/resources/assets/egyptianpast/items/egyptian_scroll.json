@@ -1,6 +1,27 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "egyptianpast:item/egyptian_scroll"
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "egyptianpast:item/egyptian_scroll_blank"
+        },
+        "when": "blank"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "egyptianpast:item/egyptian_scroll_sun_strike"
+        },
+        "when": "sun_strike"
+      }
+    ],
+    "component": "egyptianpast:scroll_type",
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "egyptianpast:item/egyptian_scroll_blank"
+    },
+    "property": "minecraft:component"
   }
 }

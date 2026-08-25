@@ -1,6 +1,5 @@
 package net.straws11.egyptianpast.item;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -30,8 +29,15 @@ public class EgyptianScroll extends Item {
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        int range = 7; // each direction
         ItemStack stack = player.getItemInHand(hand);
+        return switch (stack.getOrDefault(ModDataComponentRegistration.SCROLL_TYPE.get(), ScrollType.BLANK)) {
+            case BLANK -> super.use(level, player, hand);
+            case SUN_STRIKE -> triggerSunStrike(level, player, stack);
+        };
+    }
+
+    private InteractionResult triggerSunStrike(Level level, Player player, ItemStack stack) {
+        int range = 7; // each direction
         if (level.isClientSide()) return InteractionResult.SUCCESS;
         if (!level.canSeeSky(player.getOnPos().above())) return InteractionResult.FAIL;
 
@@ -52,7 +58,7 @@ public class EgyptianScroll extends Item {
             }
         }
         stack.consume(1, player);
-        player.sendSystemMessage(Component.literal(player.getDisplayName().getString()).append(Component.translatable(
+        player.sendOverlayMessage(Component.literal(player.getDisplayName().getString()).append(Component.translatable(
             "message.egyptianpast.used_" + getScrollName(stack))
         ));
         player.getCooldowns().addCooldown(stack, 60);
