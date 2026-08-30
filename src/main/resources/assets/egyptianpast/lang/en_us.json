@@ -58,12 +58,18 @@
   "cursed_message.egyptianpast": "The ancient pharaoh's curse prevents this!",
   "tooltip.egyptianpast.cursed": "This item is cursed",
   "enchantment.egyptianpast.harvesting": "Harvesting",
+
   "advancements.egyptianpast.root.title": "Egyptian Past Advancements",
   "advancements.egyptianpast.root.description": "Exploring the Ancient Egyptian world!",
-  "advancements.egyptianpast.get_crypt_key.title": "Obtain the Crypt Key",
-  "advancements.egyptianpast.get_crypt_key.description": "Craft the Crypt Key from key fragments",
-  "advancements.egyptianpast.kill_pharaoh.title": "Kill the Ancient Pharaoh",
-  "advancements.egyptianpast.kill_pharaoh.description": "Wait, the crown is cursed?",
+
+  "advancements.egyptianpast.get_key_fragment.title": "Piece of 'The Key'",
+  "advancements.egyptianpast.get_key_fragment.description": "Obtain or purchase a Key Fragment",
+
+  "advancements.egyptianpast.get_crypt_key.title": "The Key",
+  "advancements.egyptianpast.get_crypt_key.description": "Craft the Crypt Key using 6 Key Fragments",
+
+  "advancements.egyptianpast.kill_pharaoh.title": "Wait, the crown is cursed?",
+  "advancements.egyptianpast.kill_pharaoh.description": "Kill the Ancient Pharaoh",
 
   "message.egyptianpast.used_sun_strike" : " used Sun Strike scroll!",
 
@@ -71,5 +77,15 @@
   "tooltip.egyptianpast.stored_totems": "Stored Totems",
 
   "biome.egyptianpast.egyptian_desert": "Egyptian Desert",
-  "block.egyptianpast.sarcophagus.sealed": "Sealed Sarcophagus"
+  "block.egyptianpast.sarcophagus.sealed": "Sealed Sarcophagus",
+  "advancements.egyptianpast.get_organ.title": "I'm surprised these aren't rotten too!",
+  "advancements.egyptianpast.get_organ.description": "Kill Zombies with the Harvesting enchantment to obtain an organ",
+  "advancements.egyptianpast.find_ancient_pyramid.title": "No TNT here",
+  "advancements.egyptianpast.find_ancient_pyramid.description": "Find the Ancient Egyptian Pyramid",
+  "advancements.egyptianpast.trade_egyptian.title": "Time Travelling Villager",
+  "advancements.egyptianpast.trade_egyptian.description": "Trade with the Ancient Egyptian using the Pedestal block",
+  "advancements.egyptianpast.use_organ.title": "Organ Storage",
+  "advancements.egyptianpast.use_organ.description": "Right-click an organ on an empty canopic jar",
+  "advancement.egyptianpast.find_egyptian_desert.title": "Biome from the past",
+  "advancement.egyptianpast.find_egyptian_desert.description": "Find the Egyptian Desert biome"
 }

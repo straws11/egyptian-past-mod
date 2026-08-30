@@ -1,0 +1,38 @@
+{
+  "parent": "egyptianpast:egyptianpast/find_egyptian_desert",
+  "criteria": {
+    "ancient_pyramid": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "minecraft:location": {
+                "structures": "egyptianpast:ancient_pyramid"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.egyptianpast.find_ancient_pyramid.description"
+    },
+    "icon": {
+      "id": "egyptianpast:sarcophagus"
+    },
+    "title": {
+      "translate": "advancements.egyptianpast.find_ancient_pyramid.title"
+    }
+  },
+  "requirements": [
+    [
+      "ancient_pyramid"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

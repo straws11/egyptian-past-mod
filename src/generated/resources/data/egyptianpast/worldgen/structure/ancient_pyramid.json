@@ -6,9 +6,9 @@
   "size": 1,
   "spawn_overrides": {},
   "start_height": {
-    "absolute": 0
+    "absolute": 1
   },
-  "start_pool": "egyptianpast:test_structure_pool",
+  "start_pool": "egyptianpast:ancient_pyramid_pool",
   "step": "surface_structures",
   "terrain_adaptation": "beard_thin",
   "use_expansion_hack": false

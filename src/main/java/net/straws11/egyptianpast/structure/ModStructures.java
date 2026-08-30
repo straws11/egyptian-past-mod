@@ -34,14 +34,14 @@ import java.util.Map;
 public class ModStructures {
 
     // Keys
-    public static final ResourceKey<Structure> TEST_STRUCTURE = ResourceKey.create(
+    public static final ResourceKey<Structure> ANCIENT_PYRAMID = ResourceKey.create(
         Registries.STRUCTURE,
-        Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "test_structure")
+        Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "ancient_pyramid")
     );
 
-    public static final ResourceKey<StructureTemplatePool> TEST_STRUCTURE_POOL = ResourceKey.create(
+    public static final ResourceKey<StructureTemplatePool> ANCIENT_PYRAMID_POOL = ResourceKey.create(
         Registries.TEMPLATE_POOL,
-        Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "test_structure_pool")
+        Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "ancient_pyramid_pool")
     );
 
     private static final ResourceKey<StructureTemplatePool> DESERT_VILLAGE_HOUSES =
@@ -77,13 +77,13 @@ public class ModStructures {
         Holder<StructureTemplatePool> empty = poolGetter.getOrThrow(Pools.EMPTY);
 
         context.register(
-            TEST_STRUCTURE_POOL,
+            ANCIENT_PYRAMID_POOL,
             new StructureTemplatePool(
                 empty,
                 List.of(
                     Pair.of(
                         // Points to: data/egyptianpast/structure/test_structure.nbt
-                        StructurePoolElement.single(EgyptianPast.MOD_ID + ":test_structure"),
+                        StructurePoolElement.single(EgyptianPast.MOD_ID + ":ancient_pyramid"),
                         1
                     )
                 ),
@@ -100,7 +100,7 @@ public class ModStructures {
         Holder<Biome> egyptianDesertHolder = biomes.getOrThrow(ModBiomes.EGYPTIAN_DESERT);
 
         context.register(
-            TEST_STRUCTURE,
+            ANCIENT_PYRAMID,
             new JigsawStructure(
                 // 1. Structure Settings (Biomes, Spawn Overrides, Generation Step)
                 new Structure.StructureSettings(
@@ -110,11 +110,11 @@ public class ModStructures {
                     TerrainAdjustment.BEARD_THIN
                 ),
                 // 2. Start Pool (Points to the pool registered above)
-                pools.getOrThrow(TEST_STRUCTURE_POOL),
+                pools.getOrThrow(ANCIENT_PYRAMID_POOL),
                 // 3. Max depth from start pool (1 for a single nbt file)
                 1,
                 // 4. Height provider (Places on surface terrain)
-                ConstantHeight.of(VerticalAnchor.absolute(0)),
+                ConstantHeight.of(VerticalAnchor.absolute(1)),
                 // 5. Use expansion hack
                 false,
                 // 6. Heightmap projection

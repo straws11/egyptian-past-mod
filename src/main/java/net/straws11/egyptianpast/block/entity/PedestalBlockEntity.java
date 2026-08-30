@@ -210,50 +210,79 @@ public class PedestalBlockEntity extends BlockEntity {
         be.ritualTicks--;
 
         if (level instanceof ServerLevel serverLevel) {
-            Vec3 centerTarget = Vec3.atCenterOf(pos).add(0, 0.75, 0);
-            // Stream particles from each child pedestal towards this center pedestal
-            for (BlockPos childPos : be.cachedChildPedestals) {
-                Vec3 start = Vec3.atCenterOf(childPos).add(0, 0.8, 0);
-                Vec3 direction = centerTarget.subtract(start);
+            float progress = 1.0f - ((float) be.ritualTicks / RITUAL_DURATION);
 
-                double speed = 0.25;
-                Vec3 velocity = direction.normalize().scale(speed);
+            Vec3 centerTarget = Vec3.atCenterOf(pos).add(0, 1.2, 0);
+            // stream particles from each child pedestal towards this center pedestal
+            for (BlockPos childPos : be.cachedChildPedestals) {
+                Vec3 start = Vec3.atCenterOf(childPos).add(0, 0.9, 0);
+                Vec3 vector = centerTarget.subtract(start);
+                double dist = vector.length();
+                Vec3 dir = vector.normalize();
+
+                double stepOffset = ((level.getGameTime() * 0.15) % 1.0) * dist;
+                Vec3 particlePos = start.add(dir.scale(stepOffset));
 
                 serverLevel.sendParticles(
                     ParticleTypes.SOUL_FIRE_FLAME,
-                    start.x + (serverLevel.getRandom().nextDouble() - 0.5) * 0.2,
-                    start.y + (serverLevel.getRandom().nextDouble() - 0.5) * 0.2,
-                    start.z + (serverLevel.getRandom().nextDouble() - 0.5) * 0.2,
-                    1,
-                    velocity.x, velocity.y + 0.05, velocity.z,
-                    speed
+                    particlePos.x, particlePos.y, particlePos.z,
+                    1, 0.02, 0.02, 0.02, 0.005
                 );
 
                 serverLevel.sendParticles(
                     ParticleTypes.ENCHANT,
+                    particlePos.x, particlePos.y, particlePos.z,
+                    1, 0.05, 0.05, 0.05, 0.02
+                );
+
+                serverLevel.sendParticles(
+                    ParticleTypes.WAX_OFF,
                     start.x, start.y, start.z,
-                    2,
-                    velocity.x * 0.8, velocity.y * 0.8, velocity.z * 0.8,
-                    0.5
+                    1, 0.05, 0.05, 0.05, 0.01
                 );
             }
 
-            // Rising center particles
+            double orbitAngle = (level.getGameTime() * (0.2 + progress * 0.3));
+            double radius = 0.6 * (1.0 - progress * 0.4); // converge inward
+            double orbitX = centerTarget.x + Math.cos(orbitAngle) * radius;
+            double orbitZ = centerTarget.z + Math.sin(orbitAngle) * radius;
+            double orbitY = centerTarget.y + Math.sin(level.getGameTime() * 0.1) * 0.15;
+
             serverLevel.sendParticles(
-                ParticleTypes.PORTAL,
-                centerTarget.x, centerTarget.y, centerTarget.z,
-                3,
-                0.2, 0.2, 0.2,
-                0.05
+                ParticleTypes.FLAME,
+                orbitX, orbitY, orbitZ,
+                1, 0.0, 0.02, 0.0, 0.01
             );
 
-            // Audible pulse every 10 ticks
-            if (be.ritualTicks % 10 == 0) {
-                float pitch = 0.8f + (1.0f - (float) be.ritualTicks / RITUAL_DURATION) * 0.8f;
-                serverLevel.playSound(null, pos, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 0.7f, pitch);
+            serverLevel.sendParticles(
+                ParticleTypes.FIREWORK,
+                centerTarget.x, centerTarget.y + 1, centerTarget.z,
+                2, 0.1, 0.2, 0.1, 0.02
+            );
+
+            int interval = Math.max(4, 12 - (int)(progress * 8));
+            if (be.ritualTicks % interval == 0) {
+                float pitch = 0.7f + (progress * 0.9f);
+
+                serverLevel.playSound(
+                    null, pos,
+                    SoundEvents.AMETHYST_BLOCK_CHIME,
+                    SoundSource.BLOCKS,
+                    0.6f + (progress * 0.4f),
+                    pitch
+                );
+
+                if (be.ritualTicks % (interval * 2) == 0) {
+                    serverLevel.playSound(
+                        null, pos,
+                        SoundEvents.BEACON_AMBIENT,
+                        SoundSource.BLOCKS,
+                        0.5f,
+                        0.6f + (progress * 0.5f)
+                    );
+                }
             }
 
-            // Timer complete: perform cleansing and consume jars
             if (be.ritualTicks == 0) {
                 be.finishRitual(serverLevel, pos);
             }
@@ -281,8 +310,7 @@ public class PedestalBlockEntity extends BlockEntity {
         Vec3 center = Vec3.atCenterOf(pos).add(0, 0.8, 0);
         serverLevel.sendParticles(ParticleTypes.SOUL, center.x, center.y, center.z, 30, 0.5, 0.5, 0.5, 0.1);
         serverLevel.sendParticles(ParticleTypes.FLAME, center.x, center.y, center.z, 1, 0, 0, 0, 0);
-        serverLevel.playSound(null, pos, SoundEvents.GENERIC_EXPLODE.value(), SoundSource.BLOCKS, 0.8f, 1.4f);
-        serverLevel.playSound(null, pos, SoundEvents.TOTEM_USE, SoundSource.BLOCKS, 1.0f, 1.0f);
+        serverLevel.playSound(null, pos, SoundEvents.BEACON_POWER_SELECT, SoundSource.BLOCKS, 1.5f, 0.5f);
 
         this.cachedChildPedestals.clear();
         this.triggeringPlayerId = null;

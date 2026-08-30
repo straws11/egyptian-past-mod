@@ -40,8 +40,8 @@ public class MummyWrapItem extends Item {
         player.getItemInHand(hand).shrink(1);
 
         if (!level.isClientSide()) {
-            level.playSound(null, player.getOnPos(), SoundEvents.SPYGLASS_USE,
-                    SoundSource.PLAYERS, 1f, 1f);
+            level.playSound(null, player.getOnPos(), SoundEvents.SNOW_STEP,
+                    SoundSource.PLAYERS, 2f, 0f);
         }
         return super.use(level, player, hand);
     }

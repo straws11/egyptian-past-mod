@@ -13,10 +13,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -43,7 +40,7 @@ public class CanopicJarBlock extends BaseEntityBlock {
     public static final MapCodec<PedestalBlock> CODEC = simpleCodec(PedestalBlock::new);
 
     public CanopicJarBlock(Properties properties) {
-        super(properties);
+        super(properties.sound(SoundType.DECORATED_POT));
         this.registerDefaultState(getStateDefinition().any()
             .setValue(ORGAN, OrganType.EMPTY)
             .setValue(FACING, Direction.NORTH)
@@ -102,9 +99,9 @@ public class CanopicJarBlock extends BaseEntityBlock {
                level.setBlockAndUpdate(pos, state.setValue(ORGAN, entry.getValue()));
            }
            itemStack.shrink(1);
-           break;
+           return InteractionResult.SUCCESS;
        }
-    return InteractionResult.SUCCESS;
+       return InteractionResult.PASS;
     }
 
     @Override

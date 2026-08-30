@@ -4,7 +4,8 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"2": "egyptianpast:block/sarcophagus_head",
-		"3": "egyptianpast:block/sarcophagus_head_lid"
+		"3": "egyptianpast:block/sarcophagus_head_lid",
+		"particle": "egyptianpast:block/sarcophagus_head"
 	},
 	"elements": [
 		{

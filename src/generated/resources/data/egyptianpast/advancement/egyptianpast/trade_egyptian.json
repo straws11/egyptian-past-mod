@@ -1,11 +1,11 @@
 {
-  "parent": "egyptianpast:egyptianpast/get_key_fragment",
+  "parent": "egyptianpast:egyptianpast/root",
   "criteria": {
-    "crypt_key": {
+    "trade_egyptian": {
       "conditions": {
         "items": [
           {
-            "items": "egyptianpast:crypt_key"
+            "items": "egyptianpast:pedestal"
           }
         ]
       },
@@ -14,18 +14,18 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.egyptianpast.get_crypt_key.description"
+      "translate": "advancements.egyptianpast.trade_egyptian.description"
     },
     "icon": {
-      "id": "egyptianpast:crypt_key"
+      "id": "minecraft:emerald"
     },
     "title": {
-      "translate": "advancements.egyptianpast.get_crypt_key.title"
+      "translate": "advancements.egyptianpast.trade_egyptian.title"
     }
   },
   "requirements": [
     [
-      "crypt_key"
+      "trade_egyptian"
     ]
   ],
   "sends_telemetry_event": true

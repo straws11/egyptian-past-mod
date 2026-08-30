@@ -1,11 +1,11 @@
 {
-  "parent": "egyptianpast:egyptianpast/get_key_fragment",
+  "parent": "egyptianpast:egyptianpast/root",
   "criteria": {
-    "crypt_key": {
+    "organ": {
       "conditions": {
         "items": [
           {
-            "items": "egyptianpast:crypt_key"
+            "items": "#egyptianpast:organ"
           }
         ]
       },
@@ -14,18 +14,18 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.egyptianpast.get_crypt_key.description"
+      "translate": "advancements.egyptianpast.get_organ.description"
     },
     "icon": {
-      "id": "egyptianpast:crypt_key"
+      "id": "egyptianpast:lungs"
     },
     "title": {
-      "translate": "advancements.egyptianpast.get_crypt_key.title"
+      "translate": "advancements.egyptianpast.get_organ.title"
     }
   },
   "requirements": [
     [
-      "crypt_key"
+      "organ"
     ]
   ],
   "sends_telemetry_event": true

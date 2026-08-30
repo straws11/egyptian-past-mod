@@ -37,9 +37,6 @@ public class ModCreativeTabRegistration {
                 output.accept(POMEGRANATE.get());// Add the example item to the tab. For your own tabs, this method is preferred over the event
                 output.accept(PAPYRUS_REED_BLOCK.get());
                 output.accept(PAPYRUS_SHEET.get());
-                output.accept(LIMESTONE.get());
-                output.accept(EGYPTIAN_STONE.get());
-                output.accept(EGYPTIAN_COBBLESTONE.get());
                 output.accept(ANKH_OF_LIFE.get());
                 output.accept(MUMMY_WRAP.get());
                 output.accept(KEY_FRAGMENT.get());

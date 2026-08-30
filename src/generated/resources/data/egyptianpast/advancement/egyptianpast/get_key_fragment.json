@@ -1,0 +1,32 @@
+{
+  "parent": "egyptianpast:egyptianpast/trade_egyptian",
+  "criteria": {
+    "key_fragment": {
+      "conditions": {
+        "items": [
+          {
+            "items": "egyptianpast:key_fragment"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.egyptianpast.get_key_fragment.description"
+    },
+    "icon": {
+      "id": "egyptianpast:key_fragment"
+    },
+    "title": {
+      "translate": "advancements.egyptianpast.get_key_fragment.title"
+    }
+  },
+  "requirements": [
+    [
+      "key_fragment"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

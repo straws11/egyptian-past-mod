@@ -6,6 +6,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -59,14 +61,14 @@ public class Sarcophagus extends HorizontalDirectionalBlock {
         );
     }
 
-    @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        if (Set.of(Direction.NORTH, Direction.SOUTH).contains(state.getValue(FACING))) {
-            return Block.box(2.0D, 0.0D, 0.0D, 14.0D, 14.0D, 16.0D);
-        } else {
-            return Block.box(0.0D, 0.0D, 2.0D, 16.0D, 14.0D, 14.0D);
-        }
-    }
+//    @Override
+//    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+//        if (Set.of(Direction.NORTH, Direction.SOUTH).contains(state.getValue(FACING))) {
+//            return Block.box(2.0D, 0.0D, 0.0D, 14.0D, 14.0D, 16.0D);
+//        } else {
+//            return Block.box(0.0D, 0.0D, 2.0D, 16.0D, 14.0D, 14.0D);
+//        }
+//    }
 
     @Override
     protected InteractionResult useItemOn(ItemStack itemStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
@@ -95,7 +97,7 @@ public class Sarcophagus extends HorizontalDirectionalBlock {
                 }
             }
 
-            spawnPharaoh(level, middlePos, player);
+            spawnPharaoh((ServerLevel) level, middlePos, player);
 
             if (!player.isCreative()) {
                 itemStack.shrink(1);
@@ -106,7 +108,7 @@ public class Sarcophagus extends HorizontalDirectionalBlock {
         return super.useItemOn(itemStack, state, level, pos, player, hand, hitResult);
     }
 
-    private void spawnPharaoh(Level level, BlockPos middlePos, Player player) {
+    private void spawnPharaoh(ServerLevel level, BlockPos middlePos, Player player) {
         ModEntities.PHARAOH_ENTITY.get().spawn(
             (ServerLevel) level,
             pharaoh -> {
@@ -124,6 +126,8 @@ public class Sarcophagus extends HorizontalDirectionalBlock {
             false,
             false
         );
+        level.playSound(null, middlePos, SoundEvents.ENDER_CHEST_OPEN,
+            SoundSource.BLOCKS, 2.5f, 0f);
     }
 
     @Override

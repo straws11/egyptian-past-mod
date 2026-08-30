@@ -1,20 +1,7 @@
 {
   "criteria": {
-    "egyptianpast:egyptian_desert": {
-      "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:location": {
-                "biomes": "egyptianpast:egyptian_desert"
-              }
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:location"
+    "auto_unlock": {
+      "trigger": "minecraft:tick"
     }
   },
   "display": {
@@ -33,7 +20,7 @@
   },
   "requirements": [
     [
-      "egyptianpast:egyptian_desert"
+      "auto_unlock"
     ]
   ],
   "sends_telemetry_event": true

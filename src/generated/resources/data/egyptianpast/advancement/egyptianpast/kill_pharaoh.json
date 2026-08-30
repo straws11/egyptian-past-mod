@@ -1,5 +1,5 @@
 {
-  "parent": "egyptianpast:egyptianpast/get_crypt_key",
+  "parent": "egyptianpast:egyptianpast/find_ancient_pyramid",
   "criteria": {
     "kill_pharaoh": {
       "conditions": {

@@ -10,15 +10,15 @@ import net.straws11.egyptianpast.EgyptianPast;
 
 public class ModStructureProvider {
 
-    public static final ResourceKey<Structure> MY_STRUCTURE = ResourceKey.create(
-        Registries.STRUCTURE, Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "test_structure")
+    public static final ResourceKey<Structure> ANCIENT_PYRAMID_STRUCTURE = ResourceKey.create(
+        Registries.STRUCTURE, Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "ancient_pyramid_structure")
     );
 
-    public static final ResourceKey<StructureSet> MY_STRUCTURE_SET = ResourceKey.create(
-        Registries.STRUCTURE_SET, Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "test_structure_set")
+    public static final ResourceKey<StructureSet> ANCIENT_PYRAMID_STRUCTURE_SET = ResourceKey.create(
+        Registries.STRUCTURE_SET, Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "ancient_pyramid_structure_set")
     );
 
-    public static final ResourceKey<StructureTemplatePool> MY_START_POOL = ResourceKey.create(
-        Registries.TEMPLATE_POOL, Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "test_structure/start_pool")
+    public static final ResourceKey<StructureTemplatePool> ANCIENT_PYRAMID_START_POOL = ResourceKey.create(
+        Registries.TEMPLATE_POOL, Identifier.fromNamespaceAndPath(EgyptianPast.MOD_ID, "ancient_pyramid/start_pool")
     );
 }

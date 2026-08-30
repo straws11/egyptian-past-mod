@@ -12,18 +12,18 @@ import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.straws11.egyptianpast.EgyptianPast;
 
 public class ModStructureSets {
-    public static final ResourceKey<StructureSet> TEST_STRUCTURE_SET =
+    public static final ResourceKey<StructureSet> ANCIENT_PYRAMID_STRUCTURE_SET =
         ResourceKey.create(Registries.STRUCTURE_SET, Identifier.fromNamespaceAndPath(
-            EgyptianPast.MOD_ID, "test_structures")
+            EgyptianPast.MOD_ID, "ancient_pyramid_structures")
         );
 
     public static void bootstrap(BootstrapContext<StructureSet> context) {
         HolderGetter<Structure> structures = context.lookup(Registries.STRUCTURE);
 
         context.register(
-            TEST_STRUCTURE_SET,
+            ANCIENT_PYRAMID_STRUCTURE_SET,
             new StructureSet(
-                structures.getOrThrow(ModStructures.TEST_STRUCTURE),
+                structures.getOrThrow(ModStructures.ANCIENT_PYRAMID),
                 new RandomSpreadStructurePlacement(
                     32,
                     8,
